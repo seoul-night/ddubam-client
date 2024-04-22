@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Onboarding from "./pages/Onboarding.jsx";
+import MyPage from "./pages/MyPage.jsx";
 import { useEffect } from "react";
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Onboarding />} />
         <Route path="/home" element={<Home />} />
-        <Route />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </div>
   );
