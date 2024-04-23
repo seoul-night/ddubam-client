@@ -9,6 +9,7 @@ import {
   faCheckCircle,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import Notice from "../components/Notice";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -238,8 +239,8 @@ const MyPage = () => {
           <Text style={{ fontSize: "14px" }}>로그아웃</Text>
           <Text style={{ fontSize: "14px" }}>회원탈퇴</Text>
         </LogWrap>
-        <CourseHeader headerText="현 위치 기반" location="서울 송파구" />
       </Wrap>
+      <Notice />
       <Footer />
     </HomeWrapper>
   );
