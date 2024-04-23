@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
+import CourseHeader from "../components/CourseHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
@@ -237,6 +238,7 @@ const MyPage = () => {
           <Text style={{ fontSize: "14px" }}>로그아웃</Text>
           <Text style={{ fontSize: "14px" }}>회원탈퇴</Text>
         </LogWrap>
+        <CourseHeader headerText="현 위치 기반" location="서울 송파구" />
       </Wrap>
       <Footer />
     </HomeWrapper>
