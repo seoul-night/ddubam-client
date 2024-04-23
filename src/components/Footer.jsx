@@ -7,6 +7,7 @@ const Foot = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: 390px;
   height: 90px;
   border-top: 1px solid #7a7a83;
   display: flex;
