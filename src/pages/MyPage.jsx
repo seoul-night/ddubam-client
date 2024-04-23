@@ -2,6 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendar,
+  faCheckCircle,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -68,10 +74,12 @@ const Text = styled.h2`
   color: white;
 `;
 const Tab = styled.div`
+  text-align: center;
   border-radius: 8px;
   padding: 12px;
   gap: 12px;
   box-sizing: border-box;
+  display: flex;
 `;
 
 const TabWrap = styled.div`
@@ -87,6 +95,27 @@ const LogWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+`;
+
+const Calendar = styled.i`
+  color: white;
+  width: 18px;
+  height: 18px;
+  margin-right: -5px;
+`;
+
+const Badge = styled.div`
+  background-color: #5a5a76;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  line-height: 20px;
+  text-align: center;
 `;
 
 const MyPage = () => {
@@ -122,27 +151,91 @@ const MyPage = () => {
             width: "100%",
             height: "42px",
             marginTop: "25px",
+            padding: "10px",
+            paddingLeft: "15px",
+            boxSizing: "border-box",
+            display: "flex",
+            alignItems: "center",
           }}
-        ></Tab>
+        >
+          <Calendar>
+            <FontAwesomeIcon icon={faCalendar} />
+          </Calendar>
+          <Text style={{ color: "#B7C0C6", fontSize: "12px" }}>
+            밤산책을 시작한 지
+          </Text>
+          <Text
+            style={{
+              color: "#989DFF",
+              fontSize: "12px",
+              position: "relative",
+              left: "-8px",
+            }}
+          >
+            82일
+          </Text>
+        </Tab>
         <TabWrap>
           <Tab
             style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               width: "50%",
               backgroundColor: "#333344",
               height: "96px",
             }}
-          ></Tab>
+          >
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              style={{ color: "#1FA1FF", fontSize: "20px" }}
+            />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Text style={{ fontSize: "14px" }}>완료한 산책</Text>
+              <Badge
+                style={{
+                  fontSize: "14px",
+                  marginLeft: "5px",
+                  display: "inline-block",
+                }}
+              >
+                4
+              </Badge>
+            </div>
+          </Tab>
           <Tab
             style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               width: "50%",
               backgroundColor: "#333344",
               height: "96px",
             }}
-          ></Tab>
+          >
+            <FontAwesomeIcon
+              icon={faHeart}
+              style={{ color: "FF90B2", fontSize: "20px" }}
+            />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Text style={{ fontSize: "14px" }}>완료한 산책</Text>
+              <Badge
+                style={{
+                  fontSize: "14px",
+                  marginLeft: "5px",
+                  display: "inline-block",
+                }}
+              >
+                4
+              </Badge>
+            </div>
+          </Tab>
         </TabWrap>
         <LogWrap>
-          <Text>로그아웃</Text>
-          <Text>회원탈퇴</Text>
+          <Text style={{ fontSize: "14px" }}>로그아웃</Text>
+          <Text style={{ fontSize: "14px" }}>회원탈퇴</Text>
         </LogWrap>
       </Wrap>
       <Footer />

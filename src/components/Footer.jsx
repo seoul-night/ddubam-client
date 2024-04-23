@@ -13,7 +13,7 @@ const Foot = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: #21212f;
+  background-color: #343449;
 `;
 
 const IconWrapper = styled.div`
