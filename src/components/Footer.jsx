@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Foot = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 90px;

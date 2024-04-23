@@ -19,11 +19,11 @@ code {
 .Home,
 .MyPage,
 .Onboarding {
-  max-width: 400px;
-  min-height: 780px;
+  max-width: 390px;
+  /* min-height: 780px; */
   margin-left: auto;
   margin-right: auto;
-  background-color: #f2f2f2;
+  background-color: #f2f2f2e1;
 }
 
 /* 모바일 100vh 필요한 곳에서 사용
