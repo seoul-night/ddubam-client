@@ -16,6 +16,8 @@ const HomeWrapper = styled.div`
   background-color: #1c1c26;
   overflow: hidden;
   position: relative;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 
 const LogoWrap = styled.div`
@@ -24,13 +26,10 @@ const LogoWrap = styled.div`
   width: 100%;
   /* background-color: bisque; */
   box-sizing: border-box;
-  padding: 20px;
 `;
 
 const Wrap = styled.div`
   box-sizing: border-box;
-  padding-left: 20px;
-  padding-right: 20px;
 `;
 
 const ProfileWrap = styled.div`
@@ -240,7 +239,7 @@ const MyPage = () => {
           <Text style={{ fontSize: "14px" }}>회원탈퇴</Text>
         </LogWrap>
       </Wrap>
-      <Notice />
+      {/* <Notice /> */}
       <Footer />
     </HomeWrapper>
   );

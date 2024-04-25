@@ -6,6 +6,9 @@ import { faHome, faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
 const Foot = styled.div`
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 100%;
   max-width: 390px;
   height: 90px;
