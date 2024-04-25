@@ -13,7 +13,7 @@ const Wrap = styled.div`
   background-color: #333344;
   padding: 10px;
   box-sizing: border-box;
-  margin: 20px;
+  /* margin: 20px; */
 `;
 
 const Text = styled.span`

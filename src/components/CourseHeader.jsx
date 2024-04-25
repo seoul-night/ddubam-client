@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = styled.div`
   padding: 20px;
-  height: 56px;
+  padding-left: 0px;
+  padding-right: 0px;
   display: flex;
   align-items: center;
   /* background-color: gray; */

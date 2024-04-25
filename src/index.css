@@ -18,7 +18,8 @@ code {
 /* 페이지 크기 제한 */
 .Home,
 .MyPage,
-.Onboarding {
+.Onboarding,
+.SuggestPath {
   max-width: 390px;
   /* min-height: 780px; */
   margin-left: auto;
