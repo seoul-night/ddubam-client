@@ -19,7 +19,8 @@ code {
 .Home,
 .MyPage,
 .Onboarding,
-.SuggestPath {
+.SuggestPath,
+.FinishedPath {
   max-width: 390px;
   /* min-height: 780px; */
   margin-left: auto;
