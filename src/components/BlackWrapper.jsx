@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const HomeWrapper = styled.div`
+const Wrapper = styled.div`
   height: 100vh;
   background-color: #1c1c26;
   overflow: hidden;
@@ -11,7 +11,7 @@ const HomeWrapper = styled.div`
 `;
 
 const BlackWrapper = () => {
-  return <HomeWrapper>BlackWrapper</HomeWrapper>;
+  return <Wrapper></Wrapper>;
 };
 
 export default BlackWrapper;

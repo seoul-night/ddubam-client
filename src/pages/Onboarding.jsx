@@ -4,14 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import cloud1 from "../assets/cloud1.png";
 import cloud2 from "../assets/cloud1.png";
+import onboard1 from "../assets/onboard1.png";
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 
 const HomeWrapper = styled.div`
   height: 100vh;
-  background: linear-gradient(#21212f, #696995);
+  background-color: #1c1c26;
   overflow: hidden;
   position: relative;
+  padding: 20px;
+  box-sizing: border-box;
 `;
-
 const DotWrapper = styled.div`
   height: 120px;
   background-color: rgba(0, 0, 0, 0.01);
@@ -88,6 +91,13 @@ const Cloud1 = styled.div`
   left: -50px;
 `;
 
+const Onboard1 = styled.div`
+  z-index: 2;
+  position: absolute;
+  bottom: -50px;
+  left: -20px;
+`;
+
 const Cloud2 = styled.div`
   z-index: 1;
   position: absolute;
@@ -127,14 +137,15 @@ const Onboarding = () => {
           </SubWrap>
         </View>
       </ViewWrapper>
-
-      <Cloud1>
+      {/* <Cloud1>
         <img src={cloud1} alt="description" />
       </Cloud1>
       <Cloud2>
         <img src={cloud2} alt="description" width={"800px"} />
-      </Cloud2>
-
+      </Cloud2> */}
+      <Onboard1>
+        <img src={onboard1} style={{ width: "100%" }} />
+      </Onboard1>
       <BtnWrap>
         <StartBtn>
           <p>밤산책 시작하기</p>
