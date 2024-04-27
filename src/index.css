@@ -20,7 +20,8 @@ code {
 .MyPage,
 .Onboarding,
 .SuggestPath,
-.FinishedPath {
+.FinishedPath,
+.LikedPath {
   max-width: 390px;
   /* min-height: 780px; */
   margin-left: auto;

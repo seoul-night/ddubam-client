@@ -9,7 +9,11 @@ import {
   faCheckCircle,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-import Notice from "../components/Notice";
+import logo from "../assets/logo.png";
+import like from "../assets/icons/like.png";
+import complete from "../assets/icons/complete.png";
+import home from "../assets/icons/home.png";
+import MyColored from "../assets/icons/MyColored.png";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -123,7 +127,8 @@ const MyPage = () => {
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>
-        <Text>밤안갱 로고</Text>
+        {/* <Text>밤안갱 로고</Text> */}
+        <img src={logo} />
       </LogoWrap>
       <Wrap>
         <ProfileWrap>
@@ -188,10 +193,11 @@ const MyPage = () => {
               height: "96px",
             }}
           >
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faCheckCircle}
               style={{ color: "#1FA1FF", fontSize: "20px" }}
-            />
+            /> */}
+            <img src={complete} />
             <div style={{ display: "flex", alignItems: "center" }}>
               <Text style={{ fontSize: "14px" }}>완료한 산책</Text>
               <Badge
@@ -216,10 +222,11 @@ const MyPage = () => {
               height: "96px",
             }}
           >
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faHeart}
               style={{ color: "FF90B2", fontSize: "20px" }}
-            />
+            /> */}
+            <img src={like} />
             <div style={{ display: "flex", alignItems: "center" }}>
               <Text style={{ fontSize: "14px" }}>완료한 산책</Text>
               <Badge
@@ -235,12 +242,26 @@ const MyPage = () => {
           </Tab>
         </TabWrap>
         <LogWrap>
-          <Text style={{ fontSize: "14px" }}>로그아웃</Text>
-          <Text style={{ fontSize: "14px" }}>회원탈퇴</Text>
+          <Text style={{ fontSize: "14px", color: "#F6F8FA", height: "20px" }}>
+            로그아웃
+          </Text>
+          <Text
+            style={{
+              fontSize: "14px",
+              color: "#91919C",
+            }}
+          >
+            회원탈퇴
+          </Text>
         </LogWrap>
       </Wrap>
       {/* <Notice /> */}
-      <Footer />
+      <Footer
+        home={home}
+        my={MyColored}
+        homeColor={"#73777D"}
+        myColor={"#989DFF"}
+      />
     </HomeWrapper>
   );
 };

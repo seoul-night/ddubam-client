@@ -9,6 +9,8 @@ import logo from "../assets/logo.png";
 import location from "../assets/icons/location.png";
 import homebtn1 from "../assets/homebtn1.png";
 import homebtn2 from "../assets/homebtn2.png";
+import homeColored from "../assets/icons/homeColored.png";
+import My from "../assets/icons/My.png";
 
 const HomeWrapper = styled.div`
   z-index: -100;
@@ -206,7 +208,12 @@ const Home = () => {
           </Box>
         </div>
       </GoWalk>
-      <Footer />
+      <Footer
+        home={homeColored}
+        my={My}
+        homeColor={"#989DFF"}
+        myColor={"#73777D"}
+      />
     </HomeWrapper>
   );
 };

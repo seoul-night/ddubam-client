@@ -11,7 +11,7 @@ const Foot = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 390px;
-  height: 90px;
+  height: 55px;
   border-top: 1px solid #7a7a83;
   display: flex;
   align-items: center;
@@ -25,22 +25,29 @@ const IconWrapper = styled.div`
   text-align: center;
 `;
 
-const Footer = () => {
+const Text = styled.h4`
+  font-size: 10px;
+  line-height: 12px;
+`;
+
+const Footer = ({ home, my, homeColor, myColor }) => {
   return (
     <Foot>
       <IconWrapper>
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           icon={faHome}
           style={{ fontSize: "22px", color: "#FFFFFF", marginBottom: "10px" }}
-        />
-        <h4 style={{ color: "#FFFFFF" }}>홈</h4>
+        /> */}
+        <img src={home} alt="" style={{ width: "20px", height: "20px" }} />
+        <Text style={{ color: homeColor }}>홈</Text>
       </IconWrapper>
       <IconWrapper>
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           icon={faUser}
           style={{ fontSize: "22px", color: "#FFFFFF", marginBottom: "10px" }}
-        />
-        <h4 style={{ color: "#FFFFFF" }}>마이</h4>
+        /> */}
+        <img src={my} alt="" style={{ width: "20px", height: "20px" }} />
+        <Text style={{ color: myColor }}>마이</Text>
       </IconWrapper>
     </Foot>
   );
