@@ -122,6 +122,7 @@ const Home = () => {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
+            border: "none",
           }}
         />
       </div>
