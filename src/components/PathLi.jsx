@@ -67,8 +67,8 @@ const PathLi = ({
 }) => {
   return (
     <Info>
-      {/* <Link to={`/trails/${trailId}`}> Assuming a dynamic link to a trail detail page */}
-      <Link>
+      {/* 동적 경로 설정 */}
+      <Link to={`/pathdetail/${trailId}`}>
         <div style={{ display: "flex" }}>
           <Pic backgroundImage={trailImage} />
           <TextWrap>

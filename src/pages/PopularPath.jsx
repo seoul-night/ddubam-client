@@ -19,7 +19,7 @@ const Paths = styled.ul``;
 const PopularPath = () => {
   const dummyDatas = [
     {
-      trailId: 4,
+      trailId: 1,
       latitudeList: [55.1, 33.2],
       longitudeList: [133.1, 134.2],
       trailRegion: "산책로 지역1",
