@@ -11,9 +11,11 @@ import homebtn1 from "../assets/homebtn1.png";
 import homebtn2 from "../assets/homebtn2.png";
 import homeColored from "../assets/icons/homeColored.png";
 import My from "../assets/icons/My.png";
+import wave from "../assets/wave.jpg";
+import { Link } from "react-router-dom";
 
 const HomeWrapper = styled.div`
-  z-index: -100;
+  z-index: 1;
   min-height: 100vh;
   padding-bottom: 90px; // Footer 높이를 고려한 하단 여백
   background: #1c1c26;
@@ -110,7 +112,51 @@ const SubText = styled.p`
   color: #b7c0c6;
 `;
 
+const LongBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: url(${(props) => props.backgroundImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
+const Desc = styled.h4`
+  overflow: hidden; // 텍스트가 넘치면 숨깁니다.
+  text-overflow: ellipsis; // 넘치는 텍스트를 말줄임표(...)로 표시합니다.
+  white-space: nowrap; // 텍스트가 여러 줄로 나뉘지 않도록 합니다.
+  font-size: 14px;
+  line-height: 21px;
+  color: #f6f8fa;
+`;
+
+const Badge = styled.h4`
+  border-radius: 4px;
+  display: inline-block;
+  color: #f6f8fa;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px 4px 8px;
+  font-size: 10px;
+  align-self: flex-start;
+`;
+
 const Home = () => {
+  const walks = [
+    {
+      location: "서울 종로구",
+      description: "숲이 어우러져 서울 야경이 아름다운",
+      place: "낙산공원",
+      backgroundImage: wave,
+    },
+    {
+      location: "서울 종로구",
+      description: "숲청와대부터 남산까지 한눈에 조망",
+      place: "청와대 전망대",
+      backgroundImage: wave,
+    },
+  ];
+
   return (
     <HomeWrapper className="Home">
       <div>
@@ -196,16 +242,31 @@ const Home = () => {
             boxSizing: "border-box",
           }}
         >
-          <Box
-            style={{ width: "100%", display: "flex", alignItems: "flex-end" }}
-          >
-            <Text>머시기 저시기</Text>
-          </Box>
-          <Box
-            style={{ width: "100%", display: "flex", alignItems: "flex-end" }}
-          >
-            <Text>머시기 저시기</Text>
-          </Box>
+          {/* <LongBox backgroundImage={wave}>
+            <Badge>서울 종로구</Badge>
+            <div>
+              <Desc>숲이 어우러져 서울 야경이 아름다운</Desc>
+              <Text>낙산공원</Text>
+            </div>
+          </LongBox>
+          <LongBox backgroundImage={wave}>
+            <Badge>서울 종로구</Badge>
+            <div>
+              <Desc>숲청와대부터 남산까지 한눈에 조망</Desc>
+              <Text>청와대 전망대</Text>
+            </div>
+          </LongBox> */}
+          {walks.map((walk) => {
+            return (
+              <LongBox backgroundImage={walk.backgroundImage}>
+                <Badge>{walk.location}</Badge>
+                <div>
+                  <Desc>{walk.description}</Desc>
+                  <Text>{walk.place}</Text>
+                </div>
+              </LongBox>
+            );
+          })}
         </div>
       </GoWalk>
       <Footer
