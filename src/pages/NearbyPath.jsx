@@ -17,29 +17,29 @@ const HomeWrapper = styled.div`
 
 const Paths = styled.ul``;
 
-const SuggestPath = () => {
+const NearbyPath = () => {
   return (
-    <HomeWrapper className="SuggestPath">
+    <HomeWrapper className="NearbyPath">
       <CourseHeader headerText={"현 위치 기반"} location={"서울 송파구"} />
       <Notice />
       <Paths>
         <PathLi
           courseName="낙산공원"
-          description="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
+          detail="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
           hashTag1="#1시간"
           hashTag2="#4km"
           hashTag3="#송파구"
         />
         <PathLi
           courseName="낙산공원"
-          description="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
+          detail="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
           hashTag1="#1시간"
           hashTag2="#4km"
           hashTag3="#송파구"
         />
         <PathLi
           courseName="낙산공원"
-          description="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
+          detail="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
           hashTag1="#1시간"
           hashTag2="#4km"
           hashTag3="#송파구"
@@ -49,4 +49,4 @@ const SuggestPath = () => {
   );
 };
 
-export default SuggestPath;
+export default NearbyPath;

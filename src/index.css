@@ -19,9 +19,10 @@ code {
 .Home,
 .MyPage,
 .Onboarding,
-.SuggestPath,
+.NearbyPath,
 .FinishedPath,
-.LikedPath {
+.LikedPath,
+.PopularPath {
   max-width: 390px;
   /* min-height: 780px; */
   margin-left: auto;

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import NearbyPath from "./pages/NearbyPath.jsx";
 import FinishedPath from "./pages/FinishedPath.jsx";
 import LikedPath from "./pages/LikedPath.jsx";
+import PopularPath from "./pages/PopularPath.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -23,9 +24,10 @@ function App() {
         <Route path="/" element={<Onboarding />} />
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/suggest" element={<NearbyPath />} />
+        <Route path="/nearby" element={<NearbyPath />} />
         <Route path="/finished" element={<FinishedPath />} />
         <Route path="/liked" element={<LikedPath />} />
+        <Route path="/popular" element={<PopularPath />} />
       </Routes>
     </div>
   );

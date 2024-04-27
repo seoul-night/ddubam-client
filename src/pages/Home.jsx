@@ -219,7 +219,7 @@ const Home = () => {
             justifyContent: "space-between",
           }}
         >
-          <Link to="/suggest">
+          <Link to="/nearby">
             <Box style={{ width: "154px", backgroundColor: "#5F53E8" }}>
               <Text>현 위치 기반</Text>
               <SubText>내 주변에서 산책해요</SubText>
@@ -229,7 +229,7 @@ const Home = () => {
               />
             </Box>
           </Link>
-          <Link to="/suggest">
+          <Link to="/popular">
             <Box style={{ width: "154px", backgroundColor: "#467FEE" }}>
               <Text>인기있는</Text>
               <SubText>사람들이 많이 다녀요</SubText>

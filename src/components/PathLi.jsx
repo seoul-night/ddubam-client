@@ -6,14 +6,17 @@ import { Link } from "react-router-dom";
 const Info = styled.li`
   width: 100%;
   margin-top: 20px;
-
   /* background-color: white; */
 `;
 
-const Pic = styled.img`
+const Pic = styled.div`
   width: 112px;
   height: 112px;
   border-radius: 8px;
+  background-image: url(${(props) => props.backgroundImage});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const PathName = styled.h2`
@@ -49,15 +52,28 @@ const HashTag = styled.span`
   margin-right: 5px;
 `;
 
-const PathLi = ({ courseName, description, hashTag1, hashTag2, hashTag3 }) => {
+const PathLi = ({
+  trailId,
+  latitudeList,
+  longitudeList,
+  trailRegion,
+  trailDistance,
+  detail,
+  rating,
+  trailImage,
+  hashTag1,
+  hashTag2,
+  hashTag3,
+}) => {
   return (
     <Info>
+      {/* <Link to={`/trails/${trailId}`}> Assuming a dynamic link to a trail detail page */}
       <Link>
         <div style={{ display: "flex" }}>
-          <Pic src={wave} />
+          <Pic backgroundImage={trailImage} />
           <TextWrap>
-            <PathName>{courseName}</PathName>
-            <PathDesc>{description}</PathDesc>
+            <PathName>{trailRegion}</PathName>
+            <PathDesc>{detail}</PathDesc>
             <HashTag>{hashTag1}</HashTag>
             <HashTag>{hashTag2}</HashTag>
             <HashTag>{hashTag3}</HashTag>

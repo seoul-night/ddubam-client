@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
 const Header = styled.div`
+  position: sticky;
+  background-color: #1c1c26;
+  top: 0;
   padding: 20px;
   padding-left: 0px;
   padding-right: 0px;
