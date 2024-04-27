@@ -3,6 +3,7 @@ import CourseHeader from "../components/CourseHeader";
 import styled from "styled-components";
 import emptylike from "../assets/icons/emptylike.png";
 import like from "../assets/icons/like.png";
+import { useParams } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -91,6 +92,25 @@ const CenterDiv = styled.div`
   margin-right: 10px;
 `;
 const PathDetail = () => {
+  //to do : 코스id로 데이터 요청
+  const trailId = useParams();
+  console.log(trailId);
+
+  const dummyData = {
+    status: 200,
+    message: "요청이 성공했습니다.",
+    data: {
+      trailId: 5,
+      trailRegion: "산책로 지역1",
+      latitudeList: [55.1, 33.2],
+      longitudeList: [133.1, 134.2],
+      detail: "산책로에 대한 정보1",
+      trailDistance: 4.3,
+      trailTime: 4,
+      trailLevel: "초급",
+    },
+  };
+
   return (
     <HomeWrapper className="PathDetail">
       <CourseHeader headerText={"산책 코스 정보"} location={"대전"} />
@@ -107,24 +127,24 @@ const PathDetail = () => {
       </div>
       <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
         <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
-          잠실어도 탐방길
+          {dummyData.data.trailRegion}
         </WhiteText1>
         <GrayText1 style={{ fontSize: "14px" }}>
-          흐드러진 갈대와 아이들이 좋아할 물고기길을 관찰할 수 있어요
+          {dummyData.data.detail}
         </GrayText1>
       </Wrap>
       <Wrap>
         <DetailWrap>
           <WhiteText2>총 산책거리</WhiteText2>
-          <GrayText2>4km</GrayText2>
+          <GrayText2>{dummyData.data.trailDistance}km</GrayText2>
         </DetailWrap>
         <DetailWrap>
           <WhiteText2>소요시간</WhiteText2>
-          <GrayText2>3시간</GrayText2>
+          <GrayText2>{dummyData.data.trailTime}시간</GrayText2>
         </DetailWrap>
         <DetailWrap>
           <WhiteText2>코스 레벨</WhiteText2>
-          <GrayText2>초급</GrayText2>
+          <GrayText2>{dummyData.data.trailLevel}</GrayText2>
         </DetailWrap>
       </Wrap>
 
