@@ -31,15 +31,46 @@ const FinishWrap = styled.div`
 
 const PathList = styled.ul``;
 const FinishedPath = ({ finishCnt }) => {
+  const dummyDatas = [
+    {
+      date: "2024.04.19",
+      title: "산책로 4", // API에서는 산책로의 ID만 제공되므로 예제 목적으로 "산책로 {ID}" 형태로 제목을 생성했습니다.
+      review: "산책로에 대한 리뷰1", // API 응답의 review 필드를 사용
+    },
+    {
+      date: "2024.04.20",
+      title: "산책로 5",
+      review: "산책로에 대한 리뷰2",
+    },
+    {
+      date: "2023.06.25",
+      title: "난지 갈대 바람길",
+      review: "이 산책로 너무 맘에 든다",
+    },
+    {
+      date: "2023.06.29",
+      title: "잠실어도 탐방길",
+      review:
+        "여기서 물고기 봤다. 대박이다. 엄청 많아서 놀랐다. 다음번에도 또 와야겠다",
+    },
+    {
+      date: "2024.01.01",
+      title: "잠원 산책길",
+      review: "굿굿~",
+    },
+  ];
+
+  const pathCnt = dummyDatas.length;
+
   return (
     <HomeWrapper className="FinishedPath">
       <Header headerText={"완료한 산책 코스"} icon={complete}></Header>
       <FinishWrap>
         <Finish>완료</Finish>
-        <Finish style={{ color: "#F6F8FA" }}>{(finishCnt = 3)}</Finish>
+        <Finish style={{ color: "#F6F8FA" }}>{pathCnt}</Finish>
       </FinishWrap>
       <PathList>
-        <PathTab
+        {/* <PathTab
           date={"2023.06.25"}
           title={"난지 갈대 바람길"}
           description={"이 산책로 너무 맘에 든다"}
@@ -55,7 +86,16 @@ const FinishedPath = ({ finishCnt }) => {
           date={"2024.01.01"}
           title={"잠원 산책길"}
           description={"굿굿~"}
-        />
+        /> */}
+        {dummyDatas.map((data) => {
+          return (
+            <PathTab
+              walkedDay={data.date}
+              title={data.title}
+              review={data.review}
+            />
+          );
+        })}
       </PathList>
     </HomeWrapper>
   );

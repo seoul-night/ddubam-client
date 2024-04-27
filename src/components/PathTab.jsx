@@ -32,7 +32,7 @@ const Desc = styled.h4`
   line-height: 21px;
   margin-bottom: 4px;
 `;
-const PathTab = ({ date, title, description }) => {
+const PathTab = ({ walkedDay, trailid, title, review }) => {
   return (
     <Tab>
       <Link>
@@ -46,9 +46,9 @@ const PathTab = ({ date, title, description }) => {
           }}
         >
           <div>
-            <Date>{date}</Date>
+            <Date>{walkedDay}</Date>
             <Title>{title}</Title>
-            <Desc>{description}</Desc>
+            <Desc>{review}</Desc>
           </div>
           <div>
             <FontAwesomeIcon
