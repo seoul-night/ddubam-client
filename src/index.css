@@ -22,7 +22,8 @@ code {
 .NearbyPath,
 .FinishedPath,
 .LikedPath,
-.PopularPath {
+.PopularPath,
+.PathDetail {
   max-width: 390px;
   /* min-height: 780px; */
   margin-left: auto;
