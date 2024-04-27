@@ -4,7 +4,7 @@ import Home from "./pages/Home.jsx";
 import Onboarding from "./pages/Onboarding.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import { useEffect } from "react";
-import SuggestPath from "./pages/SuggestPath.jsx";
+import NearbyPath from "./pages/NearbyPath.jsx";
 import FinishedPath from "./pages/FinishedPath.jsx";
 import LikedPath from "./pages/LikedPath.jsx";
 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/" element={<Onboarding />} />
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/suggest" element={<SuggestPath />} />
+        <Route path="/suggest" element={<NearbyPath />} />
         <Route path="/finished" element={<FinishedPath />} />
         <Route path="/liked" element={<LikedPath />} />
       </Routes>
