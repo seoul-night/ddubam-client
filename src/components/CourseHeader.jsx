@@ -2,6 +2,7 @@ import { faBullseye, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const Header = styled.div`
   padding: 20px;
@@ -21,12 +22,16 @@ const Text = styled.span`
 `;
 
 const CourseHeader = ({ headerText, location }) => {
+  const navigate = useNavigate();
   return (
     <Header>
       <div>
         <FontAwesomeIcon
           icon={faChevronLeft}
           style={{ color: "#F6F8FA", fontSize: "14px", marginRight: "10px" }}
+          onClick={() => {
+            navigate(-1);
+          }}
         />
         <Text>{headerText}</Text>
       </div>

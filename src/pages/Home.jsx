@@ -12,7 +12,7 @@ import homebtn2 from "../assets/homebtn2.png";
 import homeColored from "../assets/icons/homeColored.png";
 import My from "../assets/icons/My.png";
 import wave from "../assets/wave.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -142,6 +142,7 @@ const Badge = styled.h4`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
   const walks = [
     {
       location: "서울 종로구",
@@ -159,6 +160,7 @@ const Home = () => {
 
   return (
     <HomeWrapper className="Home">
+      {/* 백그라운드 이미지 */}
       <div>
         <img
           className="Home"
@@ -217,22 +219,26 @@ const Home = () => {
             justifyContent: "space-between",
           }}
         >
-          <Box style={{ width: "154px", backgroundColor: "#5F53E8" }}>
-            <Text>현 위치 기반</Text>
-            <SubText>내 주변에서 산책해요</SubText>
-            <img
-              src={homebtn1}
-              style={{ position: "absolute", bottom: "15px", right: "15px" }}
-            />
-          </Box>
-          <Box style={{ width: "154px", backgroundColor: "#467FEE" }}>
-            <Text>인기있는</Text>
-            <SubText>사람들이 많이 다녀요</SubText>
-            <img
-              src={homebtn2}
-              style={{ position: "absolute", bottom: "15px", right: "15px" }}
-            />
-          </Box>
+          <Link to="/suggest">
+            <Box style={{ width: "154px", backgroundColor: "#5F53E8" }}>
+              <Text>현 위치 기반</Text>
+              <SubText>내 주변에서 산책해요</SubText>
+              <img
+                src={homebtn1}
+                style={{ position: "absolute", bottom: "15px", right: "15px" }}
+              />
+            </Box>
+          </Link>
+          <Link to="/suggest">
+            <Box style={{ width: "154px", backgroundColor: "#467FEE" }}>
+              <Text>인기있는</Text>
+              <SubText>사람들이 많이 다녀요</SubText>
+              <img
+                src={homebtn2}
+                style={{ position: "absolute", bottom: "15px", right: "15px" }}
+              />
+            </Box>
+          </Link>
         </div>
       </GoWalk>
       <GoWalk>

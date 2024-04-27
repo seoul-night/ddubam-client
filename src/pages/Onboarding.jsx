@@ -6,6 +6,7 @@ import cloud1 from "../assets/cloud1.png";
 import cloud2 from "../assets/cloud1.png";
 import onboard1 from "../assets/onboard1.png";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+import { useNavigate } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -107,6 +108,7 @@ const Cloud2 = styled.div`
 `;
 
 const Onboarding = () => {
+  const navigate = useNavigate();
   return (
     <HomeWrapper className="Home">
       <DotWrapper>
@@ -147,7 +149,11 @@ const Onboarding = () => {
         <img src={onboard1} style={{ width: "100%" }} />
       </Onboard1>
       <BtnWrap>
-        <StartBtn>
+        <StartBtn
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
           <p>밤산책 시작하기</p>
         </StartBtn>
       </BtnWrap>

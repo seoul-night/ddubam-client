@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser, faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 
 const Foot = styled.div`
   position: fixed;
@@ -31,24 +32,29 @@ const Text = styled.h4`
 `;
 
 const Footer = ({ home, my, homeColor, myColor }) => {
+  const navigate = useNavigate();
   return (
     <Foot>
-      <IconWrapper>
-        {/* <FontAwesomeIcon
+      <Link to={"/home"}>
+        <IconWrapper>
+          {/* <FontAwesomeIcon
           icon={faHome}
           style={{ fontSize: "22px", color: "#FFFFFF", marginBottom: "10px" }}
         /> */}
-        <img src={home} alt="" style={{ width: "20px", height: "20px" }} />
-        <Text style={{ color: homeColor }}>홈</Text>
-      </IconWrapper>
-      <IconWrapper>
-        {/* <FontAwesomeIcon
+          <img src={home} alt="" style={{ width: "20px", height: "20px" }} />
+          <Text style={{ color: homeColor }}>홈</Text>
+        </IconWrapper>
+      </Link>
+      <Link to={"/mypage"}>
+        <IconWrapper>
+          {/* <FontAwesomeIcon
           icon={faUser}
           style={{ fontSize: "22px", color: "#FFFFFF", marginBottom: "10px" }}
         /> */}
-        <img src={my} alt="" style={{ width: "20px", height: "20px" }} />
-        <Text style={{ color: myColor }}>마이</Text>
-      </IconWrapper>
+          <img src={my} alt="" style={{ width: "20px", height: "20px" }} />
+          <Text style={{ color: myColor }}>마이</Text>
+        </IconWrapper>
+      </Link>
     </Foot>
   );
 };

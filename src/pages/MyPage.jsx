@@ -14,6 +14,7 @@ import like from "../assets/icons/like.png";
 import complete from "../assets/icons/complete.png";
 import home from "../assets/icons/home.png";
 import MyColored from "../assets/icons/MyColored.png";
+import { useNavigate } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -124,6 +125,7 @@ const Badge = styled.div`
 `;
 
 const MyPage = () => {
+  const navigate = useNavigate();
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>
@@ -192,6 +194,9 @@ const MyPage = () => {
               backgroundColor: "#333344",
               height: "96px",
             }}
+            onClick={() => {
+              navigate("/finished");
+            }}
           >
             {/* <FontAwesomeIcon
               icon={faCheckCircle}
@@ -221,6 +226,9 @@ const MyPage = () => {
               backgroundColor: "#333344",
               height: "96px",
             }}
+            onClick={() => {
+              navigate("/liked");
+            }}
           >
             {/* <FontAwesomeIcon
               icon={faHeart}
@@ -228,7 +236,7 @@ const MyPage = () => {
             /> */}
             <img src={like} />
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Text style={{ fontSize: "14px" }}>완료한 산책</Text>
+              <Text style={{ fontSize: "14px" }}>찜한 산책</Text>
               <Badge
                 style={{
                   fontSize: "14px",

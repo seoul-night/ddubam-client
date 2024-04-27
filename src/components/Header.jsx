@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //완료 코스, 찜 코스 헤더
 
@@ -25,12 +25,16 @@ const Text = styled.span`
 `;
 
 const Header = ({ headerText, icon }) => {
+  const navigate = useNavigate();
   return (
     <Head>
       <Link style={{ height: "24px", display: "flex", alignItems: "center" }}>
         <FontAwesomeIcon
           icon={faChevronLeft}
           style={{ color: "#F6F8FA", paddingRight: "15px" }}
+          onClick={() => {
+            navigate(-1);
+          }}
         />
       </Link>
       <Text>{headerText}</Text>
