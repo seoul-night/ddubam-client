@@ -11,7 +11,7 @@ const Foot = styled.div`
   right: 0;
   margin: 0 auto;
   width: 100%;
-  max-width: 390px;
+  max-width: var(--max-width);
   height: 55px;
   border-top: 1px solid #7a7a83;
   display: flex;

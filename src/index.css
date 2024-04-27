@@ -14,6 +14,7 @@ code {
 
 :root {
   --vh: 100vh;
+  --max-width: 390px;
 }
 /* 페이지 크기 제한 */
 .Home,
@@ -24,7 +25,7 @@ code {
 .LikedPath,
 .PopularPath,
 .PathDetail {
-  max-width: 390px;
+  max-width: var(--max-width);
   /* min-height: 780px; */
   margin-left: auto;
   margin-right: auto;
