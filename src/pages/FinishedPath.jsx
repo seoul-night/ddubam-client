@@ -30,7 +30,7 @@ const FinishWrap = styled.div`
 `;
 
 const PathList = styled.ul``;
-const FinishedPath = ({ finishCnt }) => {
+const FinishedPath = ({}) => {
   const dummyDatas = [
     {
       date: "2024.04.19",
@@ -60,14 +60,12 @@ const FinishedPath = ({ finishCnt }) => {
     },
   ];
 
-  const pathCnt = dummyDatas.length;
-
   return (
     <HomeWrapper className="FinishedPath">
       <Header headerText={"완료한 산책 코스"} icon={complete}></Header>
       <FinishWrap>
         <Finish>완료</Finish>
-        <Finish style={{ color: "#F6F8FA" }}>{pathCnt}</Finish>
+        <Finish style={{ color: "#F6F8FA" }}>{dummyDatas.length}</Finish>
       </FinishWrap>
       <PathList>
         {/* <PathTab

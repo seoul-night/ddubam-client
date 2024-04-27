@@ -32,16 +32,46 @@ const FinishWrap = styled.div`
 
 const PathList = styled.ul``;
 const LikedPath = ({ finishCnt }) => {
+  const dummyDatas = [
+    {
+      trailId: 4,
+      title: "산책로 지역1의 아름다운 경로",
+      walkedDay: "2024-04-19",
+      region: "산책로 지역1",
+    },
+    {
+      trailId: 5,
+      title: "산책로 지역1의 힐링 코스",
+      walkedDay: "2024-04-20",
+      region: "산책로 지역1",
+    },
+    {
+      trailId: 6,
+      title: "난지 갈대 바람길",
+      walkedDay: "2023-06-25",
+      region: "난지 지역",
+    },
+    {
+      trailId: 7,
+      title: "잠실어도 탐방길",
+      walkedDay: "2023-06-29",
+      region: "잠실 지역",
+    },
+  ];
+
   return (
     <HomeWrapper className="LikedPath">
       <Header headerText={"찜한 산책 코스"} icon={like}></Header>
       <FinishWrap>
         <Finish>찜</Finish>
-        <Finish style={{ color: "#F6F8FA" }}>{(finishCnt = 2)}</Finish>
+        <Finish style={{ color: "#F6F8FA" }}>{dummyDatas.length}</Finish>
       </FinishWrap>
       <PathList>
-        <PathTab date={"2023.06.25"} title={"난지 갈대 바람길"} />
-        <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} />
+        {/* <PathTab date={"2023.06.25"} title={"난지 갈대 바람길"} />
+        <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} /> */}
+        {dummyDatas.map((data) => {
+          return <PathTab title={data.title} walkedDay={data.walkedDay} />;
+        })}
       </PathList>
     </HomeWrapper>
   );
