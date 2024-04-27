@@ -100,3 +100,21 @@ const FinishedPath = ({}) => {
 };
 
 export default FinishedPath;
+// {
+//   "status": 200,
+//   "message": "요청이 성공했습니다.",
+//   "data": [
+//       {
+//           "userId": 5,
+//           "trailId": 4,
+//           "review": "산책로에 대한 리뷰1",
+//           "walkedDay": "2024-04-19"
+//       },
+//       {
+//           "userId": 5,
+//           "trailId": 5,
+//           "review": "산책로에 대한 리뷰2",
+//           "walkedDay": "2024-04-20"
+//       }
+//    ]
+// }

@@ -78,3 +78,21 @@ const LikedPath = ({ finishCnt }) => {
 };
 
 export default LikedPath;
+// {
+//   "status": 200,
+//   "message": "요청이 성공했습니다.",
+//   "data": [
+//       {
+//           "userId": 5,
+//           "trailId": 4,
+//           "walkedDay": "2024-04-19",
+//           "region": "산책로 지역1"
+//       },
+//       {
+//           "userId": 5,
+//           "trailId": 5,
+//           "walkedDay": "2024-04-20",
+//           "region": "산책로 지역1"
+//       }
+//    ]
+// }

@@ -50,3 +50,21 @@ const NearbyPath = () => {
 };
 
 export default NearbyPath;
+
+// {
+//   "status": 200,
+//   "message": "요청이 성공했습니다.",
+//   "data": [
+//       {
+//           "trailId": 4,
+//           "latitudeList": [55.1,33.2],
+//           "longitudeList": [75.1,53.2],
+//           "detail": "산책로에 대한 정보1",
+//       },
+//       {
+//           "trailId": 5,
+//           "latitudeList": [35.1,33.2],
+//           "longitudeList": [45.1,43.2],
+//           "detail": "산책로에 대한 정보2",
+//       }
+// }

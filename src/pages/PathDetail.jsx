@@ -142,3 +142,14 @@ const PathDetail = () => {
 };
 
 export default PathDetail;
+
+// {
+//   "status": 200,
+//   "message": "요청이 성공했습니다.",
+//   "data": {
+//       "trailId": 5,
+//       "latitudeList": [55.1,33.2],
+//       "longitudeList": [133.1,134.2],
+//       "detail": "산책로에 대한 정보1"
+//   }
+// }
