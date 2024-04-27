@@ -36,16 +36,19 @@ const FinishedPath = ({}) => {
       walkedDay: "2024.04.19",
       title: "산책로 4", // API에서는 산책로의 ID만 제공되므로 예제 목적으로 "산책로 {ID}" 형태로 제목을 생성했습니다.
       review: "산책로에 대한 리뷰1", // API 응답의 review 필드를 사용
+      trailId: 4,
     },
     {
       walkedDay: "2024.04.20",
       title: "산책로 5",
       review: "산책로에 대한 리뷰2",
+      trailId: 4,
     },
     {
       walkedDay: "2023.06.25",
       title: "난지 갈대 바람길",
       review: "이 산책로 너무 맘에 든다",
+      trailId: 4,
     },
     {
       walkedDay: "2023.06.29",
@@ -57,6 +60,7 @@ const FinishedPath = ({}) => {
       walkedDay: "2024.01.01",
       title: "잠원 산책길",
       review: "굿굿~",
+      trailId: 4,
     },
   ];
 
@@ -88,6 +92,7 @@ const FinishedPath = ({}) => {
         {dummyDatas.map((data) => {
           return (
             <PathTab
+              trailId={data.trailId}
               walkedDay={data.walkedDay}
               title={data.title}
               review={data.review}

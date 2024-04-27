@@ -32,10 +32,10 @@ const Desc = styled.h4`
   line-height: 21px;
   margin-bottom: 4px;
 `;
-const PathTab = ({ walkedDay, trailid, title, review }) => {
+const PathTab = ({ walkedDay, trailId, title, review }) => {
   return (
     <Tab>
-      <Link>
+      <Link to={`/pathdetail/${trailId}`}>
         <div
           style={{
             display: "flex",

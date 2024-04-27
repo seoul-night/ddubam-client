@@ -70,7 +70,13 @@ const LikedPath = ({ finishCnt }) => {
         {/* <PathTab date={"2023.06.25"} title={"난지 갈대 바람길"} />
         <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} /> */}
         {dummyDatas.map((data) => {
-          return <PathTab title={data.title} walkedDay={data.walkedDay} />;
+          return (
+            <PathTab
+              title={data.title}
+              walkedDay={data.walkedDay}
+              trailId={data.trailId}
+            />
+          );
         })}
       </PathList>
     </HomeWrapper>
