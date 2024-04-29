@@ -10,6 +10,7 @@ import LikedPath from "./pages/LikedPath.jsx";
 import PopularPath from "./pages/PopularPath.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import PathDetail from "./pages/PathDetail.jsx";
+import Walking from "./pages/Walking.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -31,6 +32,7 @@ function App() {
         <Route path="/liked" element={<LikedPath />} />
         <Route path="/popular" element={<PopularPath />} />
         <Route path="/pathdetail/:id" element={<PathDetail />} />
+        <Route path="/walking" element={<Walking />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

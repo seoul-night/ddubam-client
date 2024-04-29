@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CourseHeader from "../components/CourseHeader";
 import styled from "styled-components";
 import emptylike from "../assets/icons/emptylike.png";
@@ -79,6 +79,7 @@ const Button = styled.button`
   font-size: 16px;
   border-radius: 10px;
   border: none;
+  transition: all 0.3s;
 
   &:hover {
     background-color: #4950d4;
@@ -94,7 +95,9 @@ const CenterDiv = styled.div`
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
   const trailId = useParams();
-  console.log(trailId);
+  // console.log(trailId);
+
+  const [liked, setLike] = useState(false);
 
   const dummyData = {
     status: 200,
@@ -150,8 +153,25 @@ const PathDetail = () => {
 
       <Footer>
         <CenterDiv>
+          {/* 클릭시 서버 통신 로직 추후 추가 */}
           <div style={{ textAlign: "center" }}>
-            <img src={emptylike} alt="Like" />
+            {liked == false ? (
+              <img
+                src={emptylike}
+                alt="Like"
+                onClick={() => {
+                  setLike(!liked);
+                }}
+              />
+            ) : (
+              <img
+                src={like}
+                alt="Like"
+                onClick={() => {
+                  setLike(!liked);
+                }}
+              />
+            )}
             <GrayText2>찜</GrayText2>
           </div>
         </CenterDiv>
