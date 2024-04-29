@@ -1,9 +1,11 @@
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import close from "../assets/icons/close.png";
 
 const Wrap = styled.div`
+  position: relative;
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -23,8 +25,16 @@ const Text = styled.span`
 `;
 
 const Notice = () => {
-  return (
+  const [closed, setClosed] = useState(false);
+  return !closed ? (
     <Wrap>
+      <img
+        src={close}
+        style={{ position: "absolute", right: "10px", top: "10px" }}
+        onClick={() => {
+          setClosed(true);
+        }}
+      />
       <div>
         <FontAwesomeIcon
           icon={faBell}
@@ -43,7 +53,7 @@ const Notice = () => {
         </Text>
       </div>
     </Wrap>
-  );
+  ) : null;
 };
 
 export default Notice;
