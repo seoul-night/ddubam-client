@@ -32,6 +32,18 @@ const FinishWrap = styled.div`
 
 const PathList = styled.ul``;
 const LikedPath = ({ finishCnt }) => {
+  const fetchedData = fetch("http://3.38.103.245:8080/members/list4")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("에러");
+      }
+      return response.json();
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.error("에러:", error));
+
+  console.log(fetchedData);
+
   const dummyDatas = [
     {
       trailId: 4,

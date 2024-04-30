@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import close from "../assets/icons/close.png";
 import wave from "../assets/wave.jpg";
+import { useNavigate } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -91,7 +92,7 @@ const CircleBig = styled.div`
   align-items: center;
   justify-content: center;
   top: 211px;
-  top: 45%; /* 중앙 정렬을 위해 50% */
+  top: 50%; /* 중앙 정렬을 위해 50% */
   left: 50%; /* 중앙 정렬을 위해 50% */
   transform: translate(-50%, -50%); /* 중앙 정확히 배치 */
 `;
@@ -111,9 +112,75 @@ const Clock = styled.h4`
   font-size: 40px;
 `;
 
+const CloseModal = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+`;
+
+const CloseWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 280px;
+  height: 150px;
+  background-color: #333344;
+  padding: 24px 20px 16px 20px;
+  border-radius: 16px;
+  justify-content: space-around;
+`;
+
+const ModalBtn = styled.button`
+  color: #f6f8fa;
+  font-size: 14px;
+  padding: 12px 24px 12px 24px;
+  border-radius: 8px;
+  width: 50%;
+  border: none;
+`;
+
+const BtnWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+`;
+
 const Walking = () => {
+  const navigate = useNavigate();
+  const [seconds, setSeconds] = useState(0);
+
+  // setInterval(() => {
+  //   setSeconds(seconds + 1);
+  // }, 1000);
+
   return (
     <HomeWrapper className="All">
+      {/* <CloseModal>
+        <CloseWrap>
+          <div style={{ textAlign: "center" }}>
+            <Text style={{ color: "#F6F8FA", fontSize: "16px" }}>
+              산책을 종료할까요?
+            </Text>
+            <Text style={{ color: "#B4B4C2", fontSize: "12px" }}>
+              지금 나가면 산책 기록이 저장되지 않아요
+            </Text>
+          </div>
+
+          <BtnWrap>
+            <ModalBtn style={{ backgroundColor: "#5A5A76" }}>닫기</ModalBtn>
+            <ModalBtn style={{ backgroundColor: "#5E66FF" }}>
+              종료할게요
+            </ModalBtn>
+          </BtnWrap>
+        </CloseWrap>
+      </CloseModal> */}
+
       <img
         src={close}
         style={{ position: "absolute", top: "40px", left: "20px" }}
@@ -125,13 +192,21 @@ const Walking = () => {
       <CircleBig>
         <CircleSmall>
           <Pic>
-            <Clock>12 : 37</Clock>
+            <Clock>
+              {parseInt(seconds / 60)} : {seconds % 60}
+            </Clock>
           </Pic>
         </CircleSmall>
       </CircleBig>
       <Wrapper>
         <Button>산책 완료하기</Button>
-        <OtherCourse>다른 산책 코스 둘러보기</OtherCourse>
+        <OtherCourse
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          다른 산책 코스 둘러보기
+        </OtherCourse>
       </Wrapper>
     </HomeWrapper>
   );
