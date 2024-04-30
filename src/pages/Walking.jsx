@@ -156,6 +156,7 @@ const BtnWrap = styled.div`
 const Walking = () => {
   const navigate = useNavigate();
   const [seconds, setSeconds] = useState(0);
+  const [closeModalOpen, setCloseModalOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -168,29 +169,46 @@ const Walking = () => {
 
   return (
     <HomeWrapper className="All">
-      {/* <CloseModal>
-        <CloseWrap>
-          <div style={{ textAlign: "center" }}>
-            <Text style={{ color: "#F6F8FA", fontSize: "16px" }}>
-              산책을 종료할까요?
-            </Text>
-            <Text style={{ color: "#B4B4C2", fontSize: "12px" }}>
-              지금 나가면 산책 기록이 저장되지 않아요
-            </Text>
-          </div>
+      {!closeModalOpen ? null : (
+        <CloseModal>
+          <CloseWrap>
+            <div style={{ textAlign: "center" }}>
+              <Text style={{ color: "#F6F8FA", fontSize: "16px" }}>
+                산책을 종료할까요?
+              </Text>
+              <Text style={{ color: "#B4B4C2", fontSize: "12px" }}>
+                지금 나가면 산책 기록이 저장되지 않아요
+              </Text>
+            </div>
 
-          <BtnWrap>
-            <ModalBtn style={{ backgroundColor: "#5A5A76" }}>닫기</ModalBtn>
-            <ModalBtn style={{ backgroundColor: "#5E66FF" }}>
-              종료할게요
-            </ModalBtn>
-          </BtnWrap>
-        </CloseWrap>
-      </CloseModal> */}
+            <BtnWrap>
+              <ModalBtn
+                style={{ backgroundColor: "#5A5A76" }}
+                onClick={() => {
+                  setCloseModalOpen(false);
+                }}
+              >
+                닫기
+              </ModalBtn>
+              <ModalBtn
+                style={{ backgroundColor: "#5E66FF" }}
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                종료할게요
+              </ModalBtn>
+            </BtnWrap>
+          </CloseWrap>
+        </CloseModal>
+      )}
 
       <img
         src={close}
         style={{ position: "absolute", top: "40px", left: "20px" }}
+        onClick={() => {
+          setCloseModalOpen(true);
+        }}
       />
       <Wrapper style={{ marginTop: "100px" }}>
         <Text>잠실어도 탐방길</Text>
