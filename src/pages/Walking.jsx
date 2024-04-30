@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import close from "../assets/icons/close.png";
 import wave from "../assets/wave.jpg";
@@ -123,6 +123,8 @@ const CloseModal = styled.div`
 `;
 
 const CloseWrap = styled.div`
+  position: absolute;
+  top: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,9 +157,14 @@ const Walking = () => {
   const navigate = useNavigate();
   const [seconds, setSeconds] = useState(0);
 
-  // setInterval(() => {
-  //   setSeconds(seconds + 1);
-  // }, 1000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds + 1);
+    }, 1000);
+
+    // 컴포넌트 언마운트 시 인터벌 정리
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <HomeWrapper className="All">
@@ -193,7 +200,10 @@ const Walking = () => {
         <CircleSmall>
           <Pic>
             <Clock>
-              {parseInt(seconds / 60)} : {seconds % 60}
+              {parseInt(seconds / 60)
+                .toString()
+                .padStart(2, "0")}{" "}
+              : {(seconds % 60).toString().padStart(2, "0")}
             </Clock>
           </Pic>
         </CircleSmall>
