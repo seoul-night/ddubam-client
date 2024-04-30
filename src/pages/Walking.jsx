@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import close from "../assets/icons/close.png";
 import wave from "../assets/wave.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import clap from "../assets/icons/clap.png";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -120,10 +121,12 @@ const CloseModal = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 3;
+
+  position: absolute;
 `;
 
 const CloseWrap = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   display: flex;
   justify-content: center;
@@ -135,6 +138,9 @@ const CloseWrap = styled.div`
   padding: 24px 20px 16px 20px;
   border-radius: 16px;
   justify-content: space-around;
+  top: 50%; /* 중앙 정렬을 위해 50% */
+  left: 50%; /* 중앙 정렬을 위해 50% */
+  transform: translate(-50%, -50%); /* 중앙 정확히 배치 */
 `;
 
 const ModalBtn = styled.button`
@@ -153,10 +159,36 @@ const BtnWrap = styled.div`
   gap: 8px;
 `;
 
+const ReviewModal = styled.div`
+  justify-content: space-around;
+  z-index: 2;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  background-color: #333344;
+  width: 320px;
+  height: 350px;
+  border-radius: 20px;
+  padding: 20px;
+`;
+
+const TextArea = styled.textarea`
+  resize: none;
+  background-color: #5a5a76;
+  box-sizing: border-box;
+  padding: 20px;
+  color: #f6f8fa;
+  width: 100%;
+  border-radius: 10px;
+  height: 113px;
+`;
+
 const Walking = () => {
   const navigate = useNavigate();
   const [seconds, setSeconds] = useState(0);
   const [closeModalOpen, setCloseModalOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -202,6 +234,49 @@ const Walking = () => {
           </CloseWrap>
         </CloseModal>
       )}
+
+      <ReviewModal>
+        <Wrapper style={{ textAlign: "center", justifySelf: "flex-start" }}>
+          <Text
+            style={{
+              color: "#F6F8FA",
+              fontSize: "18px",
+
+              marginBottom: "10px",
+            }}
+          >
+            산책을 완료했어요! <img src={clap} />
+          </Text>
+          <Text
+            style={{ fontSize: "14px", color: "#B4B4C2", lineHeight: "24px" }}
+          >
+            한 줄 리뷰를 작성해 보세요
+          </Text>
+          <Text
+            style={{ fontSize: "14px", color: "#B4B4C2", lineHeight: "24px" }}
+          >
+            나의 밤산책을 되돌아 볼 수 있어요
+          </Text>
+        </Wrapper>
+
+        <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
+        <ModalBtn
+          style={{ backgroundColor: "#5A5A76", padding: "16px", width: "100%" }}
+        >
+          리뷰 작성 완료
+        </ModalBtn>
+        <Link to="/home">
+          <Text
+            style={{
+              color: "#B4B4C2",
+              fontSize: "12px",
+              textDecoration: "underline ",
+            }}
+          >
+            나중에 할래요
+          </Text>
+        </Link>
+      </ReviewModal>
 
       <img
         src={close}
