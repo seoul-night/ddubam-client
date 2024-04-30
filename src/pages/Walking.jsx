@@ -261,6 +261,9 @@ const Walking = () => {
 
         <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
         <ModalBtn
+          onClick={() => {
+            navigate("/home");
+          }}
           style={{ backgroundColor: "#5A5A76", padding: "16px", width: "100%" }}
         >
           리뷰 작성 완료
