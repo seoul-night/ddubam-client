@@ -15,6 +15,8 @@ import complete from "../assets/icons/complete.png";
 import home from "../assets/icons/home.png";
 import MyColored from "../assets/icons/MyColored.png";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userDataState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -69,7 +71,7 @@ const ProgressBar = styled.div`
 `;
 
 const Progress = styled.div`
-  width: 100px;
+  /* width: 50%; */
   height: 7px;
   position: absolute;
   border-radius: 3px;
@@ -126,6 +128,7 @@ const Badge = styled.div`
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const userData = useRecoilValue(userDataState);
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>
@@ -137,19 +140,19 @@ const MyPage = () => {
           <ProfilePic src={chimps}></ProfilePic>
           <TextWrap>
             <h2>
-              <Text>강원도 감자</Text>
+              <Text>{userData.nickName}</Text>
             </h2>
             <h4>
-              <Text>산책러 Lv.2</Text>
+              <Text>산책러 Lv.{userData.exp / 100}</Text>
             </h4>
           </TextWrap>
         </ProfileWrap>
         <div>
           <h3 style={{ color: "white", fontSize: "12px", lineHeight: "18px" }}>
-            현재 산책 진행률 13%
+            현재 산책 진행률 {userData.exp % 100}%
           </h3>
           <ProgressBar>
-            <Progress />
+            <Progress style={{ width: `${userData.exp % 100}%` }} />
           </ProgressBar>
         </div>
         <Tab
@@ -180,7 +183,7 @@ const MyPage = () => {
               left: "-8px",
             }}
           >
-            82일
+            {userData.walkedDay}일
           </Text>
         </Tab>
         <TabWrap>
@@ -212,7 +215,7 @@ const MyPage = () => {
                   display: "inline-block",
                 }}
               >
-                4
+                {userData.finishedCount}
               </Badge>
             </div>
           </Tab>
@@ -244,7 +247,7 @@ const MyPage = () => {
                   display: "inline-block",
                 }}
               >
-                4
+                {userData.pickedCount}
               </Badge>
             </div>
           </Tab>

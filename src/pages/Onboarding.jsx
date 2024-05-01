@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,8 @@ import cloud2 from "../assets/cloud1.png";
 import onboard1 from "../assets/onboard1.png";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { nickNameState, userDataState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -108,6 +110,26 @@ const Cloud2 = styled.div`
 `;
 
 const Onboarding = () => {
+  const [userData, setUserData] = useRecoilState(userDataState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://13.124.30.111:8080/members/1");
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+
+    fetchData();
+  }, [setUserData]);
+
+  // setUserData(fetchedData);
+  console.log(userData.nickName);
+  console.log(userData.exp);
+
   const navigate = useNavigate();
   return (
     <HomeWrapper className="Home">

@@ -13,6 +13,8 @@ import homeColored from "../assets/icons/homeColored.png";
 import My from "../assets/icons/My.png";
 import wave from "../assets/wave.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userDataState } from "../atoms";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -142,6 +144,7 @@ const Badge = styled.h4`
 `;
 
 const Home = () => {
+  const userData = useRecoilValue(userDataState);
   const navigate = useNavigate();
   const walks = [
     {
@@ -157,7 +160,7 @@ const Home = () => {
       backgroundImage: wave,
     },
   ];
-
+  console.log(userData.nickName);
   return (
     <HomeWrapper className="Home">
       {/* 백그라운드 이미지 */}
@@ -203,7 +206,7 @@ const Home = () => {
       <UserWrap>
         <Pic src={chimps} />
         <div>
-          <Name>강원도 감자</Name>
+          <Name>{userData.nickName}</Name>
           <Text>님,</Text>
         </div>
         <div>
