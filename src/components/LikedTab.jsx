@@ -32,7 +32,7 @@ const Desc = styled.h4`
   line-height: 21px;
   margin-bottom: 4px;
 `;
-const PathTab = ({ trailId, trailRegion, trailTitle }) => {
+const LikedTab = ({ trailId, trailRegion, trailTitle }) => {
   return (
     <Tab>
       <Link to={`/pathdetail/${trailId}`}>
@@ -61,4 +61,4 @@ const PathTab = ({ trailId, trailRegion, trailTitle }) => {
   );
 };
 
-export default PathTab;
+export default LikedTab;

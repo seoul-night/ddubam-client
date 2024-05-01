@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/Header";
 import complete from "../assets/icons/complete.png";
 import chevronLeft from "../assets/icons/chevronLeft.png";
-import PathTab from "../components/PathTab";
+import PathTab from "../components/FinishedTab";
 
 const HomeWrapper = styled.div`
   height: 100vh;

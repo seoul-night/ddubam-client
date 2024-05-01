@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/Header";
 import complete from "../assets/icons/complete.png";
 import chevronLeft from "../assets/icons/chevronLeft.png";
-import PathTab from "../components/PathTab";
 import like from "../assets/icons/like.png";
+import LikedTab from "../components/LikedTab";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -89,7 +89,7 @@ const LikedPath = ({ finishCnt }) => {
         <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} /> */}
         {fetchedDatas.map((data) => {
           return (
-            <PathTab
+            <LikedTab
               trailRegion={data.trailRegion}
               trailTitle={data.trailTitle}
               trailId={data.trailId}
