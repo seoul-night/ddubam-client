@@ -32,7 +32,7 @@ const FinishWrap = styled.div`
 
 const PathList = styled.ul``;
 const FinishedPath = ({}) => {
-  const [paths, setPaths] = useState([]); // 상태 추가
+  const [fetchedDatas, setFetchedDatas] = useState([]); // 상태 추가
 
   useEffect(() => {
     fetch("http://13.124.30.111:8080/members/walks/complete/1")
@@ -43,12 +43,12 @@ const FinishedPath = ({}) => {
         return response.json();
       })
       .then((data) => {
-        setPaths(data); // 데이터 설정
+        setFetchedDatas(data); // 데이터 설정
       })
       .catch((error) => console.error("에러:", error));
   }, []); // 컴포넌트가 마운트 될 때 한 번만 실행
 
-  console.log(paths);
+  console.log(fetchedDatas);
 
   const dummyDatas = [
     {
@@ -88,7 +88,7 @@ const FinishedPath = ({}) => {
       <Header headerText={"완료한 산책 코스"} icon={complete}></Header>
       <FinishWrap>
         <Finish>완료</Finish>
-        <Finish style={{ color: "#F6F8FA" }}>{dummyDatas.length}</Finish>
+        <Finish style={{ color: "#F6F8FA" }}>{fetchedDatas.length}</Finish>
       </FinishWrap>
       <PathList>
         {/* <PathTab
@@ -108,7 +108,7 @@ const FinishedPath = ({}) => {
           title={"잠원 산책길"}
           description={"굿굿~"}
         /> */}
-        {paths.map((data) => {
+        {fetchedDatas.map((data) => {
           return (
             <PathTab
               trailId={data.trailId}

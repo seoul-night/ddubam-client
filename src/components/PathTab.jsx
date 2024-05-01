@@ -12,7 +12,7 @@ const Tab = styled.li`
   margin-top: 12px;
 `;
 
-const Date = styled.h4`
+const Region = styled.h4`
   color: #b4b4c2;
   font-size: 12px;
   line-height: 18px;
@@ -32,7 +32,7 @@ const Desc = styled.h4`
   line-height: 21px;
   margin-bottom: 4px;
 `;
-const PathTab = ({ walkedDate, trailId, title, review }) => {
+const PathTab = ({ trailId, trailRegion, trailTitle }) => {
   return (
     <Tab>
       <Link to={`/pathdetail/${trailId}`}>
@@ -46,9 +46,8 @@ const PathTab = ({ walkedDate, trailId, title, review }) => {
           }}
         >
           <div>
-            <Date>{walkedDate}</Date>
-            <Title>{title}</Title>
-            <Desc>{review}</Desc>
+            <Region>{trailRegion}</Region>
+            <Title>{trailTitle}</Title>
           </div>
           <div>
             <FontAwesomeIcon

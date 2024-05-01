@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CourseHeader from "../components/CourseHeader";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -32,17 +32,23 @@ const FinishWrap = styled.div`
 
 const PathList = styled.ul``;
 const LikedPath = ({ finishCnt }) => {
-  const fetchedData = fetch("http://13.124.30.111:8080/members/walks/select/1")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("에러");
-      }
-      return response.json();
-    })
-    .then((data) => console.log(data))
-    .catch((error) => console.error("에러:", error));
+  const [fetchedDatas, setFetchedDatas] = useState([]);
 
-  console.log(fetchedData);
+  useEffect(() => {
+    fetch("http://13.124.30.111:8080/members/walks/select/1")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("에러");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setFetchedDatas(data); // 데이터 설정
+      })
+      .catch((error) => console.error("에러:", error));
+  }, []); // 컴포넌트가 마운트 될 때 한 번만 실행
+
+  console.log(fetchedDatas);
 
   const dummyDatas = [
     {
@@ -76,16 +82,16 @@ const LikedPath = ({ finishCnt }) => {
       <Header headerText={"찜한 산책 코스"} icon={like}></Header>
       <FinishWrap>
         <Finish>찜</Finish>
-        <Finish style={{ color: "#F6F8FA" }}>{dummyDatas.length}</Finish>
+        <Finish style={{ color: "#F6F8FA" }}>{fetchedDatas.length}</Finish>
       </FinishWrap>
       <PathList>
         {/* <PathTab date={"2023.06.25"} title={"난지 갈대 바람길"} />
         <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} /> */}
-        {dummyDatas.map((data) => {
+        {fetchedDatas.map((data) => {
           return (
             <PathTab
-              title={data.title}
-              walkedDay={data.walkedDay}
+              trailRegion={data.trailRegion}
+              trailTitle={data.trailTitle}
               trailId={data.trailId}
             />
           );
