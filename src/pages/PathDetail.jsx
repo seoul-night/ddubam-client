@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CourseHeader from "../components/CourseHeader";
 import styled from "styled-components";
 import emptylike from "../assets/icons/emptylike.png";
@@ -95,9 +95,34 @@ const CenterDiv = styled.div`
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
   const trailId = useParams();
-  // console.log(trailId);
+  console.log(trailId);
 
   const [liked, setLike] = useState(false);
+  const [fetchedData, setFetchedData] = useState({});
+
+  useEffect(() => {
+    fetch("http://13.124.30.111:8080/walks/1")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  // useEffect(() => {
+  //   fetch("http://13.124.30.111:8080/walks/1")
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error(
+  //           `Network response was not ok, status: ${response.status}`
+  //         );
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was a problem with the fetch operation:", error);
+  //     });
+  // }, []);
 
   const dummyData = {
     status: 200,
@@ -112,6 +137,11 @@ const PathDetail = () => {
       trailTime: 4,
       trailLevel: "초급",
     },
+  };
+
+  const sendingData = {
+    userId: 1,
+    trailId: 1,
   };
 
   return (
@@ -161,6 +191,21 @@ const PathDetail = () => {
                 alt="Like"
                 onClick={() => {
                   setLike(!liked);
+                  fetch("http://13.124.30.111:8080/members/walks/select", {
+                    method: "POST", // HTTP 메소드 지정
+                    headers: {
+                      "Content-Type": "application/json", // 컨텐츠 타입 헤더 설정
+                    },
+                    body: JSON.stringify(sendingData), // 보낼 데이터를 JSON 문자열로 변환
+                  })
+                    .then((response) => {
+                      if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                      }
+                      return response.json(); // 응답을 JSON 형태로 파싱
+                    })
+                    .then((data) => console.log("Success:", data)) // 성공 처리 로직
+                    .catch((error) => console.error("Error:", error)); // 오류 처리
                 }}
               />
             ) : (
@@ -169,6 +214,22 @@ const PathDetail = () => {
                 alt="Like"
                 onClick={() => {
                   setLike(!liked);
+
+                  fetch("http://13.124.30.111:8080/members/walks/select", {
+                    method: "DELETE", // HTTP 메소드 지정
+                    headers: {
+                      "Content-Type": "application/json", // 컨텐츠 타입 헤더 설정
+                    },
+                    body: JSON.stringify(sendingData), // 보낼 데이터를 JSON 문자열로 변환
+                  })
+                    .then((response) => {
+                      if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                      }
+                      return response.json(); // 응답을 JSON 형태로 파싱
+                    })
+                    .then((data) => console.log("Success:", data)) // 성공 처리 로직
+                    .catch((error) => console.error("Error:", error)); // 오류 처리
                 }}
               />
             )}
