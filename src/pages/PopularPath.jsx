@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CourseHeader from "../components/CourseHeader";
 import Notice from "../components/Notice";
@@ -17,6 +17,17 @@ const HomeWrapper = styled.div`
 const Paths = styled.ul``;
 
 const PopularPath = () => {
+  const [fetchedData, setFetchedData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://13.124.30.111:8080/walks/popular")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setFetchedData(data);
+      });
+  }, []);
+
   const dummyDatas = [
     {
       trailId: 1,
@@ -129,7 +140,7 @@ const PopularPath = () => {
       <CourseHeader headerText="인기 있는" location={"서울 송파구"} />
       <Notice />
       <Paths>
-        {dummyDatas.map((data) => {
+        {/* {dummyDatas.map((data) => {
           return (
             <PathLi
               key={data.trailId}
@@ -144,6 +155,18 @@ const PopularPath = () => {
               hashTag1={data.hashTag1}
               hashTag2={data.hashTag2}
               hashTag3={data.hashTag3}
+            />
+          );
+        })} */}
+        {fetchedData.map((data) => {
+          return (
+            <PathLi
+              image={data.image}
+              title={data.title}
+              detail={data.detail}
+              time={data.time}
+              distance={data.distance}
+              region={data.region}
             />
           );
         })}
