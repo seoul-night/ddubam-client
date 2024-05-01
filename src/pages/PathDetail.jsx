@@ -103,26 +103,13 @@ const PathDetail = () => {
   useEffect(() => {
     fetch("http://13.124.30.111:8080/walks/1")
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setFetchedData(data);
+        // console.log(data);
+      });
   }, []);
 
-  // useEffect(() => {
-  //   fetch("http://13.124.30.111:8080/walks/1")
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error(
-  //           `Network response was not ok, status: ${response.status}`
-  //         );
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("There was a problem with the fetch operation:", error);
-  //     });
-  // }, []);
+  console.log(fetchedData);
 
   const dummyData = {
     status: 200,
@@ -160,24 +147,22 @@ const PathDetail = () => {
       </div>
       <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
         <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
-          {dummyData.data.trailRegion}
+          {fetchedData.title}
         </WhiteText1>
-        <GrayText1 style={{ fontSize: "14px" }}>
-          {dummyData.data.detail}
-        </GrayText1>
+        <GrayText1 style={{ fontSize: "14px" }}>{fetchedData.detail}</GrayText1>
       </Wrap>
       <Wrap>
         <DetailWrap>
           <WhiteText2>총 산책거리</WhiteText2>
-          <GrayText2>{dummyData.data.trailDistance}km</GrayText2>
+          <GrayText2>{fetchedData.distance}km</GrayText2>
         </DetailWrap>
         <DetailWrap>
           <WhiteText2>소요시간</WhiteText2>
-          <GrayText2>{dummyData.data.trailTime}시간</GrayText2>
+          <GrayText2>{fetchedData.time}시간</GrayText2>
         </DetailWrap>
         <DetailWrap>
           <WhiteText2>코스 레벨</WhiteText2>
-          <GrayText2>{dummyData.data.trailLevel}</GrayText2>
+          <GrayText2>{fetchedData.level}</GrayText2>
         </DetailWrap>
       </Wrap>
 

@@ -235,51 +235,56 @@ const Walking = () => {
         </CloseModal>
       )}
 
-      <ReviewModal>
-        <Wrapper style={{ textAlign: "center", justifySelf: "flex-start" }}>
-          <Text
-            style={{
-              color: "#F6F8FA",
-              fontSize: "18px",
+      {!reviewModalOpen ? null : (
+        <ReviewModal>
+          <Wrapper style={{ textAlign: "center", justifySelf: "flex-start" }}>
+            <Text
+              style={{
+                color: "#F6F8FA",
+                fontSize: "18px",
 
-              marginBottom: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              산책을 완료했어요! <img src={clap} />
+            </Text>
+            <Text
+              style={{ fontSize: "14px", color: "#B4B4C2", lineHeight: "24px" }}
+            >
+              한 줄 리뷰를 작성해 보세요
+            </Text>
+            <Text
+              style={{ fontSize: "14px", color: "#B4B4C2", lineHeight: "24px" }}
+            >
+              나의 밤산책을 되돌아 볼 수 있어요
+            </Text>
+          </Wrapper>
+          <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
+          <ModalBtn
+            onClick={() => {
+              navigate("/home");
+            }}
+            style={{
+              backgroundColor: "#5A5A76",
+              padding: "16px",
+              width: "100%",
             }}
           >
-            산책을 완료했어요! <img src={clap} />
-          </Text>
-          <Text
-            style={{ fontSize: "14px", color: "#B4B4C2", lineHeight: "24px" }}
-          >
-            한 줄 리뷰를 작성해 보세요
-          </Text>
-          <Text
-            style={{ fontSize: "14px", color: "#B4B4C2", lineHeight: "24px" }}
-          >
-            나의 밤산책을 되돌아 볼 수 있어요
-          </Text>
-        </Wrapper>
-
-        <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
-        <ModalBtn
-          onClick={() => {
-            navigate("/home");
-          }}
-          style={{ backgroundColor: "#5A5A76", padding: "16px", width: "100%" }}
-        >
-          리뷰 작성 완료
-        </ModalBtn>
-        <Link to="/home">
-          <Text
-            style={{
-              color: "#B4B4C2",
-              fontSize: "12px",
-              textDecoration: "underline ",
-            }}
-          >
-            나중에 할래요
-          </Text>
-        </Link>
-      </ReviewModal>
+            리뷰 작성 완료
+          </ModalBtn>
+          <Link to="/home">
+            <Text
+              style={{
+                color: "#B4B4C2",
+                fontSize: "12px",
+                textDecoration: "underline ",
+              }}
+            >
+              나중에 할래요
+            </Text>
+          </Link>
+        </ReviewModal>
+      )}
 
       <img
         src={close}
@@ -305,7 +310,13 @@ const Walking = () => {
         </CircleSmall>
       </CircleBig>
       <Wrapper>
-        <Button>산책 완료하기</Button>
+        <Button
+          onClick={() => {
+            setReviewModalOpen(true);
+          }}
+        >
+          산책 완료하기
+        </Button>
         <OtherCourse
           onClick={() => {
             navigate(-1);
