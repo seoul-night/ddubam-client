@@ -53,30 +53,29 @@ const HashTag = styled.span`
 `;
 
 const PathLi = ({
-  trailId,
+  detail,
+  id,
+  distance,
+  image,
   latitudeList,
   longitudeList,
-  trailRegion,
-  trailDistance,
-  detail,
   rating,
-  trailImage,
-  hashTag1,
-  hashTag2,
-  hashTag3,
+  region,
+  time,
+  title,
 }) => {
   return (
     <Info>
       {/* 동적 경로 설정 */}
-      <Link to={`/pathdetail/${trailId}`}>
+      <Link to={`/pathdetail/${id}`}>
         <div style={{ display: "flex" }}>
-          <Pic backgroundImage={trailImage} />
+          <Pic backgroundImage={image} />
           <TextWrap>
-            <PathName>{trailRegion}</PathName>
+            <PathName>{title}</PathName>
             <PathDesc>{detail}</PathDesc>
-            <HashTag>{hashTag1}</HashTag>
-            <HashTag>{hashTag2}</HashTag>
-            <HashTag>{hashTag3}</HashTag>
+            <HashTag>#{time}시간</HashTag>
+            <HashTag>#{distance}km</HashTag>
+            <HashTag>#{region}</HashTag>
           </TextWrap>
         </div>
       </Link>

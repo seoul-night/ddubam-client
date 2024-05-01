@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import BlackWrapper from "../components/BlackWrapper";
@@ -18,12 +18,23 @@ const HomeWrapper = styled.div`
 const Paths = styled.ul``;
 
 const NearbyPath = () => {
+  const [fetchedData, setFetchedData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://13.124.30.111:8080/walks/near/32.123/122.123")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setFetchedData(data);
+      });
+  }, []);
+
   return (
     <HomeWrapper className="NearbyPath">
       <CourseHeader headerText={"현 위치 기반"} location={"서울 송파구"} />
       <Notice />
       <Paths>
-        <PathLi
+        {/* <PathLi
           courseName="낙산공원"
           detail="한양도성과 숲이 어우러져 서울 야경이 아름다운 공원"
           hashTag1="#1시간"
@@ -43,7 +54,19 @@ const NearbyPath = () => {
           hashTag1="#1시간"
           hashTag2="#4km"
           hashTag3="#송파구"
-        />
+        /> */}
+        {fetchedData.map((data) => {
+          return (
+            <PathLi
+              image={data.image}
+              title={data.title}
+              detail={data.detail}
+              time={data.time}
+              distance={data.distance}
+              region={data.region}
+            />
+          );
+        })}
       </Paths>
     </HomeWrapper>
   );
