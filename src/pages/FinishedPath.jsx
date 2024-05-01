@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/Header";
 import complete from "../assets/icons/complete.png";
 import chevronLeft from "../assets/icons/chevronLeft.png";
-import PathTab from "../components/FinishedTab";
+// import PathTab from "../components/FinishedTab";
+import FinishedTab from "../components/FinishedTab";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -110,10 +111,10 @@ const FinishedPath = ({}) => {
         /> */}
         {fetchedDatas.map((data) => {
           return (
-            <PathTab
+            <FinishedTab
               trailId={data.trailId}
               walkedDate={data.walkedDate}
-              title={data.title}
+              trailTitle={data.trailTitle}
               review={data.review}
             />
           );
