@@ -95,7 +95,7 @@ const CenterDiv = styled.div`
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
   const trailId = useParams();
-  console.log(trailId);
+  // console.log(trailId);
 
   const [liked, setLike] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
@@ -109,7 +109,7 @@ const PathDetail = () => {
       });
   }, []);
 
-  console.log(fetchedData);
+  // console.log(fetchedData);
 
   const dummyData = {
     status: 200,
@@ -129,6 +129,32 @@ const PathDetail = () => {
   const sendingData = {
     userId: 1,
     trailId: 1,
+  };
+
+  const toggleLike = () => {
+    const method = liked ? "DELETE" : "POST";
+    setLike(!liked); // Optimistically update the UI
+
+    fetch("http://13.124.30.111:8080/members/walks/select", {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendingData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLike(!liked); // Revert the UI update on error
+      });
   };
 
   return (
@@ -170,7 +196,7 @@ const PathDetail = () => {
         <CenterDiv>
           {/* 클릭시 서버 통신 로직 추후 추가 */}
           <div style={{ textAlign: "center" }}>
-            {liked == false ? (
+            {/* {liked == false ? (
               <img
                 src={emptylike}
                 alt="Like"
@@ -217,7 +243,12 @@ const PathDetail = () => {
                     .catch((error) => console.error("Error:", error)); // 오류 처리
                 }}
               />
-            )}
+            )} */}
+            <img
+              src={liked ? like : emptylike}
+              alt="Like"
+              onClick={toggleLike}
+            />
             <GrayText2>찜</GrayText2>
           </div>
         </CenterDiv>

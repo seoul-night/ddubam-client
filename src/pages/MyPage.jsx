@@ -143,7 +143,7 @@ const MyPage = () => {
               <Text>{userData.nickName}</Text>
             </h2>
             <h4>
-              <Text>산책러 Lv.{userData.exp / 100}</Text>
+              <Text>산책러 Lv. {parseInt(userData.exp / 100)}</Text>
             </h4>
           </TextWrap>
         </ProfileWrap>
