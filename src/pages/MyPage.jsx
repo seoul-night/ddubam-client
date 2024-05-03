@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
 import CourseHeader from "../components/CourseHeader";
@@ -61,6 +61,15 @@ const TextWrap = styled.div`
   justify-content: space-evenly;
 `;
 
+const fillAnimation = keyframes`
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--progress-width);
+  }
+`;
+
 const ProgressBar = styled.div`
   width: 100%;
   height: 7px;
@@ -76,6 +85,7 @@ const Progress = styled.div`
   position: absolute;
   border-radius: 3px;
   background-color: #5e66ff;
+  animation: ${fillAnimation} 1s ease-out forwards;
 `;
 
 const Text = styled.h2`
@@ -129,6 +139,7 @@ const Badge = styled.div`
 const MyPage = () => {
   const navigate = useNavigate();
   const userData = useRecoilValue(userDataState);
+  const progressWidth = userData.exp % 100;
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>
@@ -152,7 +163,7 @@ const MyPage = () => {
             현재 산책 진행률 {userData.exp % 100}%
           </h3>
           <ProgressBar>
-            <Progress style={{ width: `${userData.exp % 100}%` }} />
+            <Progress style={{ "--progress-width": `${progressWidth}%` }} />
           </ProgressBar>
         </div>
         <Tab

@@ -124,6 +124,10 @@ const Onboarding = () => {
     };
 
     fetchData();
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+    });
   }, [setUserData]);
 
   // setUserData(fetchedData);
