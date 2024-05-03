@@ -100,18 +100,22 @@ const PathDetail = () => {
 
   const [liked, setLike] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://13.124.30.111:8080/walks/1")
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
-        console.log("산책 코스 정보 :");
-        console.log(data);
+        setLoading(false);
+        // console.log("산책 코스 정보 :");
+        // console.log(data);
       });
   }, []);
 
-  // console.log(fetchedData);
+  if (!loading) {
+    console.log("fetchedData:", fetchedData);
+  }
 
   // const dummyData = {
   //   status: 200,
@@ -170,7 +174,12 @@ const PathDetail = () => {
           marginRight: "-20px",
         }}
       >
-        <KakaoMap />
+        {fetchedData.latitudeList && fetchedData.longitudeList && (
+          <KakaoMap
+            latitudeList={fetchedData.latitudeList}
+            longitudeList={fetchedData.longitudeList}
+          />
+        )}
       </div>
       <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
         <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>

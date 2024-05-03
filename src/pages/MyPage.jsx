@@ -264,7 +264,12 @@ const MyPage = () => {
           </Tab>
         </TabWrap>
         <LogWrap>
-          <Text style={{ fontSize: "14px", color: "#F6F8FA", height: "20px" }}>
+          <Text
+            style={{ fontSize: "14px", color: "#F6F8FA", height: "20px" }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             로그아웃
           </Text>
           <Text
