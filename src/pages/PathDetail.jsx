@@ -105,7 +105,8 @@ const PathDetail = () => {
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
-        // console.log(data);
+        console.log("산책 코스 정보 :");
+        console.log(data);
       });
   }, []);
 
@@ -133,7 +134,6 @@ const PathDetail = () => {
 
   const toggleLike = () => {
     const method = liked ? "DELETE" : "POST";
-    setLike(!liked); // Optimistically update the UI
 
     fetch("http://13.124.30.111:8080/members/walks/select", {
       method: method,
@@ -150,10 +150,10 @@ const PathDetail = () => {
       })
       .then((data) => {
         console.log("Success:", data);
+        setLike(!liked); // 요청이 성공하면 상태 변경
       })
       .catch((error) => {
         console.error("Error:", error);
-        setLike(!liked); // Revert the UI update on error
       });
   };
 

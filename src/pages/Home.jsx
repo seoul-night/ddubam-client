@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullseye } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ import homeColored from "../assets/icons/homeColored.png";
 import My from "../assets/icons/My.png";
 import wave from "../assets/wave.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userDataState } from "../atoms";
 
 const HomeWrapper = styled.div`
@@ -144,8 +144,24 @@ const Badge = styled.h4`
 `;
 
 const Home = () => {
-  const userData = useRecoilValue(userDataState);
+  const userData1 = useRecoilValue(userDataState);
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useRecoilState(userDataState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://13.124.30.111:8080/members/1");
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+
+    fetchData();
+  }, [setUserData]);
   const walks = [
     {
       location: "서울 종로구",
@@ -160,7 +176,8 @@ const Home = () => {
       backgroundImage: wave,
     },
   ];
-  console.log(userData.nickName);
+
+  console.log(userData1);
   return (
     <HomeWrapper className="Home">
       {/* 백그라운드 이미지 */}

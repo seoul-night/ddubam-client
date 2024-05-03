@@ -19,6 +19,16 @@ const HomeWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const Nothing = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #91919c;
+`;
+
 const Finish = styled.span`
   color: #91919c;
   font-size: 14px;
@@ -51,38 +61,38 @@ const FinishedPath = ({}) => {
 
   console.log(fetchedDatas);
 
-  const dummyDatas = [
-    {
-      walkedDate: "2024.04.19",
-      title: "산책로 4", // API에서는 산책로의 ID만 제공되므로 예제 목적으로 "산책로 {ID}" 형태로 제목을 생성했습니다.
-      review: "산책로에 대한 리뷰1", // API 응답의 review 필드를 사용
-      trailId: 4,
-    },
-    {
-      walkedDate: "2024.04.20",
-      title: "산책로 5",
-      review: "산책로에 대한 리뷰2",
-      trailId: 4,
-    },
-    {
-      walkedDate: "2023.06.25",
-      title: "난지 갈대 바람길",
-      review: "이 산책로 너무 맘에 든다",
-      trailId: 4,
-    },
-    {
-      walkedDate: "2023.06.29",
-      title: "잠실어도 탐방길",
-      review:
-        "여기서 물고기 봤다. 대박이다. 엄청 많아서 놀랐다. 다음번에도 또 와야겠다",
-    },
-    {
-      walkedDate: "2024.01.01",
-      title: "잠원 산책길",
-      review: "굿굿~",
-      trailId: 4,
-    },
-  ];
+  // const dummyDatas = [
+  //   {
+  //     walkedDate: "2024.04.19",
+  //     title: "산책로 4", // API에서는 산책로의 ID만 제공되므로 예제 목적으로 "산책로 {ID}" 형태로 제목을 생성했습니다.
+  //     review: "산책로에 대한 리뷰1", // API 응답의 review 필드를 사용
+  //     trailId: 4,
+  //   },
+  //   {
+  //     walkedDate: "2024.04.20",
+  //     title: "산책로 5",
+  //     review: "산책로에 대한 리뷰2",
+  //     trailId: 4,
+  //   },
+  //   {
+  //     walkedDate: "2023.06.25",
+  //     title: "난지 갈대 바람길",
+  //     review: "이 산책로 너무 맘에 든다",
+  //     trailId: 4,
+  //   },
+  //   {
+  //     walkedDate: "2023.06.29",
+  //     title: "잠실어도 탐방길",
+  //     review:
+  //       "여기서 물고기 봤다. 대박이다. 엄청 많아서 놀랐다. 다음번에도 또 와야겠다",
+  //   },
+  //   {
+  //     walkedDate: "2024.01.01",
+  //     title: "잠원 산책길",
+  //     review: "굿굿~",
+  //     trailId: 4,
+  //   },
+  // ];
 
   return (
     <HomeWrapper className="FinishedPath">
@@ -109,16 +119,20 @@ const FinishedPath = ({}) => {
           title={"잠원 산책길"}
           description={"굿굿~"}
         /> */}
-        {fetchedDatas.map((data) => {
-          return (
-            <FinishedTab
-              trailId={data.trailId}
-              walkedDate={data.walkedDate}
-              trailTitle={data.trailTitle}
-              review={data.review}
-            />
-          );
-        })}
+        {fetchedDatas == [] ? (
+          <Nothing>완료한 산책 코스가 없어요</Nothing>
+        ) : (
+          fetchedDatas.map((data) => {
+            return (
+              <FinishedTab
+                trailId={data.trailId}
+                walkedDate={data.walkedDate}
+                trailTitle={data.trailTitle}
+                review={data.review}
+              />
+            );
+          })
+        )}
       </PathList>
     </HomeWrapper>
   );

@@ -18,6 +18,16 @@ const HomeWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const Nothing = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #91919c;
+`;
+
 const Finish = styled.span`
   color: #91919c;
   font-size: 14px;
@@ -87,15 +97,19 @@ const LikedPath = ({ finishCnt }) => {
       <PathList>
         {/* <PathTab date={"2023.06.25"} title={"난지 갈대 바람길"} />
         <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} /> */}
-        {fetchedDatas.map((data) => {
-          return (
-            <LikedTab
-              trailRegion={data.trailRegion}
-              trailTitle={data.trailTitle}
-              trailId={data.trailId}
-            />
-          );
-        })}
+        {fetchedDatas.length === 0 ? (
+          <Nothing>찜한 산책 코스가 없어요</Nothing>
+        ) : (
+          fetchedDatas.map((data) => {
+            return (
+              <LikedTab
+                trailRegion={data.trailRegion}
+                trailTitle={data.trailTitle}
+                trailId={data.trailId}
+              />
+            );
+          })
+        )}
       </PathList>
     </HomeWrapper>
   );
