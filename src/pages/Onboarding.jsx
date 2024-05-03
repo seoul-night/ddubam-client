@@ -53,9 +53,10 @@ const StartBtn = styled.button`
   border: none;
   /* border: none; */
   p {
-    color: #b7c0c6;
+    color: ${(props) => (props.active ? "white" : "#b7c0c6")};
     font-size: 16px;
   }
+  transition: all 0.3s ease-in-out;
 `;
 
 const BtnWrap = styled.div`
