@@ -4,6 +4,7 @@ import styled from "styled-components";
 import emptylike from "../assets/icons/emptylike.png";
 import like from "../assets/icons/like.png";
 import { useParams } from "react-router-dom";
+import KakaoMap from "../components/KakaoMap";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -112,20 +113,20 @@ const PathDetail = () => {
 
   // console.log(fetchedData);
 
-  const dummyData = {
-    status: 200,
-    message: "요청이 성공했습니다.",
-    data: {
-      trailId: 5,
-      trailRegion: "산책로 지역1",
-      latitudeList: [55.1, 33.2],
-      longitudeList: [133.1, 134.2],
-      detail: "산책로에 대한 정보1",
-      trailDistance: 4.3,
-      trailTime: 4,
-      trailLevel: "초급",
-    },
-  };
+  // const dummyData = {
+  //   status: 200,
+  //   message: "요청이 성공했습니다.",
+  //   data: {
+  //     trailId: 5,
+  //     trailRegion: "산책로 지역1",
+  //     latitudeList: [55.1, 33.2],
+  //     longitudeList: [133.1, 134.2],
+  //     detail: "산책로에 대한 정보1",
+  //     trailDistance: 4.3,
+  //     trailTime: 4,
+  //     trailLevel: "초급",
+  //   },
+  // };
 
   const sendingData = {
     userId: 1,
@@ -169,7 +170,7 @@ const PathDetail = () => {
           marginRight: "-20px",
         }}
       >
-        지도 or 사진 들어갈 곳
+        <KakaoMap />
       </div>
       <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
         <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
@@ -196,54 +197,6 @@ const PathDetail = () => {
         <CenterDiv>
           {/* 클릭시 서버 통신 로직 추후 추가 */}
           <div style={{ textAlign: "center" }}>
-            {/* {liked == false ? (
-              <img
-                src={emptylike}
-                alt="Like"
-                onClick={() => {
-                  setLike(!liked);
-                  fetch("http://13.124.30.111:8080/members/walks/select", {
-                    method: "POST", // HTTP 메소드 지정
-                    headers: {
-                      "Content-Type": "application/json", // 컨텐츠 타입 헤더 설정
-                    },
-                    body: JSON.stringify(sendingData), // 보낼 데이터를 JSON 문자열로 변환
-                  })
-                    .then((response) => {
-                      if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                      }
-                      return response.json(); // 응답을 JSON 형태로 파싱
-                    })
-                    .then((data) => console.log("Success:", data)) // 성공 처리 로직
-                    .catch((error) => console.error("Error:", error)); // 오류 처리
-                }}
-              />
-            ) : (
-              <img
-                src={like}
-                alt="Like"
-                onClick={() => {
-                  setLike(!liked);
-
-                  fetch("http://13.124.30.111:8080/members/walks/select", {
-                    method: "DELETE", // HTTP 메소드 지정
-                    headers: {
-                      "Content-Type": "application/json", // 컨텐츠 타입 헤더 설정
-                    },
-                    body: JSON.stringify(sendingData), // 보낼 데이터를 JSON 문자열로 변환
-                  })
-                    .then((response) => {
-                      if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                      }
-                      return response.json(); // 응답을 JSON 형태로 파싱
-                    })
-                    .then((data) => console.log("Success:", data)) // 성공 처리 로직
-                    .catch((error) => console.error("Error:", error)); // 오류 처리
-                }}
-              />
-            )} */}
             <img
               src={liked ? like : emptylike}
               alt="Like"

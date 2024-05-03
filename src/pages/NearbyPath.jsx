@@ -24,6 +24,7 @@ const NearbyPath = () => {
     fetch("http://13.124.30.111:8080/walks/near/32.123/122.123")
       .then((response) => response.json())
       .then((data) => {
+        console.log("현 위치 기반 :");
         console.log(data);
         setFetchedData(data);
       });
@@ -58,6 +59,7 @@ const NearbyPath = () => {
         {fetchedData.map((data) => {
           return (
             <PathLi
+              key={data.trailId}
               image={data.image}
               title={data.title}
               detail={data.detail}

@@ -6,7 +6,6 @@ import {
   faCircle,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSwipeable } from "react-swipeable";
 import onboard1 from "../assets/onboard1.png";
 import onboard2 from "../assets/onboard2.png";
 import { useNavigate } from "react-router-dom";
@@ -103,7 +102,7 @@ const Onboard1 = styled.div`
   z-index: 2;
   position: absolute;
   /* padding: 0; */
-  bottom: 0;
+  bottom: -3px;
   left: 0;
   width: 100%;
   transition: transform 0.3s ease-out; // 슬라이드 전환 효과
@@ -112,7 +111,7 @@ const Onboard1 = styled.div`
 const Onboard2 = styled.div`
   z-index: 2;
   position: absolute;
-  bottom: 0;
+  bottom: -3px;
   left: 100%;
   width: 100%;
   transition: transform 0.3s ease-out; // 슬라이드 전환 효과
@@ -129,8 +128,6 @@ const Onboarding = () => {
   const [userData, setUserData] = useRecoilState(userDataState);
   const [geoData, setGeoData] = useRecoilState(geolocationState);
   const [currentPage, setCurrentPage] = useState(0);
-  const [leftPage, setLeftPage] = useState(true); //chevron Left
-  const [rightPage, setRightPage] = useState(false); //chevron Right
 
   const handleNext = () => {
     setCurrentPage(1); // 다음 페이지로 이동
@@ -152,8 +149,10 @@ const Onboarding = () => {
       try {
         const response = await fetch("http://13.124.30.111:8080/members/1");
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setUserData(data);
+        console.log("유저 데이터 :");
+        console.log(userData);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -170,10 +169,6 @@ const Onboarding = () => {
       console.log(geoData);
     });
   }, [setUserData, setGeoData]);
-
-  // setUserData(fetchedData);
-  // console.log(userData.nickName);
-  // console.log(userData.exp);
 
   const navigate = useNavigate();
 
