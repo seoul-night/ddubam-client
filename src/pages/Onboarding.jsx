@@ -8,7 +8,7 @@ import onboard1 from "../assets/onboard1.png";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { nickNameState, userDataState } from "../atoms";
+import { geolocationState, nickNameState, userDataState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -111,12 +111,14 @@ const Cloud2 = styled.div`
 
 const Onboarding = () => {
   const [userData, setUserData] = useRecoilState(userDataState);
+  const [geoData, setGeoData] = useRecoilState(geolocationState);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("http://13.124.30.111:8080/members/1");
         const data = await response.json();
+        console.log(data);
         setUserData(data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
@@ -126,13 +128,18 @@ const Onboarding = () => {
     fetchData();
 
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
+      // console.log(position);
+      setGeoData({
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude,
+      });
+      console.log(geoData);
     });
-  }, [setUserData]);
+  }, [setUserData, setGeoData]);
 
   // setUserData(fetchedData);
-  console.log(userData.nickName);
-  console.log(userData.exp);
+  // console.log(userData.nickName);
+  // console.log(userData.exp);
 
   const navigate = useNavigate();
   return (
