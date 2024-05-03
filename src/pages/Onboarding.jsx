@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import cloud1 from "../assets/cloud1.png";
-import cloud2 from "../assets/cloud1.png";
+import {
+  faChevronRight,
+  faCircle,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { useSwipeable } from "react-swipeable";
 import onboard1 from "../assets/onboard1.png";
-import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+import onboard2 from "../assets/onboard2.png";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { geolocationState, nickNameState, userDataState } from "../atoms";
@@ -30,18 +33,25 @@ const Dot = styled.i`
   color: white;
   font-size: 6px;
   margin: 2px;
-  /* color:#464B53; */
+  /* color: #464b53; */
+`;
+
+const GrayDot = styled.i`
+  font-size: 6px;
+  margin: 2px;
+  color: #464b53;
 `;
 
 const StartBtn = styled.button`
   width: 320px;
   height: 56px;
   text-align: center;
-  background-color: #464b53;
+  background-color: ${(props) => (props.active ? "#5E66FF" : "#464b53")};
   border-radius: 10px;
   margin: auto;
   z-index: 3;
-
+  cursor: ${(props) => (props.active ? "pointer" : "default")};
+  border: none;
   /* border: none; */
   p {
     color: #b7c0c6;
@@ -81,37 +91,61 @@ const SubWrap = styled.div`
 const ViewWrapper = styled.div`
   width: 200%;
   display: flex;
+  transform: translateX(${(props) => props.offset}%);
+  transition: transform 0.3s ease-out;
 `;
 
 const View = styled.div`
   width: 100%;
 `;
 
-const Cloud1 = styled.div`
-  z-index: 2;
-  position: absolute;
-  bottom: -50px;
-  left: -50px;
-`;
-
 const Onboard1 = styled.div`
   z-index: 2;
   position: absolute;
-  bottom: -50px;
-  left: -20px;
+  /* padding: 0; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 0.3s ease-out; // 슬라이드 전환 효과
+  transform: translateX(${(props) => props.offset}%);
 `;
-
-const Cloud2 = styled.div`
-  z-index: 1;
+const Onboard2 = styled.div`
+  z-index: 2;
   position: absolute;
   bottom: 0;
-  bottom: -80px;
-  left: -180px;
+  left: 100%;
+  width: 100%;
+  transition: transform 0.3s ease-out; // 슬라이드 전환 효과
+  transform: translateX(${(props) => props.offset}%);
+`;
+
+const Chevron = styled.i`
+  color: #b7c0c6;
+  font-size: 20px;
+  position: absolute;
 `;
 
 const Onboarding = () => {
   const [userData, setUserData] = useRecoilState(userDataState);
   const [geoData, setGeoData] = useRecoilState(geolocationState);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [leftPage, setLeftPage] = useState(true); //chevron Left
+  const [rightPage, setRightPage] = useState(false); //chevron Right
+
+  const handleNext = () => {
+    setCurrentPage(1); // 다음 페이지로 이동
+  };
+
+  const handlePrev = () => {
+    setCurrentPage(0); // 이전 페이지로 이동
+  };
+
+  const handleStartClick = () => {
+    if (currentPage === 1) {
+      // currentPage가 1일 때만 홈 페이지로 이동
+      navigate("/home");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -142,17 +176,29 @@ const Onboarding = () => {
   // console.log(userData.exp);
 
   const navigate = useNavigate();
+
   return (
     <HomeWrapper className="Home">
-      <DotWrapper>
-        <Dot>
-          <FontAwesomeIcon icon={faCircle} />
-        </Dot>
-        <Dot>
-          <FontAwesomeIcon icon={faCircle} />
-        </Dot>
-      </DotWrapper>
-      <ViewWrapper>
+      {currentPage == 0 ? (
+        <DotWrapper>
+          <Dot>
+            <FontAwesomeIcon icon={faCircle} />
+          </Dot>
+          <GrayDot>
+            <FontAwesomeIcon icon={faCircle} />
+          </GrayDot>
+        </DotWrapper>
+      ) : (
+        <DotWrapper>
+          <GrayDot>
+            <FontAwesomeIcon icon={faCircle} />
+          </GrayDot>
+          <Dot>
+            <FontAwesomeIcon icon={faCircle} />
+          </Dot>
+        </DotWrapper>
+      )}
+      <ViewWrapper offset={-50 * currentPage}>
         <View>
           <MainText>저녁식사 후 </MainText>
           <MainText>산책 한 번 어때요?</MainText>
@@ -163,29 +209,36 @@ const Onboarding = () => {
           </SubWrap>
         </View>
         <View>
-          <MainText>저녁식사 후 </MainText>
-          <MainText>산책 한 번 어때요?</MainText>
+          <MainText>안전한 밤산책은 </MainText>
+          <MainText>뚜밤뚜밤과 함께</MainText>
           <SubWrap>
-            <SubText>잠자기 전 가볍게 걸어보세요.</SubText>
-            <SubText>스트레스가 줄고 교감 신경계가 진정되어</SubText>
-            <SubText>수면에 도움을 줍니다.</SubText>
+            <SubText>안전한 밤산책 서비스, 뚜밤뚜밤!</SubText>
+            <SubText>CCTV와 가로등을 기반으로</SubText>
+            <SubText>산책코스를 추천해 드려요</SubText>
           </SubWrap>
         </View>
       </ViewWrapper>
-      {/* <Cloud1>
-        <img src={cloud1} alt="description" />
-      </Cloud1>
-      <Cloud2>
-        <img src={cloud2} alt="description" width={"800px"} />
-      </Cloud2> */}
-      <Onboard1>
+      <Onboard1 offset={-100 * currentPage}>
         <img src={onboard1} style={{ width: "100%" }} />
       </Onboard1>
+      <Onboard2 offset={-100 * currentPage}>
+        <img src={onboard2} style={{ width: "100%" }} />
+      </Onboard2>
+      {currentPage === 0 && (
+        <Chevron style={{ bottom: "50%", right: "20px" }} onClick={handleNext}>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </Chevron>
+      )}
+      {currentPage === 1 && (
+        <Chevron style={{ bottom: "50%" }} onClick={handlePrev}>
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </Chevron>
+      )}
+
       <BtnWrap>
         <StartBtn
-          onClick={() => {
-            navigate("/home");
-          }}
+          onClick={handleStartClick}
+          active={currentPage === 1} // 현재 페이지가 1이면 활성화
         >
           <p>밤산책 시작하기</p>
         </StartBtn>
