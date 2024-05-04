@@ -209,6 +209,8 @@ const Walking = () => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [reviewText, setReviewText] = useState("");
+
   useEffect(() => {
     fetch("http://13.124.30.111:8080/walks/1")
       .then((response) => response.json())
@@ -226,6 +228,31 @@ const Walking = () => {
     // 컴포넌트 언마운트 시 인터벌 정리
     return () => clearInterval(interval);
   }, []);
+
+  const submitReview = () => {
+    const postData = {
+      userId: 1,
+      trailId: 1,
+      review: reviewText,
+    };
+
+    fetch("http://13.124.30.111:8080/members/walks/complete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        setReviewModalOpen(false);
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <HomeWrapper className="All">
@@ -364,9 +391,7 @@ const Walking = () => {
           </Wrapper>
           <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
           <ModalBtn
-            onClick={() => {
-              navigate("/home");
-            }}
+            onClick={submitReview}
             style={{
               backgroundColor: "#5E66FF",
               padding: "16px",
