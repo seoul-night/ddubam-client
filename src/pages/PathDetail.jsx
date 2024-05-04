@@ -3,7 +3,7 @@ import CourseHeader from "../components/CourseHeader";
 import styled from "styled-components";
 import emptylike from "../assets/icons/emptylike.png";
 import like from "../assets/icons/like.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
 
 const HomeWrapper = styled.div`
@@ -95,7 +95,9 @@ const CenterDiv = styled.div`
 `;
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
-  const trailId = useParams();
+  const { id } = useParams();
+  console.log("trailId:", id);
+  const navigate = useNavigate();
   // console.log(trailId);
 
   const [liked, setLike] = useState(false);
@@ -108,29 +110,13 @@ const PathDetail = () => {
       .then((data) => {
         setFetchedData(data);
         setLoading(false);
-        // console.log("산책 코스 정보 :");
-        // console.log(data);
+        console.log("산책 코스 정보 :", data);
       });
   }, []);
 
   if (!loading) {
     console.log("fetchedData:", fetchedData);
   }
-
-  // const dummyData = {
-  //   status: 200,
-  //   message: "요청이 성공했습니다.",
-  //   data: {
-  //     trailId: 5,
-  //     trailRegion: "산책로 지역1",
-  //     latitudeList: [55.1, 33.2],
-  //     longitudeList: [133.1, 134.2],
-  //     detail: "산책로에 대한 정보1",
-  //     trailDistance: 4.3,
-  //     trailTime: 4,
-  //     trailLevel: "초급",
-  //   },
-  // };
 
   const sendingData = {
     userId: 1,
@@ -214,7 +200,14 @@ const PathDetail = () => {
             <GrayText2>찜</GrayText2>
           </div>
         </CenterDiv>
-        <Button style={{ marginLeft: "auto" }}>산책 시작하기</Button>
+        <Button
+          style={{ marginLeft: "auto" }}
+          onClick={() => {
+            navigate(`/walking/${id}`);
+          }}
+        >
+          산책 시작하기
+        </Button>
       </Footer>
     </HomeWrapper>
   );

@@ -32,7 +32,7 @@ function App() {
         <Route path="/liked" element={<LikedPath />} />
         <Route path="/popular" element={<PopularPath />} />
         <Route path="/pathdetail/:id" element={<PathDetail />} />
-        <Route path="/walking" element={<Walking />} />
+        <Route path="/walking/:trailId" element={<Walking />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

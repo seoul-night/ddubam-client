@@ -14,6 +14,10 @@ const Head = styled.div`
   padding-right: 0px;
   display: flex;
   align-items: center;
+  padding-top: 40px;
+  margin-top: -20px;
+  position: sticky;
+  /* top: 0; */
   /* background-color: gray; */
   gap: 3px;
 `;
