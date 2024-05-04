@@ -266,8 +266,6 @@ const Walking = () => {
       {closeModalOpen && (
         <CloseModal onClick={() => setCloseModalOpen(false)}>
           <CloseWrap onClick={(e) => e.stopPropagation()}>
-            {" "}
-            {/* Stop propagation here */}
             <div style={{ textAlign: "center" }}>
               <Text style={{ color: "#F6F8FA", fontSize: "16px" }}>
                 산책을 종료할까요?
