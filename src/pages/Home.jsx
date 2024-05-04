@@ -15,17 +15,16 @@ import wave from "../assets/wave.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userDataState } from "../atoms";
+import { useState } from "react";
 
 const HomeWrapper = styled.div`
   z-index: 1;
   min-height: 100vh;
-  padding-bottom: 90px; // Footer 높이를 고려한 하단 여백
+  padding-bottom: 90px; // Footer 높이에 맞게 조정하거나, 필요에 따라 더 늘릴 수 있습니다.
   background: #1c1c26;
-  overflow: auto; // 스크롤을 명시적으로 허용
+  overflow: auto;
   position: relative;
-  padding-bottom: 200px;
 `;
-
 const Head = styled.div`
   position: fixed;
   background-color: #3f3fc4;
@@ -36,6 +35,7 @@ const Head = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   padding: 25px;
+  z-index: 3;
   h2 {
     font-size: 16px;
     font-weight: 600;
@@ -148,20 +148,50 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [userData, setUserData] = useRecoilState(userDataState);
+  const [attractions, setAttractions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch("http://13.124.30.111:8080/members/1");
+      const data = await response.json();
+      setUserData(data);
+      console.log(userData);
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+    }
+  };
+
+  const fetchAttractionData = async () => {
+    fetch("http://13.124.30.111:8080/attractions")
+      .then((response) => response.json())
+      .then((data) => {
+        setAttractions(data.slice(0, 5));
+      });
+
+    // try {
+    //   const response = await fetch("http://13.124.30.111:8080/attractions");
+    //   const data = await response.json();
+    //   const topFiveAttractions = await data.slice(0, 5);
+    //   console.log(data);
+    //   await setAttractions(topFiveAttractions);
+    //   console.log(attractions);
+    // } catch (error) {
+    //   console.error("Failed to fetch attractions data:", error);
+    // }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://13.124.30.111:8080/members/1");
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
+    fetchUserData();
+    fetchAttractionData();
 
-    fetchData();
+    if (attractions.length > 0) {
+      console.log(attractions);
+    }
   }, [setUserData]);
+
+  console.log(attractions);
+
   const walks = [
     {
       location: "서울 종로구",
@@ -177,7 +207,7 @@ const Home = () => {
     },
   ];
 
-  console.log(userData1);
+  // console.log(userData1);
   return (
     <HomeWrapper className="Home">
       {/* 백그라운드 이미지 */}
@@ -266,6 +296,7 @@ const Home = () => {
         <div
           style={{
             boxSizing: "border-box",
+            paddingBottom: "100px", // Footer의 높이에 맞춰 설정하세요.
           }}
         >
           {/* <LongBox backgroundImage={wave}>
@@ -282,13 +313,24 @@ const Home = () => {
               <Text>청와대 전망대</Text>
             </div>
           </LongBox> */}
-          {walks.map((walk, id) => {
+          {/* {walks.map((walk, id) => {
             return (
               <LongBox key={id} backgroundImage={walk.backgroundImage}>
                 <Badge>{walk.location}</Badge>
                 <div>
                   <Desc>{walk.description}</Desc>
                   <Text>{walk.place}</Text>
+                </div>
+              </LongBox>
+            );
+          })} */}
+          {attractions.map((attraction, id) => {
+            return (
+              <LongBox key={id} backgroundImage={attraction.attractionUrl}>
+                <Badge>{attraction.attractionRegion}</Badge>
+                <div>
+                  <Desc>{attraction.attractionDetail}</Desc>
+                  <Text>{attraction.attractionName}</Text>
                 </div>
               </LongBox>
             );
