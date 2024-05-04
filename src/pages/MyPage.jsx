@@ -154,7 +154,17 @@ const MyPage = () => {
               <Text>{userData.nickName}</Text>
             </h2>
             <h4>
-              <Text>산책러 Lv. {parseInt(userData.exp / 100)}</Text>
+              <Text
+                style={{
+                  padding: "4px 12px 4px 12px",
+                  borderRadius: "99px",
+                  backgroundColor: "#5E66FF",
+                  fontSize: "12px",
+                  color: "white",
+                }}
+              >
+                산책러 Lv. {parseInt(userData.exp / 100)}
+              </Text>
             </h4>
           </TextWrap>
         </ProfileWrap>
