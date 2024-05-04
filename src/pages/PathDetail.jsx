@@ -120,7 +120,7 @@ const PathDetail = () => {
 
   const sendingData = {
     userId: 1,
-    trailId: 1,
+    trailId: parseInt(id),
   };
 
   const toggleLike = () => {
@@ -138,6 +138,7 @@ const PathDetail = () => {
           throw new Error("Network response was not ok");
         }
         console.log("Request successful with status:", response.status);
+        console.log("Data Sent:", sendingData);
         setLike(!liked); // 요청이 성공하면 상태 변경
       })
       .catch((error) => {
