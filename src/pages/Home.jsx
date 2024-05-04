@@ -168,18 +168,30 @@ const Home = () => {
       .then((data) => {
         setAttractions(data.slice(0, 5));
       });
-
-    // try {
-    //   const response = await fetch("http://13.124.30.111:8080/attractions");
-    //   const data = await response.json();
-    //   const topFiveAttractions = await data.slice(0, 5);
-    //   console.log(data);
-    //   await setAttractions(topFiveAttractions);
-    //   console.log(attractions);
-    // } catch (error) {
-    //   console.error("Failed to fetch attractions data:", error);
-    // }
   };
+
+  const toAttractionDetail = async (latitude, longitude) => {
+    fetch(`http://13.124.30.111:8080/attractions/${latitude}/${longitude}`, {})
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate(`/pathdetail/${data.trailId}`);
+      })
+      .catch((error) => {
+        console.error("Error fetching attraction details:", error);
+      });
+  };
+
+  // const toAttractionDetail = async (latitude, longitude) => {
+  //   fetch(`http://13.124.30.111:8080/attractions/${latitude}/${longitude}`)
+  //     .then((response) => response.json()) // json 변환 결과를 다음 then으로 전달
+  //     .then((data) => {
+  //       console.log(data); // 데이터를 콘솔에 로그
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching attraction details:", error);
+  //     });
+  // };
 
   useEffect(() => {
     fetchUserData();
@@ -326,7 +338,16 @@ const Home = () => {
           })} */}
           {attractions.map((attraction, id) => {
             return (
-              <LongBox key={id} backgroundImage={attraction.attractionUrl}>
+              <LongBox
+                key={id}
+                backgroundImage={attraction.attractionUrl}
+                onClick={() => {
+                  toAttractionDetail(
+                    attraction.attractionLatitude,
+                    attraction.attractionLongitude
+                  );
+                }}
+              >
                 <Badge>{attraction.attractionRegion}</Badge>
                 <div>
                   <Desc>{attraction.attractionDetail}</Desc>
