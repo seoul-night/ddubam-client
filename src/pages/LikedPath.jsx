@@ -58,7 +58,7 @@ const LikedPath = ({ finishCnt }) => {
       .catch((error) => console.error("에러:", error));
   }, []); // 컴포넌트가 마운트 될 때 한 번만 실행
 
-  console.log(fetchedDatas);
+  console.log("찜한 코스:", fetchedDatas);
 
   const dummyDatas = [
     {
@@ -95,14 +95,13 @@ const LikedPath = ({ finishCnt }) => {
         <Finish style={{ color: "#F6F8FA" }}>{fetchedDatas.length}</Finish>
       </FinishWrap>
       <PathList>
-        {/* <PathTab date={"2023.06.25"} title={"난지 갈대 바람길"} />
-        <PathTab date={"2023.06.29"} title={"잠실어도 탐방길"} /> */}
         {fetchedDatas.length === 0 ? (
           <Nothing>찜한 산책 코스가 없어요</Nothing>
         ) : (
-          fetchedDatas.map((data) => {
+          fetchedDatas.map((data, id) => {
             return (
               <LikedTab
+                key={id}
                 trailRegion={data.trailRegion}
                 trailTitle={data.trailTitle}
                 trailId={data.trailId}

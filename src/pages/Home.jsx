@@ -282,9 +282,9 @@ const Home = () => {
               <Text>청와대 전망대</Text>
             </div>
           </LongBox> */}
-          {walks.map((walk) => {
+          {walks.map((walk, id) => {
             return (
-              <LongBox backgroundImage={walk.backgroundImage}>
+              <LongBox key={id} backgroundImage={walk.backgroundImage}>
                 <Badge>{walk.location}</Badge>
                 <div>
                   <Desc>{walk.description}</Desc>

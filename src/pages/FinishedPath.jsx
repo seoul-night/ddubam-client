@@ -122,9 +122,10 @@ const FinishedPath = ({}) => {
         {fetchedDatas == [] ? (
           <Nothing>완료한 산책 코스가 없어요</Nothing>
         ) : (
-          fetchedDatas.map((data) => {
+          fetchedDatas.map((data, id) => {
             return (
               <FinishedTab
+                key={id}
                 trailId={data.trailId}
                 walkedDate={data.walkedDate}
                 trailTitle={data.trailTitle}

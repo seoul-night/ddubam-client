@@ -1,8 +1,8 @@
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 
 const KakaoMap = ({ latitudeList, longitudeList }) => {
-  console.log("lats:", latitudeList);
-  console.log("lngs:", longitudeList);
+  // console.log("lats:", latitudeList);
+  // console.log("lngs:", longitudeList);
 
   let latSum = 0;
   let lngSum = 0;
@@ -14,7 +14,7 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
 
   const centerLat = latSum / latitudeList.length;
   const centerLng = lngSum / longitudeList.length;
-  console.log(centerLat, centerLng);
+  // console.log(centerLat, centerLng);
 
   const markers = latitudeList.map((latitude, index) => (
     <MapMarker

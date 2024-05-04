@@ -213,7 +213,6 @@ const Walking = () => {
   const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
-    // fetch(`http://13.124.30.111:8080/walks/${trailId}`)
     fetch("http://13.124.30.111:8080/walks/1")
       .then((response) => response.json())
       .then((data) => {
@@ -235,7 +234,8 @@ const Walking = () => {
   const submitReview = () => {
     const postData = {
       userId: 1,
-      trailId: trailId,
+      trailId: Number(trailId),
+      // trailId: Number(trailId),
       review: reviewText,
     };
 
@@ -246,9 +246,11 @@ const Walking = () => {
       },
       body: JSON.stringify(postData),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log("Success:", postData, response.status);
         setReviewModalOpen(false);
         navigate("/home");
       })

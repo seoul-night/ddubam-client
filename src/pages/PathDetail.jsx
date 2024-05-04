@@ -137,10 +137,7 @@ const PathDetail = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Success:", data);
+        console.log("Request successful with status:", response.status);
         setLike(!liked); // 요청이 성공하면 상태 변경
       })
       .catch((error) => {
