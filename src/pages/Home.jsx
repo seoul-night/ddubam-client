@@ -175,7 +175,9 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        navigate(`/pathdetail/${data.trailId}`);
+        if (data.trailId != undefined) {
+          navigate(`/pathdetail/${data.trailId}`);
+        }
       })
       .catch((error) => {
         console.error("Error fetching attraction details:", error);
@@ -204,20 +206,20 @@ const Home = () => {
 
   console.log(attractions);
 
-  const walks = [
-    {
-      location: "서울 종로구",
-      description: "숲이 어우러져 서울 야경이 아름다운",
-      place: "낙산공원",
-      backgroundImage: wave,
-    },
-    {
-      location: "서울 종로구",
-      description: "숲청와대부터 남산까지 한눈에 조망",
-      place: "청와대 전망대",
-      backgroundImage: wave,
-    },
-  ];
+  // const walks = [
+  //   {
+  //     location: "서울 종로구",
+  //     description: "숲이 어우러져 서울 야경이 아름다운",
+  //     place: "낙산공원",
+  //     backgroundImage: wave,
+  //   },
+  //   {
+  //     location: "서울 종로구",
+  //     description: "숲청와대부터 남산까지 한눈에 조망",
+  //     place: "청와대 전망대",
+  //     backgroundImage: wave,
+  //   },
+  // ];
 
   // console.log(userData1);
   return (

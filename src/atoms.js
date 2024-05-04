@@ -18,3 +18,8 @@ export const geolocationState = atom({
     latitude: 0,
   },
 });
+
+export const locationState = atom({
+  key: "locationState",
+  default: "",
+});

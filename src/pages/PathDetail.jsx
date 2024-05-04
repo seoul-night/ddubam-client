@@ -5,6 +5,7 @@ import emptylike from "../assets/icons/emptylike.png";
 import like from "../assets/icons/like.png";
 import { useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
+import { useRecoilValue } from "recoil";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -105,11 +106,12 @@ const PathDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://13.124.30.111:8080/walks/${id}`)
+    fetch(`http://13.124.30.111:8080/walks/${id}/1`) //마지막 1은 userId, 이후 수정
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
         setLoading(false);
+        setLike(data.picked);
         console.log("산책 코스 정보 :", data);
       });
   }, []);

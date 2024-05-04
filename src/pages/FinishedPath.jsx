@@ -69,7 +69,7 @@ const FinishedPath = ({}) => {
         <Finish style={{ color: "#F6F8FA" }}>{fetchedDatas.length}</Finish>
       </FinishWrap>
       <PathList>
-        {fetchedDatas == [] ? (
+        {fetchedDatas.length === 0 ? (
           <Nothing>완료한 산책 코스가 없어요</Nothing>
         ) : (
           fetchedDatas.map((data, id) => {
