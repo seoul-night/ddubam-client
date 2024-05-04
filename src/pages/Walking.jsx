@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import close from "../assets/icons/close.png";
 import wave from "../assets/wave.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import clap from "../assets/icons/clap.png";
 
 const HomeWrapper = styled.div`
@@ -203,6 +203,7 @@ const CloseIcon = styled.img`
 `;
 
 const Walking = () => {
+  const { trailId } = useParams();
   const navigate = useNavigate();
   const [seconds, setSeconds] = useState(0);
   const [closeModalOpen, setCloseModalOpen] = useState(false);
@@ -212,6 +213,7 @@ const Walking = () => {
   const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
+    // fetch(`http://13.124.30.111:8080/walks/${trailId}`)
     fetch("http://13.124.30.111:8080/walks/1")
       .then((response) => response.json())
       .then((data) => {
@@ -220,6 +222,7 @@ const Walking = () => {
         console.log("산책 코스 정보 :");
         console.log(data);
       });
+    console.log("param:", trailId);
 
     const interval = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
@@ -232,7 +235,7 @@ const Walking = () => {
   const submitReview = () => {
     const postData = {
       userId: 1,
-      trailId: 1,
+      trailId: trailId,
       review: reviewText,
     };
 
@@ -387,7 +390,14 @@ const Walking = () => {
               나의 밤산책을 되돌아 볼 수 있어요
             </Text>
           </Wrapper>
-          <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
+          <TextArea
+            value={reviewText}
+            onChange={(e) => {
+              setReviewText(e.target.value);
+              console.log(reviewText);
+            }}
+            placeholder="60자 이내로 작성할 수 있어요"
+          ></TextArea>
           <ModalBtn
             onClick={submitReview}
             style={{

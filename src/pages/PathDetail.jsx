@@ -105,7 +105,7 @@ const PathDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://13.124.30.111:8080/walks/1")
+    fetch(`http://13.124.30.111:8080/walks/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
