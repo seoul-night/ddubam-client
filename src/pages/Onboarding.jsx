@@ -235,7 +235,7 @@ const Onboarding = () => {
       <BtnWrap>
         <StartBtn
           onClick={handleStartClick}
-          active={currentPage === 1} // 현재 페이지가 1이면 활성화
+          {...(currentPage === 1 && { active: "true" })} // 현재 페이지가 1이면 활성화
         >
           <p>밤산책 시작하기</p>
         </StartBtn>

@@ -150,10 +150,10 @@ const MyPage = () => {
         <ProfileWrap>
           <ProfilePic src={chimps}></ProfilePic>
           <TextWrap>
-            <h2>
+            <div>
               <Text>{userData.nickName}</Text>
-            </h2>
-            <h4>
+            </div>
+            <div>
               <Text
                 style={{
                   padding: "4px 12px 4px 12px",
@@ -165,7 +165,7 @@ const MyPage = () => {
               >
                 산책러 Lv. {parseInt(userData.exp / 100)}
               </Text>
-            </h4>
+            </div>
           </TextWrap>
         </ProfileWrap>
         <div>
