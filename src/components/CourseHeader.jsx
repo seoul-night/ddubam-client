@@ -6,10 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 const Header = styled.div`
   position: sticky;
+  top: -20px;
+  margin-top: -20px;
   background-color: #1c1c26;
-  top: 0;
+  /* top: 0; */
+  z-index: 3;
   padding: 20px;
   padding-left: 0px;
+  padding-top: 40px;
   padding-right: 0px;
   display: flex;
   align-items: center;
