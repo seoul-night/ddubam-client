@@ -75,7 +75,7 @@ const Pic = styled.div`
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(${wave});
+    url(${(props) => props.bgImage});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -431,7 +431,7 @@ const Walking = () => {
       </Wrapper>
       <CircleBig>
         <CircleSmall>
-          <Pic>
+          <Pic bgImage={fetchedData.image}>
             <Clock>
               {parseInt(seconds / 60)
                 .toString()
