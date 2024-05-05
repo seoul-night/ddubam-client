@@ -58,7 +58,8 @@ const DetailWrap = styled.div`
 const Footer = styled.div`
   position: fixed;
   bottom: 0;
-  /* background-color: gray; */
+  background-color: #1c1c26;
+  z-index: 3;
   left: 0;
   right: 0;
   margin: 0 auto;
