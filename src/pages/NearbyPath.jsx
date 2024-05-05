@@ -31,7 +31,8 @@ const NearbyPath = () => {
 
   return (
     <HomeWrapper className="NearbyPath">
-      <CourseHeader headerText={"현 위치 기반"} location={"서울 송파구"} />
+      {/* <CourseHeader headerText={"현 위치 기반"} location={"서울 송파구"} /> */}
+      <CourseHeader headerText={"현 위치 기반"} location={""} />
       <Notice />
       <Paths>
         {fetchedData.map((data) => {

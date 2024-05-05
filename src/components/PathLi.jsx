@@ -32,14 +32,18 @@ const PathDesc = styled.h3`
   line-height: 21px;
   margin-top: 4px;
   margin-bottom: 4px;
+  overflow: hidden; // Ensures content that overflows will be hidden
+  text-overflow: ellipsis; // Add ellipsis when the text overflows
+  white-space: nowrap; // Prevent text from wrapping to the next line
 `;
 
 const TextWrap = styled.div`
   margin: 10px 0px 10px 16px;
   max-width: calc(100% - 128px); // 이미지 너비와 여백을 고려한 최대 너비
-  /* overflow: hidden; // 내용이 넘칠 경우 숨김 처리 */
+  overflow: hidden; // 내용이 넘칠 경우 숨김 처리
   /* text-overflow: ellipsis; // 넘치는 텍스트를 말줄임표로 처리 */
-  display: -webkit-box;
+  /* display: -webkit-box; */
+
   -webkit-line-clamp: 3; // 최대 3줄까지 표시
   -webkit-box-orient: vertical;
 `;

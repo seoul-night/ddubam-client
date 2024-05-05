@@ -30,7 +30,8 @@ const PopularPath = () => {
 
   return (
     <HomeWrapper className="PopularPath">
-      <CourseHeader headerText="인기 있는" location={"서울 송파구"} />
+      {/* <CourseHeader headerText="인기 있는" location={"서울 송파구"} /> */}
+      <CourseHeader headerText="인기 있는" location={""} />
       <Notice />
       <Paths>
         {fetchedData.map((data) => {

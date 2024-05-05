@@ -260,7 +260,7 @@ const Home = () => {
             }}
           >
             <img src={location} style={{ marginRight: "3px" }} />
-            <span>서울 송파구</span>
+            {/* <span>서울 송파구</span> */}
           </div>
         </div>
       </Head>
