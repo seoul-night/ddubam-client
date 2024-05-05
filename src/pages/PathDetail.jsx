@@ -94,6 +94,16 @@ const CenterDiv = styled.div`
   align-items: center;
   margin-right: 10px;
 `;
+
+const MapContainer = styled.div`
+  width: calc(100% + 40px);
+  height: 230px;
+  background-color: whitesmoke;
+  margin-left: -20px;
+  margin-right: -20px;
+  touch-action: pan-x pan-y;
+`;
+
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
   const { id } = useParams();
@@ -151,22 +161,14 @@ const PathDetail = () => {
   return (
     <HomeWrapper className="PathDetail">
       <CourseHeader headerText={"산책 코스 정보"} location={"대전"} />
-      <div
-        style={{
-          width: "calc(100% + 40px)",
-          height: "230px",
-          backgroundColor: "whitesmoke",
-          marginLeft: "-20px",
-          marginRight: "-20px",
-        }}
-      >
+      <MapContainer>
         {fetchedData.latitudeList && fetchedData.longitudeList && (
           <KakaoMap
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
           />
         )}
-      </div>
+      </MapContainer>
       <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
         <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
           {fetchedData.title}
