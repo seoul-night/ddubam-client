@@ -1,21 +1,7 @@
-import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
+import React from "react";
+import { Map, MapMarker, Polyline, useMap } from "react-kakao-maps-sdk";
 
 const KakaoMap = ({ latitudeList, longitudeList }) => {
-  // console.log("lats:", latitudeList);
-  // console.log("lngs:", longitudeList);
-
-  let latSum = 0;
-  let lngSum = 0;
-
-  for (let i = 0; i < latitudeList.length; i++) {
-    latSum += latitudeList[i];
-    lngSum += longitudeList[i];
-  }
-
-  const centerLat = latSum / latitudeList.length;
-  const centerLng = lngSum / longitudeList.length;
-  // console.log(centerLat, centerLng);
-
   const markers = latitudeList.map((latitude, index) => (
     <MapMarker
       key={index}
@@ -28,9 +14,27 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
     lng: longitudeList[index],
   }));
 
+  const AdjustBounds = () => {
+    const map = useMap();
+
+    React.useEffect(() => {
+      if (map && latitudeList.length > 0 && longitudeList.length > 0) {
+        const bounds = new window.kakao.maps.LatLngBounds();
+        latitudeList.forEach((lat, index) => {
+          bounds.extend(
+            new window.kakao.maps.LatLng(lat, longitudeList[index])
+          );
+        });
+        map.setBounds(bounds);
+      }
+    }, [map, latitudeList, longitudeList]);
+
+    return null;
+  };
+
   return (
     <Map
-      center={{ lat: centerLat, lng: centerLng }}
+      center={{ lat: latitudeList[0], lng: longitudeList[0] }}
       style={{ width: "calc(100% + 40px)", height: "230px" }}
       level={4}
     >
@@ -40,6 +44,7 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
         strokeWeight={3}
         strokeColor={"#FF0000"}
       />
+      <AdjustBounds />
     </Map>
   );
 };
