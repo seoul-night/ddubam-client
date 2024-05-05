@@ -123,6 +123,7 @@ const Chevron = styled.i`
   color: #b7c0c6;
   font-size: 20px;
   position: absolute;
+  /* z-index: 1000; */
 `;
 
 const Onboarding = () => {
