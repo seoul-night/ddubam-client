@@ -213,7 +213,7 @@ const Walking = () => {
   const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
-    fetch("http://13.124.30.111:8080/walks/1")
+    fetch(`http://13.124.30.111:8080/walks/${trailId}/1`)
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
