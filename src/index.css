@@ -14,7 +14,31 @@ code {
 
 :root {
   --vh: 100vh;
-  --max-width: 390px;
+  /* --max-width: 390px; */
+}
+
+@media (min-width: 576px) {
+  :root {
+    --max-width: 540px; /* 작은 태블릿 사이즈 */
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --max-width: 720px; /* 중간 태블릿 사이즈 */
+  }
+}
+
+@media (min-width: 992px) {
+  :root {
+    --max-width: 960px; /* 데스크탑 */
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --max-width: 1140px; /* 더 큰 데스크탑 */
+  }
 }
 /* 페이지 크기 제한 */
 .Home,
