@@ -32,7 +32,7 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
     <Map
       center={{ lat: centerLat, lng: centerLng }}
       style={{ width: "calc(100% + 40px)", height: "230px" }}
-      level={3}
+      level={4}
     >
       {markers}
       <Polyline
