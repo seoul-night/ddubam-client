@@ -118,7 +118,8 @@ const LongBox = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url(${(props) => props.backgroundImage});
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(${(props) => props.backgroundImage});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

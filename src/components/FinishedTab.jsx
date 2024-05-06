@@ -9,7 +9,11 @@ const Tab = styled.li`
   width: 100%;
   border-radius: 10px;
   padding: 18px, 12px, 18px, 20px;
+  box-sizing: border-box;
   margin-top: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Date = styled.h4`
@@ -31,6 +35,9 @@ const Desc = styled.h4`
   font-size: 14px;
   line-height: 21px;
   margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const FinishedTab = ({ walkedDate, trailId, trailTitle, review }) => {
   return (
@@ -45,7 +52,7 @@ const FinishedTab = ({ walkedDate, trailId, trailTitle, review }) => {
             alignItems: "center",
           }}
         >
-          <div>
+          <div style={{ width: "90%" }}>
             <Date>{walkedDate}</Date>
             <Title>{trailTitle}</Title>
             <Desc>{review}</Desc>
