@@ -80,7 +80,6 @@ const Name = styled.span`
 `;
 
 const GoWalk = styled.div`
-  max-height: 200px;
   margin: 30px;
 `;
 
@@ -311,7 +310,6 @@ const Home = () => {
         <div
           style={{
             boxSizing: "border-box",
-            paddingBottom: "100px", // Footer의 높이에 맞춰 설정하세요.
           }}
         >
           {/* <LongBox backgroundImage={wave}>
