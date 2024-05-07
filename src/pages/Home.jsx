@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullseye } from "@fortawesome/free-solid-svg-icons";
 import chimps from "../assets/chimps.webp";
-import walker from "../assets/walker.webp";
+import walker from "../assets/walker.png";
 import Footer from "../components/Footer";
 import homeback from "../assets/homeback.png";
 import logo from "../assets/logo.png";

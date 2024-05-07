@@ -4,7 +4,7 @@ import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
 import CourseHeader from "../components/CourseHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import walker from "../assets/walker.webp";
+import walker from "../assets/walker.png";
 import {
   faCalendar,
   faCheckCircle,
