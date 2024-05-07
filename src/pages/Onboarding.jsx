@@ -153,7 +153,7 @@ const Onboarding = () => {
       try {
         const response = await fetch("https://ddubam.site/api/members/1");
         const data = await response.json();
-        // console.log(data);
+        console.log(data);
         setUserData(data);
         // console.log("유저 데이터 :");
         // console.log(userData);

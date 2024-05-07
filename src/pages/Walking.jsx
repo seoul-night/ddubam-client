@@ -213,7 +213,7 @@ const Walking = () => {
   const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
-    fetch(`http://13.124.30.111:8080/walks/${trailId}/1`)
+    fetch(`https://ddubam.site/api/walks/${trailId}/1`)
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
@@ -239,7 +239,7 @@ const Walking = () => {
       review: reviewText,
     };
 
-    fetch("http://13.124.30.111:8080/members/walks/complete", {
+    fetch("https://ddubam.site/api/members/walks/complete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

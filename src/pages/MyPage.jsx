@@ -149,7 +149,7 @@ const MyPage = () => {
       </LogoWrap>
       <Wrap>
         <ProfileWrap>
-          <ProfilePic src={walker}></ProfilePic>
+          <ProfilePic src={userData.profile}></ProfilePic>
           <TextWrap>
             <div>
               <Text>{userData.nickName}</Text>

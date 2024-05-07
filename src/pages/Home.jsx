@@ -155,7 +155,7 @@ const Home = () => {
       const response = await fetch("https://ddubam.site/api/members/1");
       const data = await response.json();
       setUserData(data);
-      // console.log(userData);
+      console.log(userData);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     }
@@ -237,7 +237,7 @@ const Home = () => {
         </div>
       </Head>
       <UserWrap>
-        <Pic src={walker} />
+        <Pic src={userData.profile} />
         <div>
           <Name>{userData.nickName}</Name>
           <Text>님,</Text>

@@ -8,6 +8,7 @@ export const userDataState = atom({
     walkedDay: 0,
     finishedCount: 0,
     pickedCount: 0,
+    profile: "",
   },
 });
 
