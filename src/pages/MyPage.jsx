@@ -4,6 +4,7 @@ import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
 import CourseHeader from "../components/CourseHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import walker from "../assets/walker.webp";
 import {
   faCalendar,
   faCheckCircle,
@@ -148,7 +149,7 @@ const MyPage = () => {
       </LogoWrap>
       <Wrap>
         <ProfileWrap>
-          <ProfilePic src={chimps}></ProfilePic>
+          <ProfilePic src={walker}></ProfilePic>
           <TextWrap>
             <div>
               <Text>{userData.nickName}</Text>

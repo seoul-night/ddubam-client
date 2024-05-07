@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullseye } from "@fortawesome/free-solid-svg-icons";
 import chimps from "../assets/chimps.webp";
+import walker from "../assets/walker.webp";
 import Footer from "../components/Footer";
 import homeback from "../assets/homeback.png";
 import logo from "../assets/logo.png";
@@ -236,7 +237,7 @@ const Home = () => {
         </div>
       </Head>
       <UserWrap>
-        <Pic src={chimps} />
+        <Pic src={walker} />
         <div>
           <Name>{userData.nickName}</Name>
           <Text>님,</Text>

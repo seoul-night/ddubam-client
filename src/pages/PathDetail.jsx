@@ -162,7 +162,7 @@ const PathDetail = () => {
 
   return (
     <HomeWrapper className="PathDetail">
-      <CourseHeader headerText={"산책 코스 정보"} location={"대전"} />
+      <CourseHeader headerText={"산책 코스 정보"} location={""} />
       <MapContainer>
         {fetchedData.latitudeList && fetchedData.longitudeList && (
           <KakaoMap
