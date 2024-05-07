@@ -20,7 +20,7 @@ import { useState } from "react";
 const HomeWrapper = styled.div`
   z-index: 1;
   min-height: 100vh;
-  padding-bottom: 90px; // Footer 높이에 맞게 조정하거나, 필요에 따라 더 늘릴 수 있습니다.
+  padding-bottom: 90px;
   background: #1c1c26;
   overflow: auto;
   position: relative;
@@ -59,7 +59,6 @@ const Region = styled.i`
   color: white;
   font-size: 15px;
   margin: 2px;
-  /* color:#464B53; */
   margin-right: 5px;
 `;
 
@@ -76,7 +75,6 @@ const Name = styled.span`
   color: #5e66ff;
   font-size: 20px;
   font-weight: 500;
-  /* line-height: 32px; */
 `;
 
 const GoWalk = styled.div`
@@ -125,9 +123,9 @@ const LongBox = styled(Box)`
 `;
 
 const Desc = styled.h4`
-  overflow: hidden; // 텍스트가 넘치면 숨깁니다.
-  text-overflow: ellipsis; // 넘치는 텍스트를 말줄임표(...)로 표시합니다.
-  white-space: nowrap; // 텍스트가 여러 줄로 나뉘지 않도록 합니다.
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 14px;
   line-height: 21px;
   color: #f6f8fa;
@@ -153,7 +151,7 @@ const Home = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch("http://13.124.30.111:8080/members/1");
+      const response = await fetch("https://ddubam.site/api/members/1");
       const data = await response.json();
       setUserData(data);
       console.log(userData);
@@ -163,7 +161,7 @@ const Home = () => {
   };
 
   const fetchAttractionData = async () => {
-    fetch("http://13.124.30.111:8080/attractions")
+    fetch("https://ddubam.site/api/attractions")
       .then((response) => response.json())
       .then((data) => {
         setAttractions(data.slice(0, 5));
@@ -171,7 +169,7 @@ const Home = () => {
   };
 
   const toAttractionDetail = async (latitude, longitude) => {
-    fetch(`http://13.124.30.111:8080/attractions/${latitude}/${longitude}`, {})
+    fetch(`https://ddubam.site/api/attractions/${latitude}/${longitude}`, {})
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -184,17 +182,6 @@ const Home = () => {
       });
   };
 
-  // const toAttractionDetail = async (latitude, longitude) => {
-  //   fetch(`http://13.124.30.111:8080/attractions/${latitude}/${longitude}`)
-  //     .then((response) => response.json()) // json 변환 결과를 다음 then으로 전달
-  //     .then((data) => {
-  //       console.log(data); // 데이터를 콘솔에 로그
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching attraction details:", error);
-  //     });
-  // };
-
   useEffect(() => {
     fetchUserData();
     fetchAttractionData();
@@ -206,22 +193,6 @@ const Home = () => {
 
   console.log(attractions);
 
-  // const walks = [
-  //   {
-  //     location: "서울 종로구",
-  //     description: "숲이 어우러져 서울 야경이 아름다운",
-  //     place: "낙산공원",
-  //     backgroundImage: wave,
-  //   },
-  //   {
-  //     location: "서울 종로구",
-  //     description: "숲청와대부터 남산까지 한눈에 조망",
-  //     place: "청와대 전망대",
-  //     backgroundImage: wave,
-  //   },
-  // ];
-
-  // console.log(userData1);
   return (
     <HomeWrapper className="Home">
       {/* 백그라운드 이미지 */}
@@ -312,31 +283,6 @@ const Home = () => {
             boxSizing: "border-box",
           }}
         >
-          {/* <LongBox backgroundImage={wave}>
-            <Badge>서울 종로구</Badge>
-            <div>
-              <Desc>숲이 어우러져 서울 야경이 아름다운</Desc>
-              <Text>낙산공원</Text>
-            </div>
-          </LongBox>
-          <LongBox backgroundImage={wave}>
-            <Badge>서울 종로구</Badge>
-            <div>
-              <Desc>숲청와대부터 남산까지 한눈에 조망</Desc>
-              <Text>청와대 전망대</Text>
-            </div>
-          </LongBox> */}
-          {/* {walks.map((walk, id) => {
-            return (
-              <LongBox key={id} backgroundImage={walk.backgroundImage}>
-                <Badge>{walk.location}</Badge>
-                <div>
-                  <Desc>{walk.description}</Desc>
-                  <Text>{walk.place}</Text>
-                </div>
-              </LongBox>
-            );
-          })} */}
           {attractions.map((attraction, id) => {
             return (
               <LongBox

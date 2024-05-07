@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-import BlackWrapper from "../components/BlackWrapper";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { geolocationState, nickNameState, userDataState } from "../atoms";
 import CourseHeader from "../components/CourseHeader";
 import Notice from "../components/Notice";
 import PathLi from "../components/PathLi";
@@ -19,9 +19,16 @@ const Paths = styled.ul``;
 
 const NearbyPath = () => {
   const [fetchedData, setFetchedData] = useState([]);
+  const geolocation = useRecoilValue(geolocationState);
+  // console.log(geolocation);
+
+  const lat = geolocation.latitude;
+  const lng = geolocation.longitude;
+
+  console.log(lat, lng);
 
   useEffect(() => {
-    fetch("http://13.124.30.111:8080/walks/near/32.123/122.123")
+    fetch(`https://ddubam.site/api/walks/near/${lat}/${lng}`) //임시 위도경도
       .then((response) => response.json())
       .then((data) => {
         console.log("현 위치 기반 :", data);

@@ -45,7 +45,7 @@ const LikedPath = ({ finishCnt }) => {
   const [fetchedDatas, setFetchedDatas] = useState([]);
 
   useEffect(() => {
-    fetch("http://13.124.30.111:8080/members/walks/select/1")
+    fetch("https://ddubam.site/api/members/walks/select/1")
       .then((response) => {
         if (!response.ok) {
           throw new Error("에러");
@@ -53,39 +53,12 @@ const LikedPath = ({ finishCnt }) => {
         return response.json();
       })
       .then((data) => {
-        setFetchedDatas(data); // 데이터 설정
+        setFetchedDatas(data);
       })
       .catch((error) => console.error("에러:", error));
-  }, []); // 컴포넌트가 마운트 될 때 한 번만 실행
+  }, []);
 
   console.log("찜한 코스:", fetchedDatas);
-
-  const dummyDatas = [
-    {
-      trailId: 4,
-      title: "산책로 지역1의 아름다운 경로",
-      walkedDay: "2024-04-19",
-      region: "산책로 지역1",
-    },
-    {
-      trailId: 5,
-      title: "산책로 지역1의 힐링 코스",
-      walkedDay: "2024-04-20",
-      region: "산책로 지역1",
-    },
-    {
-      trailId: 6,
-      title: "난지 갈대 바람길",
-      walkedDay: "2023-06-25",
-      region: "난지 지역",
-    },
-    {
-      trailId: 7,
-      title: "잠실어도 탐방길",
-      walkedDay: "2023-06-29",
-      region: "잠실 지역",
-    },
-  ];
 
   return (
     <HomeWrapper className="LikedPath">
@@ -115,21 +88,3 @@ const LikedPath = ({ finishCnt }) => {
 };
 
 export default LikedPath;
-// {
-//   "status": 200,
-//   "message": "요청이 성공했습니다.",
-//   "data": [
-//       {
-//           "userId": 5,
-//           "trailId": 4,
-//           "walkedDay": "2024-04-19",
-//           "region": "산책로 지역1"
-//       },
-//       {
-//           "userId": 5,
-//           "trailId": 5,
-//           "walkedDay": "2024-04-20",
-//           "region": "산책로 지역1"
-//       }
-//    ]
-// }

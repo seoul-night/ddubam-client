@@ -88,6 +88,7 @@ const Button = styled.button`
     background-color: #4950d4;
   }
 `;
+
 const CenterDiv = styled.div`
   flex-grow: 1;
   display: flex;
@@ -117,7 +118,7 @@ const PathDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://13.124.30.111:8080/walks/${id}/1`) //마지막 1은 userId, 이후 수정
+    fetch(`https://ddubam.site/api/walks/${id}/1`) //마지막 1은 userId, 이후 수정
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
@@ -139,7 +140,7 @@ const PathDetail = () => {
   const toggleLike = () => {
     const method = liked ? "DELETE" : "POST";
 
-    fetch("http://13.124.30.111:8080/members/walks/select", {
+    fetch("https://ddubam.site/api/members/walks/select", {
       method: method,
       headers: {
         "Content-Type": "application/json",

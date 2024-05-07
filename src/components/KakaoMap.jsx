@@ -42,7 +42,7 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
       <Polyline
         path={polylineCoordinates}
         strokeWeight={3}
-        strokeColor={"#FF0000"}
+        strokeColor={"#5e66ff"}
       />
       <AdjustBounds />
     </Map>

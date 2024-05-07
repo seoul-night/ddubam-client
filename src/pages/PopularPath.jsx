@@ -20,7 +20,7 @@ const PopularPath = () => {
   const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
-    fetch("http://13.124.30.111:8080/walks/popular")
+    fetch("https://ddubam.site/api/walks/popular")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -54,21 +54,3 @@ const PopularPath = () => {
 };
 
 export default PopularPath;
-
-// {
-//     "status": 200,
-//     "message": "요청이 성공했습니다.",
-//     "data": [
-//         {
-//             "trailId": 4,
-//             "latitudeList": [55.1,33.2],
-//             "longitudeList": [75.1,53.2],
-//             "detail": "산책로에 대한 정보1",
-//         },
-//         {
-//             "trailId": 5,
-//             "latitudeList": [35.1,33.2],
-//             "longitudeList": [45.1,43.2],
-//             "detail": "산책로에 대한 정보2",
-//         }
-// }

@@ -46,7 +46,7 @@ const FinishedPath = ({}) => {
   const [fetchedDatas, setFetchedDatas] = useState([]); // 상태 추가
 
   useEffect(() => {
-    fetch("http://13.124.30.111:8080/members/walks/complete/1")
+    fetch("https://ddubam.site/api/members/walks/complete/1")
       .then((response) => {
         if (!response.ok) {
           throw new Error("에러");

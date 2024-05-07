@@ -9,7 +9,7 @@ import {
 import onboard1 from "../assets/onboard1.png";
 import onboard2 from "../assets/onboard2.png";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { geolocationState, nickNameState, userDataState } from "../atoms";
 
 const HomeWrapper = styled.div`
@@ -130,6 +130,7 @@ const Onboarding = () => {
   const [userData, setUserData] = useRecoilState(userDataState);
   const [geoData, setGeoData] = useRecoilState(geolocationState);
   const [currentPage, setCurrentPage] = useState(0);
+  const geolocation = useRecoilValue(geolocationState);
 
   const handleNext = () => {
     setCurrentPage(1); // 다음 페이지로 이동
@@ -147,9 +148,10 @@ const Onboarding = () => {
   };
 
   useEffect(() => {
+    console.log("Current Geolocation:", geolocation);
     const fetchData = async () => {
       try {
-        const response = await fetch("http://13.124.30.111:8080/members/1");
+        const response = await fetch("https://ddubam.site/api/members/1");
         const data = await response.json();
         // console.log(data);
         setUserData(data);
@@ -210,7 +212,7 @@ const Onboarding = () => {
           <MainText>뚜밤뚜밤과 함께</MainText>
           <SubWrap>
             <SubText>안전한 밤산책 서비스, 뚜밤뚜밤!</SubText>
-            <SubText>CCTV와 가로등을 기반으로</SubText>
+            <SubText>CCTV를 기반으로</SubText>
             <SubText>산책코스를 추천해 드려요</SubText>
           </SubWrap>
         </View>
