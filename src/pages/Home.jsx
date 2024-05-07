@@ -155,7 +155,7 @@ const Home = () => {
       const response = await fetch("https://ddubam.site/api/members/1");
       const data = await response.json();
       setUserData(data);
-      console.log(userData);
+      // console.log(userData);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     }
@@ -173,7 +173,7 @@ const Home = () => {
     fetch(`https://ddubam.site/api/attractions/${latitude}/${longitude}`, {})
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.trailId != undefined) {
           navigate(`/pathdetail/${data.trailId}`);
         }
@@ -188,11 +188,11 @@ const Home = () => {
     fetchAttractionData();
 
     if (attractions.length > 0) {
-      console.log(attractions);
+      // console.log(attractions);
     }
   }, [setUserData]);
 
-  console.log(attractions);
+  // console.log(attractions);
 
   return (
     <HomeWrapper className="Home">

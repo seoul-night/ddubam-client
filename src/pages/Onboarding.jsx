@@ -148,15 +148,15 @@ const Onboarding = () => {
   };
 
   useEffect(() => {
-    console.log("Current Geolocation:", geolocation);
+    // console.log("Current Geolocation:", geolocation);
     const fetchData = async () => {
       try {
         const response = await fetch("https://ddubam.site/api/members/1");
         const data = await response.json();
         // console.log(data);
         setUserData(data);
-        console.log("유저 데이터 :");
-        console.log(userData);
+        // console.log("유저 데이터 :");
+        // console.log(userData);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -170,7 +170,7 @@ const Onboarding = () => {
         longitude: position.coords.longitude,
         latitude: position.coords.latitude,
       });
-      console.log(geoData);
+      // console.log(geoData);
     });
   }, [setUserData, setGeoData]);
 

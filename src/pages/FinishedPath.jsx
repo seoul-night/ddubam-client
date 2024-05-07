@@ -59,7 +59,7 @@ const FinishedPath = ({}) => {
       .catch((error) => console.error("에러:", error));
   }, []); // 컴포넌트가 마운트 될 때 한 번만 실행
 
-  console.log(fetchedDatas);
+  // console.log(fetchedDatas);
 
   return (
     <HomeWrapper className="FinishedPath">

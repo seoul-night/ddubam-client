@@ -25,13 +25,13 @@ const NearbyPath = () => {
   const lat = geolocation.latitude;
   const lng = geolocation.longitude;
 
-  console.log(lat, lng);
+  // console.log(lat, lng);
 
   useEffect(() => {
     fetch(`https://ddubam.site/api/walks/near/${lat}/${lng}`) //임시 위도경도
       .then((response) => response.json())
       .then((data) => {
-        console.log("현 위치 기반 :", data);
+        // console.log("현 위치 기반 :", data);
         setFetchedData(data);
       });
   }, []);

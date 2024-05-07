@@ -109,7 +109,7 @@ const MapContainer = styled.div`
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
   const { id } = useParams();
-  console.log("trailId:", id);
+  // console.log("trailId:", id);
   const navigate = useNavigate();
   // console.log(trailId);
 
@@ -124,12 +124,12 @@ const PathDetail = () => {
         setFetchedData(data);
         setLoading(false);
         setLike(data.picked);
-        console.log("산책 코스 정보 :", data);
+        // console.log("산책 코스 정보 :", data);
       });
   }, []);
 
   if (!loading) {
-    console.log("fetchedData:", fetchedData);
+    // console.log("fetchedData:", fetchedData);
   }
 
   const sendingData = {
@@ -151,8 +151,8 @@ const PathDetail = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        console.log("Request successful with status:", response.status);
-        console.log("Data Sent:", sendingData);
+        // console.log("Request successful with status:", response.status);
+        // console.log("Data Sent:", sendingData);
         setLike(!liked); // 요청이 성공하면 상태 변경
       })
       .catch((error) => {

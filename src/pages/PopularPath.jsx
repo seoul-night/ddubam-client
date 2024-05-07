@@ -23,7 +23,7 @@ const PopularPath = () => {
     fetch("https://ddubam.site/api/walks/popular")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFetchedData(data);
       });
   }, []);

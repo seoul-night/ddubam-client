@@ -218,10 +218,10 @@ const Walking = () => {
       .then((data) => {
         setFetchedData(data);
         setLoading(false);
-        console.log("산책 코스 정보 :");
-        console.log(data);
+        // console.log("산책 코스 정보 :");
+        // console.log(data);
       });
-    console.log("param:", trailId);
+    // console.log("param:", trailId);
 
     const interval = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
@@ -250,7 +250,7 @@ const Walking = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        console.log("Success:", postData, response.status);
+        // console.log("Success:", postData, response.status);
         setReviewModalOpen(false);
         navigate("/home");
       })
@@ -396,7 +396,7 @@ const Walking = () => {
             value={reviewText}
             onChange={(e) => {
               setReviewText(e.target.value);
-              console.log(reviewText);
+              // console.log(reviewText);
             }}
             placeholder="60자 이내로 작성할 수 있어요"
           ></TextArea>
