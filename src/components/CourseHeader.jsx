@@ -3,6 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { locationState } from "../atoms";
 
 const Header = styled.div`
   position: sticky;
@@ -30,6 +32,7 @@ const Text = styled.span`
 
 const CourseHeader = ({ headerText, location }) => {
   const navigate = useNavigate();
+  const locationName = useRecoilValue(locationState);
   return (
     <Header>
       <div>
@@ -55,7 +58,9 @@ const CourseHeader = ({ headerText, location }) => {
             left: "5px",
           }}
         />
-        <Text style={{ fontSize: "12px", lineHeight: "18px" }}>{location}</Text>
+        <Text style={{ fontSize: "12px", lineHeight: "18px" }}>
+          {locationName}
+        </Text>
       </div>
     </Header>
   );
