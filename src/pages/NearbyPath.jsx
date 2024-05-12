@@ -15,6 +15,20 @@ const HomeWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const Nothing = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #91919c;
+  width: 76%;
+  line-height: 24px;
+  text-align: center;
+  margin: auto;
+`;
+
 const Paths = styled.ul``;
 
 const NearbyPath = () => {
@@ -36,11 +50,11 @@ const NearbyPath = () => {
       .then((data) => {
         // console.log("현 위치 기반 :", data);
         setFetchedData(data);
-        if (data.length === 0) {
-          alert(`앗! 지금 근처에 산책로가 없는 것 같아요. 뚜밤뚜밤의 인근 산책로 찾기 기능은 대략 반경 50m 범위 내의 산책로를 찾아요.
-        
-인기있는 산책로 기능을 활용한다면 거리에 상관없이 산책로들을 조회할 수 있어요. 메인 화면에서 '인기있는' 버튼을 눌러 해당 기능을 사용해 보는 것은 어떨까요?`);
-        }
+        //         if (data.length === 0) {
+        //           alert(`앗! 지금 근처에 산책로가 없는 것 같아요. 뚜밤뚜밤의 인근 산책로 찾기 기능은 대략 반경 50m 범위 내의 산책로를 찾아요.
+
+        // 인기있는 산책로 기능을 활용한다면 거리에 상관없이 산책로들을 조회할 수 있어요. 메인 화면에서 '인기있는' 버튼을 눌러 해당 기능을 사용해 보는 것은 어떨까요?`);
+        //         }
       });
   }, []);
 
@@ -50,6 +64,27 @@ const NearbyPath = () => {
       <CourseHeader headerText={"현 위치 기반"} location={""} />
       <Notice />
       <Paths>
+        {fetchedData.length === 0 ? (
+          <Nothing>
+            지금 근처에 산책로가 없어요. 뚜밤뚜밤의 인근 산책로 찾기 기능은 반경
+            50m 범위 내의 산책로를 찾아요.
+          </Nothing>
+        ) : (
+          fetchedData.map((data) => {
+            return (
+              <PathLi
+                key={data.id}
+                id={data.id}
+                image={data.image}
+                title={data.title}
+                detail={data.detail}
+                time={data.time}
+                distance={data.distance}
+                region={data.region}
+              />
+            );
+          })
+        )}
         {fetchedData.map((data) => {
           return (
             <PathLi
