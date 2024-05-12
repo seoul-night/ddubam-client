@@ -6,6 +6,7 @@ import like from "../assets/icons/like.png";
 import { useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
 import { useRecoilValue } from "recoil";
+import { locationState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -111,6 +112,7 @@ const PathDetail = () => {
   const { id } = useParams();
   // console.log("trailId:", id);
   const navigate = useNavigate();
+  const locationName = useRecoilValue(locationState);
   // console.log(trailId);
 
   const [liked, setLike] = useState(false);
@@ -124,7 +126,7 @@ const PathDetail = () => {
         setFetchedData(data);
         setLoading(false);
         setLike(data.picked);
-        // console.log("산책 코스 정보 :", data);
+        console.log("산책 코스 정보 :", data);
       });
   }, []);
 
@@ -162,7 +164,7 @@ const PathDetail = () => {
 
   return (
     <HomeWrapper className="PathDetail">
-      <CourseHeader headerText={"산책 코스 정보"} location={""} />
+      <CourseHeader headerText={"산책 코스 정보"} location={locationName} />
       <MapContainer>
         {fetchedData.latitudeList && fetchedData.longitudeList && (
           <KakaoMap

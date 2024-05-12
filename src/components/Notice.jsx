@@ -44,7 +44,7 @@ const Notice = () => {
       </div>
       <div>
         <Text style={{ color: "#CDCDDC" }}>
-          밤안갱은 CCTV와 가로등을 기반으로
+          뚜밤뚜밤은 CCTV와 가로등을 기반으로
         </Text>
       </div>
       <div>

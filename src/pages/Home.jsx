@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullseye } from "@fortawesome/free-solid-svg-icons";
-import chimps from "../assets/chimps.webp";
-import walker from "../assets/walker.png";
 import Footer from "../components/Footer";
 import homeback from "../assets/homeback.png";
 import logo from "../assets/logo.png";
@@ -12,11 +8,11 @@ import homebtn1 from "../assets/homebtn1.png";
 import homebtn2 from "../assets/homebtn2.png";
 import homeColored from "../assets/icons/homeColored.png";
 import My from "../assets/icons/My.png";
-import wave from "../assets/wave.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { userDataState } from "../atoms";
 import { useState } from "react";
+import { locationState } from "../atoms";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -145,10 +141,12 @@ const Badge = styled.h4`
 const Home = () => {
   const userData1 = useRecoilValue(userDataState);
   const navigate = useNavigate();
-
+  const locationName = useRecoilValue(locationState);
   const [userData, setUserData] = useRecoilState(userDataState);
   const [attractions, setAttractions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { kakao } = window;
+  const setLocation = useSetRecoilState(locationState);
 
   const fetchUserData = async () => {
     try {
@@ -190,6 +188,39 @@ const Home = () => {
     if (attractions.length > 0) {
       // console.log(attractions);
     }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const geocoder = new kakao.maps.services.Geocoder();
+
+          const callback = function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              console.log("Geocoder result:", result);
+              const address =
+                result[0].region_1depth_name +
+                " " +
+                result[0].region_2depth_name;
+              console.log("Resolved Address:", address);
+              setLocation(address);
+            } else {
+              console.log("Geocoder failed due to: " + status);
+            }
+          };
+
+          geocoder.coord2RegionCode(
+            position.coords.longitude,
+            position.coords.latitude,
+            callback
+          );
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
   }, [setUserData]);
 
   // console.log(attractions);
@@ -222,6 +253,7 @@ const Home = () => {
           }}
         >
           <img src={logo} />
+
           <div
             style={{
               position: "absolute",
@@ -232,7 +264,7 @@ const Home = () => {
             }}
           >
             <img src={location} style={{ marginRight: "3px" }} />
-            {/* <span>서울 송파구</span> */}
+            <span>{locationName}</span>
           </div>
         </div>
       </Head>

@@ -25,6 +25,9 @@ const NearbyPath = () => {
   const lat = geolocation.latitude;
   const lng = geolocation.longitude;
 
+  // const lat = 37.6871;
+  // const lng = 127.041;
+
   // console.log(lat, lng);
 
   useEffect(() => {

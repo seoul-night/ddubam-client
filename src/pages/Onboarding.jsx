@@ -9,8 +9,8 @@ import {
 import onboard1 from "../assets/onboard1.png";
 import onboard2 from "../assets/onboard2.png";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { geolocationState, nickNameState, userDataState } from "../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { geolocationState, userDataState, locationState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -131,18 +131,20 @@ const Onboarding = () => {
   const [geoData, setGeoData] = useRecoilState(geolocationState);
   const [currentPage, setCurrentPage] = useState(0);
   const geolocation = useRecoilValue(geolocationState);
+  const setLocation = useSetRecoilState(locationState);
+
+  const { kakao } = window;
 
   const handleNext = () => {
-    setCurrentPage(1); // 다음 페이지로 이동
+    setCurrentPage(1);
   };
 
   const handlePrev = () => {
-    setCurrentPage(0); // 이전 페이지로 이동
+    setCurrentPage(0);
   };
 
   const handleStartClick = () => {
     if (currentPage === 1) {
-      // currentPage가 1일 때만 홈 페이지로 이동
       navigate("/home");
     }
   };
@@ -164,15 +166,39 @@ const Onboarding = () => {
 
     fetchData();
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      // console.log(position);
-      setGeoData({
-        longitude: position.coords.longitude,
-        latitude: position.coords.latitude,
-      });
-      // console.log(geoData);
-    });
-  }, [setUserData, setGeoData]);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const geocoder = new kakao.maps.services.Geocoder();
+
+          const callback = function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              console.log("Geocoder result:", result);
+              const address =
+                result[0].region_1depth_name +
+                " " +
+                result[0].region_2depth_name;
+              console.log("Resolved Address:", address);
+              setLocation(address);
+            } else {
+              console.log("Geocoder failed due to: " + status);
+            }
+          };
+
+          geocoder.coord2RegionCode(
+            position.coords.longitude,
+            position.coords.latitude,
+            callback
+          );
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }, [setUserData, setGeoData, setLocation]);
 
   const navigate = useNavigate();
 
