@@ -11,6 +11,7 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/logo.png";
+import logo2 from "../assets/logo2.png";
 import like from "../assets/icons/like.png";
 import complete from "../assets/icons/complete.png";
 import home from "../assets/icons/home.png";
@@ -145,7 +146,7 @@ const MyPage = () => {
     <HomeWrapper className="MyPage">
       <LogoWrap>
         {/* <Text>밤안갱 로고</Text> */}
-        <img src={logo} />
+        <img src={logo2} style={{ height: "24px" }} />
       </LogoWrap>
       <Wrap>
         <ProfileWrap>

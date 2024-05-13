@@ -13,6 +13,8 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { userDataState } from "../atoms";
 import { useState } from "react";
 import { locationState } from "../atoms";
+import logo2 from "../assets/logo2.png";
+import location2 from "../assets/icons/location2.png";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -252,7 +254,7 @@ const Home = () => {
             width: "100%",
           }}
         >
-          <img src={logo} />
+          <img src={logo2} style={{ height: "24px" }} />
 
           <div
             style={{
@@ -263,7 +265,10 @@ const Home = () => {
               position: "relative",
             }}
           >
-            <img src={location} style={{ marginRight: "3px" }} />
+            <img
+              src={location2}
+              style={{ marginRight: "3px", height: "20px" }}
+            />
             <span>{locationName}</span>
           </div>
         </div>
