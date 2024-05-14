@@ -155,7 +155,7 @@ const Onboarding = () => {
       try {
         const response = await fetch("https://ddubam.site/api/members/1");
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setUserData(data);
         // console.log("유저 데이터 :");
         // console.log(userData);
@@ -169,19 +169,22 @@ const Onboarding = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          const { latitude, longitude } = position.coords;
+          setGeoData({ latitude, longitude });
+
           const geocoder = new kakao.maps.services.Geocoder();
 
           const callback = function (result, status) {
             if (status === kakao.maps.services.Status.OK) {
-              console.log("Geocoder result:", result);
+              // console.log("Geocoder result:", result);
               const address =
                 result[0].region_1depth_name +
                 " " +
                 result[0].region_2depth_name;
-              console.log("Resolved Address:", address);
+              // console.log("Resolved Address:", address);
               setLocation(address);
             } else {
-              console.log("Geocoder failed due to: " + status);
+              // console.log("Geocoder failed due to: " + status);
             }
           };
 

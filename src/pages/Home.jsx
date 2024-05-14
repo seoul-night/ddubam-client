@@ -155,7 +155,7 @@ const Home = () => {
       const response = await fetch("https://ddubam.site/api/members/1");
       const data = await response.json();
       setUserData(data);
-      console.log(userData);
+      // console.log(userData);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     }
@@ -198,15 +198,15 @@ const Home = () => {
 
           const callback = function (result, status) {
             if (status === kakao.maps.services.Status.OK) {
-              console.log("Geocoder result:", result);
+              // console.log("Geocoder result:", result);
               const address =
                 result[0].region_1depth_name +
                 " " +
                 result[0].region_2depth_name;
-              console.log("Resolved Address:", address);
+              // console.log("Resolved Address:", address);
               setLocation(address);
             } else {
-              console.log("Geocoder failed due to: " + status);
+              // console.log("Geocoder failed due to: " + status);
             }
           };
 
