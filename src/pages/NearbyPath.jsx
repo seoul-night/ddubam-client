@@ -36,11 +36,11 @@ const NearbyPath = () => {
   const geolocation = useRecoilValue(geolocationState);
   // console.log(geolocation);
 
-  const lat = geolocation.latitude;
-  const lng = geolocation.longitude;
+  // const lat = geolocation.latitude;
+  // const lng = geolocation.longitude;
 
-  // const lat = 37.6871;
-  // const lng = 127.041;
+  const lat = 37.6871;
+  const lng = 127.041;
 
   // console.log(lat, lng);
 
@@ -48,7 +48,7 @@ const NearbyPath = () => {
     fetch(`https://ddubam.site/api/walks/near/${lat}/${lng}`) //임시 위도경도
       .then((response) => response.json())
       .then((data) => {
-        // console.log("현 위치 기반 :", data);
+        console.log("현 위치 기반 :", data);
         setFetchedData(data);
         //         if (data.length === 0) {
         //           alert(`앗! 지금 근처에 산책로가 없는 것 같아요. 뚜밤뚜밤의 인근 산책로 찾기 기능은 대략 반경 50m 범위 내의 산책로를 찾아요.
@@ -85,20 +85,6 @@ const NearbyPath = () => {
             );
           })
         )}
-        {fetchedData.map((data) => {
-          return (
-            <PathLi
-              key={data.id}
-              id={data.id}
-              image={data.image}
-              title={data.title}
-              detail={data.detail}
-              time={data.time}
-              distance={data.distance}
-              region={data.region}
-            />
-          );
-        })}
       </Paths>
     </HomeWrapper>
   );
