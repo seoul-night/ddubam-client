@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { locationState } from "../atoms";
+import location2 from "../assets/icons/location2.png";
 
 const Header = styled.div`
   position: sticky;
@@ -38,7 +39,12 @@ const CourseHeader = ({ headerText, location }) => {
       <div>
         <FontAwesomeIcon
           icon={faChevronLeft}
-          style={{ color: "#F6F8FA", fontSize: "14px", marginRight: "10px" }}
+          style={{
+            color: "#F6F8FA",
+            fontSize: "16px",
+            marginRight: "10px",
+            left: "5px",
+          }}
           onClick={() => {
             navigate(-1);
           }}
@@ -46,8 +52,24 @@ const CourseHeader = ({ headerText, location }) => {
         <Text>{headerText}</Text>
       </div>
 
-      <div>
-        <FontAwesomeIcon
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img
+          src={location2}
+          style={{
+            color: "#F6F8FA",
+            display: "inline",
+            width: "18px",
+            marginRight: "6px",
+            position: "relative",
+          }}
+        />
+        {/* <FontAwesomeIcon
           icon={faBullseye}
           style={{
             color: "#F6F8FA",
@@ -57,7 +79,7 @@ const CourseHeader = ({ headerText, location }) => {
             position: "relative",
             left: "5px",
           }}
-        />
+        /> */}
         <Text style={{ fontSize: "12px", lineHeight: "18px" }}>
           {locationName}
         </Text>
