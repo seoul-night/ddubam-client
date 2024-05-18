@@ -15,6 +15,8 @@ import { useState } from "react";
 import { locationState } from "../atoms";
 import logo2 from "../assets/logo2.png";
 import location2 from "../assets/icons/location2.png";
+import img_homebtn1 from "../assets/img_homebtn1.png";
+import img_homebtn2 from "../assets/img_homebtn2.png";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -297,8 +299,8 @@ const Home = () => {
               <Text>현 위치 기반</Text>
               <SubText>내 주변에서 산책해요</SubText>
               <img
-                src={homebtn1}
-                style={{ position: "absolute", bottom: "15px", right: "15px" }}
+                src={img_homebtn1}
+                style={{ position: "absolute", bottom: "0", right: "0" }}
               />
             </Box>
           </Link>
@@ -307,8 +309,8 @@ const Home = () => {
               <Text>인기있는</Text>
               <SubText>사람들이 많이 다녀요</SubText>
               <img
-                src={homebtn2}
-                style={{ position: "absolute", bottom: "15px", right: "15px" }}
+                src={img_homebtn2}
+                style={{ position: "absolute", bottom: "0", right: "0" }}
               />
             </Box>
           </Link>
