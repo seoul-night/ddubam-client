@@ -1,11 +1,19 @@
 import React from "react";
 import { Map, MapMarker, Polyline, useMap } from "react-kakao-maps-sdk";
+import map_marker from "../assets/icons/map_marker.png";
 
 const KakaoMap = ({ latitudeList, longitudeList }) => {
   const markers = latitudeList.map((latitude, index) => (
     <MapMarker
       key={index}
       position={{ lat: latitude, lng: longitudeList[index] }}
+      image={{
+        src: map_marker,
+        size: {
+          width: 32,
+          height: 32,
+        },
+      }}
     />
   ));
 
