@@ -40,6 +40,15 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
     return null;
   };
 
+  React.useEffect(() => {
+    if (!window.Kakao) {
+      const script = document.createElement("script");
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_SDK_APPKEY}&libraries=services`;
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
   return (
     <Map
       center={{ lat: latitudeList[0], lng: longitudeList[0] }}

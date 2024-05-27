@@ -1,5 +1,6 @@
+/* global Kakao */
 import "./App.css";
-import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Onboarding from "./pages/Onboarding.jsx";
 import MyPage from "./pages/MyPage.jsx";
@@ -18,9 +19,15 @@ function App() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
+
   useEffect(() => {
     setScreenSize();
-  });
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_SDK_APPKEY);
+      console.log("kakao js sdk 초기화 상태 : ", window.Kakao.isInitialized());
+    }
+  }, []);
+
   return (
     <div className="App">
       <Routes>
