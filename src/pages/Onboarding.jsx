@@ -8,9 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import onboard1 from "../assets/onboard1.png";
 import onboard2 from "../assets/onboard2.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { geolocationState, userDataState, locationState } from "../atoms";
+import {} from "../services/api";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -52,7 +53,7 @@ const StartBtn = styled.button`
   cursor: ${(props) => (props.active ? "pointer" : "default")};
   border: none;
   /* border: none; */
-  p {
+  a {
     color: ${(props) => (props.active ? "white" : "#b7c0c6")};
     font-size: 16px;
   }
@@ -132,8 +133,13 @@ const Onboarding = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const geolocation = useRecoilValue(geolocationState);
   const setLocation = useSetRecoilState(locationState);
-
   const { kakao } = window;
+
+  //환경 변수
+  const APP_KEY = process.env.REACT_APP_APP_KEY;
+  const REDIRECT_URL = process.env.REACT_APP_REDIRECT_URL;
+
+  const AUTH_CODE_REQUEST_URL = `https://kauth.kakao.com/oauth/authorize?clident_id=${APP_KEY}&redirect_url=${REDIRECT_URL}&response_type=code`;
 
   const handleNext = () => {
     setCurrentPage(1);
@@ -145,7 +151,8 @@ const Onboarding = () => {
 
   const handleStartClick = () => {
     if (currentPage === 1) {
-      navigate("/home");
+      // navigate("/home");
+      // navigate(`${AUTH_CODE_REQUEST_URL}`);
     }
   };
 
@@ -265,10 +272,10 @@ const Onboarding = () => {
 
       <BtnWrap>
         <StartBtn
-          onClick={handleStartClick}
+          // onClick={handleStartClick}
           {...(currentPage === 1 && { active: "true" })} // 현재 페이지가 1이면 활성화
         >
-          <p>밤산책 시작하기</p>
+          <a href={AUTH_CODE_REQUEST_URL}>밤산책 시작하기</a>
         </StartBtn>
       </BtnWrap>
     </HomeWrapper>

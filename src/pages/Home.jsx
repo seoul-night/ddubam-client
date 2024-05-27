@@ -17,6 +17,7 @@ import logo2 from "../assets/logo2.png";
 import location2 from "../assets/icons/location2.png";
 import img_homebtn1 from "../assets/img_homebtn1.png";
 import img_homebtn2 from "../assets/img_homebtn2.png";
+import KakaoLogin from "../services/api";
 
 const HomeWrapper = styled.div`
   z-index: 1;
