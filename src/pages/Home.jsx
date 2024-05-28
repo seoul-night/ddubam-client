@@ -157,7 +157,7 @@ const Home = () => {
     try {
       const response = await fetch("https://ddubam.site/api/members/1");
       const data = await response.json();
-      setUserData(data);
+      // setUserData(data);
       // console.log(userData);
     } catch (error) {
       console.error("Failed to fetch user data:", error);

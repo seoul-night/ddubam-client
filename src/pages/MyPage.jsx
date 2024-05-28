@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
@@ -19,6 +19,7 @@ import MyColored from "../assets/icons/MyColored.png";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userDataState } from "../atoms";
+import { getUserData } from "../services/api";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -142,6 +143,19 @@ const MyPage = () => {
   const navigate = useNavigate();
   const userData = useRecoilValue(userDataState);
   const progressWidth = userData.exp % 100;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await getUserData();
+        console.log(data); // Fetch and log user data
+        // set userData state here if needed
+      } catch (error) {
+        console.error("Error fetching user data", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>

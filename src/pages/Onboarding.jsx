@@ -163,7 +163,9 @@ const Onboarding = () => {
         const response = await fetch("https://ddubam.site/api/members/1");
         const data = await response.json();
         // console.log(data);
-        setUserData(data);
+
+        // setUserData(data);
+
         // console.log("유저 데이터 :");
         // console.log(userData);
       } catch (error) {
@@ -275,7 +277,9 @@ const Onboarding = () => {
           // onClick={handleStartClick}
           {...(currentPage === 1 && { active: "true" })} // 현재 페이지가 1이면 활성화
         >
-          <a href={AUTH_CODE_REQUEST_URL}>밤산책 시작하기</a>
+          <a href={"https://ddubam.site/api/members/kakao/login"}>
+            밤산책 시작하기
+          </a>
         </StartBtn>
       </BtnWrap>
     </HomeWrapper>

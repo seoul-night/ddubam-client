@@ -12,6 +12,7 @@ import PopularPath from "./pages/PopularPath.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import PathDetail from "./pages/PathDetail.jsx";
 import Walking from "./pages/Walking.jsx";
+import Loading from "./pages/Loading.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -22,9 +23,19 @@ function App() {
 
   useEffect(() => {
     setScreenSize();
-    if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.REACT_APP_KAKAO_SDK_APPKEY);
-      console.log("kakao js sdk 초기화 상태 : ", window.Kakao.isInitialized());
+    if (window.Kakao) {
+      console.log("Kakao 객체 확인됨");
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init(process.env.REACT_APP_KAKAO_SDK_APPKEY);
+        console.log(
+          "kakao js sdk 초기화 상태 : ",
+          window.Kakao.isInitialized()
+        );
+      } else {
+        console.log("Kakao js sdk 이미 초기화됨");
+      }
+    } else {
+      console.error("Kakao 객체를 찾을 수 없습니다.");
     }
   }, []);
 
@@ -32,6 +43,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Onboarding />} />
+        <Route path="/loading" element={<Loading />} />
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/nearby" element={<NearbyPath />} />
