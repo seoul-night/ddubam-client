@@ -21,10 +21,10 @@ const Loading = () => {
 
         // 사용자 정보를 로컬 스토리지에 저장합니다.
         localStorage.setItem("token", token);
-        localStorage.setItem("userId", decoded.id);
-        localStorage.setItem("nickName", decoded.nickName);
-        localStorage.setItem("profileName", decoded.profileName);
-        localStorage.setItem("exp", decoded.exp);
+        // localStorage.setItem("userId", decoded.id);
+        // localStorage.setItem("nickName", decoded.nickName);
+        // localStorage.setItem("profileName", decoded.profileName);
+        // localStorage.setItem("exp", decoded.exp);
 
         // 원하는 페이지로 리다이렉트합니다.
         navigate("/home");

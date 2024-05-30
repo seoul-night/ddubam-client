@@ -17,9 +17,9 @@ import complete from "../assets/icons/complete.png";
 import home from "../assets/icons/home.png";
 import MyColored from "../assets/icons/MyColored.png";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { userDataState } from "../atoms";
-import { getUserData } from "../services/api";
+import { getUserData } from "../services/api"; // handleLogout 제거
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -142,7 +142,53 @@ const Badge = styled.div`
 const MyPage = () => {
   const navigate = useNavigate();
   const userData = useRecoilValue(userDataState);
-  const progressWidth = userData.exp % 100;
+  const resetUserData = useResetRecoilState(userDataState); // useResetRecoilState 훅을 여기에서 사용
+
+  const handleLogout = () => {
+    if (window.Kakao.Auth) {
+      // 클라이언트 측 로그아웃 처리
+      window.Kakao.Auth.logout(() => {
+        console.log("kakao 로그아웃 성공");
+        localStorage.removeItem("token");
+        resetUserData();
+        console.log("로컬스토리지 토큰 삭제 및 상태 초기화");
+        navigate("/");
+      });
+    }
+  };
+
+  // const handleLogout = () => {
+  //   const token = localStorage.getItem("token");
+
+  //   fetch('/api/logout', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ token }),
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     if (data.message === '카카오 로그아웃 성공') {
+  //       console.log("카카오 로그아웃 성공");
+
+  //       // 클라이언트 측 로그아웃 처리
+  //       window.Kakao.Auth.logout(() => {
+  //         console.log("클라이언트 세션 종료");
+  //         localStorage.removeItem("token");
+  //         resetUserData();
+  //         console.log("로컬스토리지 토큰 삭제 및 상태 초기화");
+  //         navigate("/");
+  //       });
+  //     } else {
+  //       console.error("카카오 로그아웃 실패", data);
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.error("서버 오류", error);
+  //   });
+  // };
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -156,6 +202,9 @@ const MyPage = () => {
 
     fetchUserData();
   }, []);
+
+  const progressWidth = userData.exp % 100; // progressWidth 변수 정의
+
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>
@@ -293,7 +342,8 @@ const MyPage = () => {
           <Text
             style={{ fontSize: "14px", color: "#F6F8FA", height: "20px" }}
             onClick={() => {
-              navigate("/");
+              // navigate("/");
+              handleLogout();
             }}
           >
             로그아웃
