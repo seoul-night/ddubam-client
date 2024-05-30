@@ -31,7 +31,7 @@ const Loading = () => {
           // 사용자 정보를 로컬 스토리지에 저장
           localStorage.setItem("token", token);
 
-          // navigate("/home");
+          navigate("/home");
         } catch (error) {
           console.error("Failed to decode JWT token:", error);
           navigate("/error");
