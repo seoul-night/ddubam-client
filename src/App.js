@@ -24,13 +24,13 @@ function App() {
   useEffect(() => {
     setScreenSize();
     if (window.Kakao) {
-      console.log("Kakao 객체 확인됨");
+      // console.log("Kakao 객체 확인됨");
       if (!window.Kakao.isInitialized()) {
         window.Kakao.init(process.env.REACT_APP_KAKAO_SDK_APPKEY);
-        console.log(
-          "kakao js sdk 초기화 상태 : ",
-          window.Kakao.isInitialized()
-        );
+        // console.log(
+        //   "kakao js sdk 초기화 상태 : ",
+        //   window.Kakao.isInitialized()
+        // );
       } else {
         console.log("Kakao js sdk 이미 초기화됨");
       }

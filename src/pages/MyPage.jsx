@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
@@ -19,7 +19,7 @@ import MyColored from "../assets/icons/MyColored.png";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { userDataState } from "../atoms";
-import { getUserData } from "../services/api"; // handleLogout 제거
+import { fetchUserData, getUserData } from "../services/api"; // handleLogout 제거
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -142,7 +142,9 @@ const Badge = styled.div`
 const MyPage = () => {
   const navigate = useNavigate();
   const userData = useRecoilValue(userDataState);
+  const [fetchedUserData, setfetchedUserData] = useState([]);
   const resetUserData = useResetRecoilState(userDataState); // useResetRecoilState 훅을 여기에서 사용
+  console.log(userData.id);
 
   const handleLogout = () => {
     if (window.Kakao.Auth) {
@@ -190,17 +192,7 @@ const MyPage = () => {
   // };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const data = await getUserData();
-        console.log(data); // Fetch and log user data
-        // set userData state here if needed
-      } catch (error) {
-        console.error("Error fetching user data", error);
-      }
-    };
-
-    fetchUserData();
+    setfetchedUserData(fetchUserData(userData.id));
   }, []);
 
   const progressWidth = userData.exp % 100; // progressWidth 변수 정의
