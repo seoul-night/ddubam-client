@@ -8,6 +8,9 @@ import complete from "../assets/icons/complete.png";
 import chevronLeft from "../assets/icons/chevronLeft.png";
 // import PathTab from "../components/FinishedTab";
 import FinishedTab from "../components/FinishedTab";
+import { fetchFinishedPaths } from "../services/api";
+import { useRecoilValue } from "recoil";
+import { userDataState, userIdState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -43,23 +46,19 @@ const FinishWrap = styled.div`
 
 const PathList = styled.ul``;
 const FinishedPath = ({}) => {
-  const [fetchedDatas, setFetchedDatas] = useState([]); // 상태 추가
+  const [fetchedDatas, setFetchedDatas] = useState([]);
+  const userData = useRecoilValue(userDataState);
+  const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
-    fetch("https://ddubam.site/api/members/walks/complete/1")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("에러");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setFetchedDatas(data); // 데이터 설정
-      })
-      .catch((error) => console.error("에러:", error));
-  }, []); // 컴포넌트가 마운트 될 때 한 번만 실행
-
-  // console.log(fetchedDatas);
+    const fetchData = async () => {
+      //완료 산책로 가져와서 fetchedData변수에 저장
+      const data = await fetchFinishedPaths(userId); //완료 산책로들 가져오기
+      // console.log(data);
+      setFetchedDatas(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <HomeWrapper className="FinishedPath">

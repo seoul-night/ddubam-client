@@ -19,6 +19,14 @@ export const userDataState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const userIdState = atom({
+  key: "userIdState",
+  default: {
+    id: 0,
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const geolocationState = atom({
   key: "geolocationState",
   default: {

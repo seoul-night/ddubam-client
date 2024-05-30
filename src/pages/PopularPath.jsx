@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CourseHeader from "../components/CourseHeader";
 import Notice from "../components/Notice";
 import PathLi from "../components/PathLi";
+import { fetchPopularPaths } from "../services/api";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -20,12 +21,12 @@ const PopularPath = () => {
   const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
-    fetch("https://ddubam.site/api/walks/popular")
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setFetchedData(data);
-      });
+    const fetchData = async () => {
+      const data = await fetchPopularPaths();
+      setFetchedData(data);
+    };
+
+    fetchData();
   }, []);
 
   return (

@@ -4,6 +4,8 @@ import close from "../assets/icons/close.png";
 import wave from "../assets/wave.jpg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import clap from "../assets/icons/clap.png";
+import { useRecoilValue } from "recoil";
+import { userIdState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -211,9 +213,10 @@ const Walking = () => {
   const [fetchedData, setFetchedData] = useState({});
   const [loading, setLoading] = useState(true);
   const [reviewText, setReviewText] = useState("");
+  const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
-    fetch(`https://ddubam.site/api/walks/${trailId}/1`)
+    fetch(`https://ddubam.site/api/walks/${trailId}/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setFetchedData(data);
@@ -233,7 +236,7 @@ const Walking = () => {
 
   const submitReview = () => {
     const postData = {
-      userId: 1,
+      userId: userId,
       trailId: Number(trailId),
       // trailId: Number(trailId),
       review: reviewText,

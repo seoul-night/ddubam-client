@@ -6,7 +6,8 @@ import like from "../assets/icons/like.png";
 import { useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
 import { useRecoilValue } from "recoil";
-import { locationState } from "../atoms";
+import { locationState, userIdState } from "../atoms";
+import { fetchPathDetail } from "../services/api";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -118,16 +119,17 @@ const PathDetail = () => {
   const [liked, setLike] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
   const [loading, setLoading] = useState(true);
+  const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
-    fetch(`https://ddubam.site/api/walks/${id}/1`) //마지막 1은 userId, 이후 수정
-      .then((response) => response.json())
-      .then((data) => {
-        setFetchedData(data);
-        setLoading(false);
-        setLike(data.picked);
-        console.log("산책 코스 정보 :", data);
-      });
+    const fetchData = async () => {
+      const data = await fetchPathDetail(id, userId);
+      setFetchedData(data);
+      setLoading(false);
+      setLike(data.picked);
+      console.log("산책 코스 정보 :", data);
+    };
+    fetchData();
   }, []);
 
   if (!loading) {
@@ -135,7 +137,7 @@ const PathDetail = () => {
   }
 
   const sendingData = {
-    userId: 1,
+    userId: userId,
     trailId: parseInt(id),
   };
 

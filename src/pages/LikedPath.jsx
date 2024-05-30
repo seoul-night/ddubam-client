@@ -8,6 +8,9 @@ import complete from "../assets/icons/complete.png";
 import chevronLeft from "../assets/icons/chevronLeft.png";
 import like from "../assets/icons/like.png";
 import LikedTab from "../components/LikedTab";
+import { fetchLikedPaths } from "../services/api";
+import { useRecoilValue } from "recoil";
+import { userIdState } from "../atoms";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -43,19 +46,14 @@ const FinishWrap = styled.div`
 const PathList = styled.ul``;
 const LikedPath = ({ finishCnt }) => {
   const [fetchedDatas, setFetchedDatas] = useState([]);
+  const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
-    fetch("https://ddubam.site/api/members/walks/select/1")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("에러");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setFetchedDatas(data);
-      })
-      .catch((error) => console.error("에러:", error));
+    const fetchData = async () => {
+      const data = await fetchLikedPaths(userId);
+      setFetchedDatas(data);
+    };
+    fetchData();
   }, []);
 
   // console.log("찜한 코스:", fetchedDatas);

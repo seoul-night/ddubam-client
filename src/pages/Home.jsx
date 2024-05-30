@@ -17,7 +17,7 @@ import logo2 from "../assets/logo2.png";
 import location2 from "../assets/icons/location2.png";
 import img_homebtn1 from "../assets/img_homebtn1.png";
 import img_homebtn2 from "../assets/img_homebtn2.png";
-import KakaoLogin from "../services/api";
+import KakaoLogin, { fetchAttractions } from "../services/api";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -153,30 +153,11 @@ const Home = () => {
   const { kakao } = window;
   const setLocation = useSetRecoilState(locationState);
 
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch("https://ddubam.site/api/members/1");
-      const data = await response.json();
-      // setUserData(data);
-      // console.log(userData);
-    } catch (error) {
-      console.error("Failed to fetch user data:", error);
-    }
-  };
-
-  const fetchAttractionData = async () => {
-    fetch("https://ddubam.site/api/attractions")
-      .then((response) => response.json())
-      .then((data) => {
-        setAttractions(data.slice(0, 5));
-      });
-  };
-
   const toAttractionDetail = async (latitude, longitude) => {
     fetch(`https://ddubam.site/api/attractions/${latitude}/${longitude}`, {})
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         if (data.trailId != undefined) {
           navigate(`/pathdetail/${data.trailId}`);
         }
@@ -187,12 +168,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchUserData();
-    fetchAttractionData();
+    const fetchData = async () => {
+      const attractionData = await fetchAttractions();
+      setAttractions(attractionData);
+    };
 
-    if (attractions.length > 0) {
-      // console.log(attractions);
-    }
+    fetchData();
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

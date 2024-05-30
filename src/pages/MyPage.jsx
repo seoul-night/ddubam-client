@@ -142,9 +142,7 @@ const Badge = styled.div`
 const MyPage = () => {
   const navigate = useNavigate();
   const userData = useRecoilValue(userDataState);
-  const [fetchedUserData, setfetchedUserData] = useState([]);
   const resetUserData = useResetRecoilState(userDataState); // useResetRecoilState 훅을 여기에서 사용
-  console.log(userData.id);
 
   const handleLogout = () => {
     if (window.Kakao.Auth) {
@@ -190,10 +188,6 @@ const MyPage = () => {
   //     console.error("서버 오류", error);
   //   });
   // };
-
-  useEffect(() => {
-    setfetchedUserData(fetchUserData(userData.id));
-  }, []);
 
   const progressWidth = userData.exp % 100; // progressWidth 변수 정의
 
