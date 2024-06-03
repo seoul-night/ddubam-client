@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 // import { createGlobalStyle } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,5 +19,5 @@ root.render(
   </BrowserRouter>
   // </React.StrictMode>
 );
-
+serviceWorkerRegistration.register();
 reportWebVitals();

@@ -1,0 +1,12 @@
+PWA는 HTTPS 환경에서 동작합니다. 로컬에서 테스트할 때는 react-scripts가 제공하는 HTTPS 옵션을 사용합니다.
+HTTPS=true npm start
+
+
+16x16
+32x32
+48x48
+72x72
+96x96
+144x144
+192x192
+512x512
