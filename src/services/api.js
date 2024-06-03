@@ -111,3 +111,11 @@ export const fetchPathDetail = async (trailId, userId) => {
     console.log(error);
   }
 };
+
+export const logoutRequest = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/members/kakao/logout`);
+  } catch (error) {
+    console.log(error);
+  }
+};

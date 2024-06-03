@@ -137,9 +137,9 @@ const Onboarding = () => {
 
   //환경 변수
   const APP_KEY = process.env.REACT_APP_APP_KEY;
-  const REDIRECT_URL = process.env.REACT_APP_REDIRECT_URL;
+  // const REDIRECT_URL = process.env.REACT_APP_REDIRECT_URL;
 
-  const AUTH_CODE_REQUEST_URL = `https://kauth.kakao.com/oauth/authorize?clident_id=${APP_KEY}&redirect_url=${REDIRECT_URL}&response_type=code`;
+  // const AUTH_CODE_REQUEST_URL = `https://kauth.kakao.com/oauth/authorize?clident_id=${APP_KEY}&redirect_url=${REDIRECT_URL}&response_type=code`;
 
   const handleNext = () => {
     setCurrentPage(1);
