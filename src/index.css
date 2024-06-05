@@ -28,7 +28,7 @@ code {
 .PathDetail,
 .All {
   max-width: var(--max-width);
-  /* min-height: 780px; */
+  /* min-height: 750px; */
   margin-left: auto;
   margin-right: auto;
   background-color: #f2f2f2e1;

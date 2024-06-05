@@ -10,6 +10,14 @@ const urlsToCache = [
   "/favicon.ico",
   "/logo192.png",
   "/logo512.png",
+  "/16.png",
+  "/32.png",
+  "/48.png",
+  "/72.png",
+  "/96.png",
+  "/144.png",
+  "/192.png",
+  "/512.png",
 ];
 
 // 설치 이벤트

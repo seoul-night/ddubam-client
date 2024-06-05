@@ -90,6 +90,8 @@ const SubWrap = styled.div`
 `;
 
 const ViewWrapper = styled.div`
+  position: absolute;
+  z-index: 3;
   width: 200%;
   display: flex;
   transform: translateX(${(props) => props.offset}%);
