@@ -14,7 +14,7 @@ code {
 
 :root {
   --vh: 100vh;
-  --max-width: 500px;
+  --max-width: 440px;
 }
 
 /* 페이지 크기 제한 */

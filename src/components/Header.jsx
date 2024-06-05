@@ -10,13 +10,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Head = styled.div`
   /* position: fixed; */
-  top: -20px;
   padding: 20px;
   padding-left: 0px;
   padding-right: 0px;
   display: flex;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 20px;
   margin-top: -20px;
   position: sticky;
   background-color: #1c1c26;
