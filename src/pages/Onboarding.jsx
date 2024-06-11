@@ -33,7 +33,6 @@ const Dot = styled.i`
   color: white;
   font-size: 6px;
   margin: 2px;
-  /* color: #464b53; */
 `;
 
 const GrayDot = styled.i`
@@ -42,28 +41,27 @@ const GrayDot = styled.i`
   color: #464b53;
 `;
 
-const StartBtn = styled.button`
+const StartLink = styled.a`
   width: 320px;
   height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background-color: ${(props) => (props.active ? "#5E66FF" : "#464b53")};
   border-radius: 10px;
   margin: auto;
   z-index: 3;
   cursor: ${(props) => (props.active ? "pointer" : "default")};
-  border: none;
-  /* border: none; */
-  a {
-    color: ${(props) => (props.active ? "white" : "#b7c0c6")};
-    font-size: 16px;
-  }
+  color: ${(props) => (props.active ? "white" : "#b7c0c6")};
+  font-size: 16px;
+  text-decoration: none;
   transition: all 0.3s ease-in-out;
 `;
 
 const BtnWrap = styled.div`
   display: flex;
   height: 12%;
-  /* position: absolute; */
   position: absolute;
   bottom: 0;
   left: 0;
@@ -105,7 +103,6 @@ const View = styled.div`
 const Onboard1 = styled.div`
   z-index: 2;
   position: absolute;
-  /* padding: 0; */
   bottom: -3px;
   left: 0;
   width: 100%;
@@ -139,9 +136,6 @@ const Onboarding = () => {
 
   //환경 변수
   const APP_KEY = process.env.REACT_APP_APP_KEY;
-  // const REDIRECT_URL = process.env.REACT_APP_REDIRECT_URL;
-
-  // const AUTH_CODE_REQUEST_URL = `https://kauth.kakao.com/oauth/authorize?clident_id=${APP_KEY}&redirect_url=${REDIRECT_URL}&response_type=code`;
 
   const handleNext = () => {
     setCurrentPage(1);
@@ -151,25 +145,11 @@ const Onboarding = () => {
     setCurrentPage(0);
   };
 
-  const handleStartClick = () => {
-    if (currentPage === 1) {
-      // navigate("/home");
-      // navigate(`${AUTH_CODE_REQUEST_URL}`);
-    }
-  };
-
   useEffect(() => {
-    // console.log("Current Geolocation:", geolocation);
     const fetchData = async () => {
       try {
         const response = await fetch("https://ddubam.site/api/members/1");
         const data = await response.json();
-        // console.log(data);
-
-        // setUserData(data);
-
-        // console.log("유저 데이터 :");
-        // console.log(userData);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -187,15 +167,13 @@ const Onboarding = () => {
 
           const callback = function (result, status) {
             if (status === kakao.maps.services.Status.OK) {
-              // console.log("Geocoder result:", result);
               const address =
                 result[0].region_1depth_name +
                 " " +
                 result[0].region_2depth_name;
-              // console.log("Resolved Address:", address);
               setLocation(address);
             } else {
-              // console.log("Geocoder failed due to: " + status);
+              console.log("Geocoder failed due to: " + status);
             }
           };
 
@@ -275,14 +253,12 @@ const Onboarding = () => {
       )}
 
       <BtnWrap>
-        <StartBtn
-          // onClick={handleStartClick}
-          {...(currentPage === 1 && { active: "true" })} // 현재 페이지가 1이면 활성화
+        <StartLink
+          href={"https://ddubam.site/api/members/kakao/login"}
+          active={currentPage === 1 ? 1 : 0}
         >
-          <a href={"https://ddubam.site/api/members/kakao/login"}>
-            밤산책 시작하기
-          </a>
-        </StartBtn>
+          밤산책 시작하기
+        </StartLink>
       </BtnWrap>
     </HomeWrapper>
   );
