@@ -41,7 +41,7 @@ const GrayDot = styled.i`
   color: #464b53;
 `;
 
-const StartLink = styled.a`
+const StartLink = styled.div`
   width: 320px;
   height: 56px;
   display: flex;
@@ -124,6 +124,9 @@ const Chevron = styled.i`
   font-size: 20px;
   position: absolute;
   z-index: 1000;
+  padding: 10px;
+
+  cursor: pointer;
 `;
 
 const Onboarding = () => {
@@ -194,6 +197,12 @@ const Onboarding = () => {
 
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    if (currentPage === 1) {
+      window.location.href = "https://ddubam.site/api/members/kakao/login";
+    }
+  };
+
   return (
     <HomeWrapper className="Home">
       {currentPage == 0 ? (
@@ -253,10 +262,7 @@ const Onboarding = () => {
       )}
 
       <BtnWrap>
-        <StartLink
-          href={"https://ddubam.site/api/members/kakao/login"}
-          active={currentPage === 1 ? 1 : 0}
-        >
+        <StartLink onClick={handleClick} active={currentPage === 1 ? 1 : 0}>
           밤산책 시작하기
         </StartLink>
       </BtnWrap>
