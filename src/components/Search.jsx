@@ -18,6 +18,8 @@ const Search = () => {
             console.error(error);
             setKeywordList([]);
           }
+        } else {
+          setKeywordList([]);
         }
       };
 
