@@ -18,6 +18,7 @@ import location2 from "../assets/icons/location2.png";
 import img_homebtn1 from "../assets/img_homebtn1.png";
 import img_homebtn2 from "../assets/img_homebtn2.png";
 import KakaoLogin, { fetchAttractions } from "../services/api";
+import Search from "../components/Search";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -267,6 +268,7 @@ const Home = () => {
           <Text>오늘도 밤산책을 해볼까요?</Text>
         </div>
       </UserWrap>
+      <Search />
       <GoWalk>
         <Title>산책하러 가기</Title>
         <div

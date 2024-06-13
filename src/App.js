@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound.jsx";
 import PathDetail from "./pages/PathDetail.jsx";
 import Walking from "./pages/Walking.jsx";
 import Loading from "./pages/Loading.jsx";
+import Navigation from "./pages/Navigation.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -50,6 +51,7 @@ function App() {
         <Route path="/finished" element={<FinishedPath />} />
         <Route path="/liked" element={<LikedPath />} />
         <Route path="/popular" element={<PopularPath />} />
+        <Route path="/navigation/:id" element={<Navigation />} />
         <Route path="/pathdetail/:id" element={<PathDetail />} />
         <Route path="/walking/:trailId" element={<Walking />} />
         {/* <Route path="*" element={<NotFound />} /> */}

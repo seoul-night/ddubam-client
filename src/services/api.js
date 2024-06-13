@@ -119,3 +119,31 @@ export const logoutRequest = async () => {
     console.log(error);
   }
 };
+
+//인기 산책로로 가는 길
+export const fetchNavigationData = async () => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const keywordSearch = async (keyword) => {
+  try {
+    const response = await axios.get(
+      `https://dapi.kakao.com/v2/local/search/keyword.json`,
+      {
+        params: {
+          query: keyword,
+        },
+        headers: {
+          Authorization: `KakaoAK ${process.env.REACT_APP_APP_KEY}`, // YOUR_API_KEY를 실제 Kakao API 키로 교체하십시오.
+        },
+      }
+    );
+    // console.log(response.data);
+    return response.data.documents;
+  } catch (error) {
+    console.log(error);
+  }
+};
