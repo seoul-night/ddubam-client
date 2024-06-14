@@ -171,7 +171,11 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const attractionData = await fetchAttractions();
-      setAttractions(attractionData);
+      if (attractionData) {
+        setAttractions(attractionData);
+      } else {
+        setAttractions([]);
+      }
     };
 
     fetchData();

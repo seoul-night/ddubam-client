@@ -72,6 +72,7 @@ const PathLi = ({
     <Info>
       {/* 동적 경로 설정 */}
       <Link to={`/pathdetail/${id}`}>
+        원래 코드
         <div style={{ display: "flex" }}>
           <Pic backgroundImage={image} />
           <TextWrap>

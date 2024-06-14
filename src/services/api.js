@@ -145,6 +145,24 @@ export const fetchNavigationData = async (
   }
 };
 
+//인기 산책로로 가는 길
+export const navigateToPopular = async (
+  trailId,
+  userId,
+  latitude,
+  longitude
+) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //키워드로 장소 검색 -> 목적지 위도, 경도 얻음
 export const keywordSearch = async (keyword) => {
   try {

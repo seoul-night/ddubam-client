@@ -121,12 +121,14 @@ const Navigation = () => {
   useEffect(() => {
     const fetchData = async () => {
       console.log(startLatitude, startLongitude, endLatitude, endLongitude);
-      const fetchedData = await fetchNavigationData(
+      const data = await fetchNavigationData(
         startLatitude,
         startLongitude,
         endLatitude,
         endLongitude
       );
+
+      setFetchedData(data);
       console.log(fetchedData);
     };
     fetchData();
@@ -135,22 +137,22 @@ const Navigation = () => {
   return (
     <HomeWrapper className="PathDetail">
       <CourseHeader
-        headerText={"인기 산책로까지 경로"}
+        headerText={"검색 산책로까지 경로"}
         location={locationName}
       />
       <MapContainer>
-        {fetchedData.latitudeList && fetchedData.longitudeList && (
+        {/* {fetchedData.latitudeList && fetchedData.longitudeList && (
           <KakaoMap
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
           />
-        )}
+        )} */}
       </MapContainer>
       <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
         <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
-          {fetchedData.title}
+          {/* {fetchedData.title} */}
         </WhiteText1>
-        <GrayText1 style={{ fontSize: "14px" }}>{fetchedData.detail}</GrayText1>
+        {/* <GrayText1 style={{ fontSize: "14px" }}>{fetchedData.detail}</GrayText1> */}
       </Wrap>
     </HomeWrapper>
   );

@@ -14,7 +14,7 @@ const HomeWrapper = styled.div`
   position: relative;
   padding: 20px;
   box-sizing: border-box;
-  overflow:auto;
+  overflow: auto;
 `;
 
 const Nothing = styled.div`
@@ -48,7 +48,7 @@ const NearbyPath = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchNearbyPaths(lat, lng);
+      const data = (await fetchNearbyPaths(lat, lng)) || [];
       setFetchedData(data);
     };
     fetchData();
