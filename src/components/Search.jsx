@@ -21,7 +21,8 @@ const Search = () => {
         if (typedText) {
           try {
             const response = await keywordSearch(typedText);
-            // console.log(response);
+            console.log("API Response:", response);
+            console.log(response);
             setKeywordList(response || []);
           } catch (error) {
             console.error(error);
@@ -53,6 +54,7 @@ const Search = () => {
 
   const handleInputChange = (event) => {
     setTypedText(event.target.value);
+    console.log(event.target.value);
   };
 
   const placeClick = (name) => {

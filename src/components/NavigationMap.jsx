@@ -2,11 +2,16 @@ import React from "react";
 import { Map, MapMarker, Polyline, useMap } from "react-kakao-maps-sdk";
 import map_marker from "../assets/icons/map_marker.png";
 
-const NavigationMap = ({ latitudeList, longitudeList }) => {
-  const markers = latitudeList.map((latitude, index) => (
+const NavigationMap = ({
+  latitudeList,
+  longitudeList,
+  safetyLatitudeList,
+  safetyLongitudeList,
+}) => {
+  const markers = safetyLatitudeList.map((latitude, index) => (
     <MapMarker
       key={index}
-      position={{ lat: latitude, lng: longitudeList[index] }}
+      position={{ lat: latitude, lng: safetyLongitudeList[index] }}
       image={{
         src: map_marker,
         size: {

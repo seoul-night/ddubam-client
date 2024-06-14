@@ -2,7 +2,14 @@ import React from "react";
 import { Map, MapMarker, Polyline, useMap } from "react-kakao-maps-sdk";
 import map_marker from "../assets/icons/map_marker.png";
 
-const KakaoMap = ({ latitudeList, longitudeList }) => {
+const KakaoMap = ({
+  latitudeList,
+  longitudeList,
+  safetyLatitudeList,
+  safetyLongitudeList,
+  startLatitudeList,
+  startLongitudeList,
+}) => {
   const markers = latitudeList.map((latitude, index) => (
     <MapMarker
       key={index}
@@ -16,6 +23,20 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
       }}
     />
   ));
+
+  const cctvMarkers = safetyLatitudeList.map((latitude, index) => {
+    <MapMarker
+      key={index}
+      position={{ lat: latitude, lng: safetyLongitudeList[index] }}
+      image={{
+        src: map_marker,
+        size: {
+          width: 32,
+          height: 32,
+        },
+      }}
+    />;
+  });
 
   const polylineCoordinates = latitudeList.map((latitude, index) => ({
     lat: latitude,
@@ -56,6 +77,7 @@ const KakaoMap = ({ latitudeList, longitudeList }) => {
       level={4}
     >
       {markers}
+      {cctvMarkers}
       <Polyline
         path={polylineCoordinates}
         strokeWeight={3}

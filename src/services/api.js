@@ -1,7 +1,8 @@
 // api.js
 import axios from "axios";
 
-const BASE_URL = "https://ddubam.site/api";
+// const BASE_URL = "https://ddubam.site/api";
+const BASE_URL = "http://ddubam.site:8080/api";
 const APP_KEY = process.env.REACT_APP_APP_KEY;
 
 //카카오 계정정보 요청
@@ -75,6 +76,27 @@ export const fetchNearbyPaths = async (lat, lng) => {
   }
 };
 
+//키워드로 장소 검색 -> 목적지 위도, 경도 얻음
+export const keywordSearch = async (keyword) => {
+  try {
+    const response = await axios.get(
+      `https://dapi.kakao.com/v2/local/search/keyword.json`,
+      {
+        params: {
+          query: keyword,
+        },
+        headers: {
+          Authorization: `KakaoAK ${process.env.REACT_APP_APP_KEY}`,
+        },
+      }
+    );
+    // console.log(response.data);
+    return response.data.documents;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //인기 산책로 리스트 조회
 export const fetchPopularPaths = async () => {
   try {
@@ -138,14 +160,14 @@ export const fetchNavigationData = async (
       `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
     );
 
-    console.log(response);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-//인기 산책로로 가는 길
+//인기 산책로로 가는 길 + 디테일
 export const navigateToPopular = async (
   trailId,
   userId,
@@ -157,28 +179,7 @@ export const navigateToPopular = async (
       `${BASE_URL}/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
     );
     console.log(response);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-//키워드로 장소 검색 -> 목적지 위도, 경도 얻음
-export const keywordSearch = async (keyword) => {
-  try {
-    const response = await axios.get(
-      `https://dapi.kakao.com/v2/local/search/keyword.json`,
-      {
-        params: {
-          query: keyword,
-        },
-        headers: {
-          Authorization: `KakaoAK ${process.env.REACT_APP_APP_KEY}`,
-        },
-      }
-    );
-    // console.log(response.data);
-    return response.data.documents;
+    return response.data;
   } catch (error) {
     console.log(error);
   }

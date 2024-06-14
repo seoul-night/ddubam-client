@@ -6,8 +6,8 @@ import like from "../assets/icons/like.png";
 import { useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
 import { useRecoilValue } from "recoil";
-import { locationState, userIdState } from "../atoms";
-import { fetchPathDetail } from "../services/api";
+import { geolocationState, locationState, userIdState } from "../atoms";
+import { fetchPathDetail, navigateToPopular } from "../services/api";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -111,10 +111,14 @@ const MapContainer = styled.div`
 const PathDetail = () => {
   //to do : 코스id로 데이터 요청
   const { id } = useParams();
-  // console.log("trailId:", id);
+  console.log("trailId:", id);
   const navigate = useNavigate();
   const locationName = useRecoilValue(locationState);
   // console.log(trailId);
+
+  const userLocation = useRecoilValue(geolocationState);
+  const latitude = userLocation.latitude;
+  const longitude = userLocation.longitude;
 
   const [liked, setLike] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
@@ -123,7 +127,10 @@ const PathDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchPathDetail(id, userId);
+      //원래 코드
+      // const data = await fetchPathDetail(id, userId);
+      console.log(id, userId, latitude, longitude);
+      const data = await navigateToPopular(id, userId, latitude, longitude);
       setFetchedData(data);
       setLoading(false);
       setLike(data.picked);
@@ -172,6 +179,10 @@ const PathDetail = () => {
           <KakaoMap
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
+            safetyLatitudeList={fetchedData.safetyLatitudeList || []}
+            safetyLongitudeList={fetchedData.safetyLongitudeList || []}
+            startLatitudeList={fetchedData.startLatitudeList || []}
+            startLongitudeList={fetchedData.startLongitudeList || []}
           />
         )}
       </MapContainer>
@@ -227,9 +238,40 @@ export default PathDetail;
 //   "status": 200,
 //   "message": "요청이 성공했습니다.",
 //   "data": {
-//       "trailId": 5,
 //       "latitudeList": [55.1,33.2],
 //       "longitudeList": [133.1,134.2],
-//       "detail": "산책로에 대한 정보1"
+//       "trailRegion": "산책로 지역1",
+//       "trailImage": "산책로 사진1",
+//       "trailTitle": "산책로 이름1"
+//       "trailDistance": 4.3,
+//       "detail": "산책로에 대한 정보1",
+//       "rating": 30,
+//       "time": 3,
+//       "level": "초급"
+//       "picked": true
 //   }
+// }
+
+// {
+//   "trailId": 1,
+//   // 그냥 polyline
+//   "startLatitudeList": [55.1,55.2],
+//   "startLongitudeList": [126.01,126.02],
+
+//   // cctv마커 표시
+//   "safetyLatitudeList": [55.1,55.2],
+//   "safetyLongitudeList": [126.01,126.02],
+
+//   //기존 유지
+//   "latitudeList": [55.1,33.2],
+//   "longitudeList": [133.1,134.2],
+//   "trailRegion": "산책로 지역1",
+//   "trailImage": "산책로 사진1",
+//   "trailTitle": "산책로 이름1",
+//   "trailDistance": 4.3,
+//   "detail": "산책로에 대한 정보1",
+//   "rating": 30,
+//   "time": 3,
+//   "level": "초급"
+//   "picked": true
 // }
