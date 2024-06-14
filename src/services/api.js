@@ -38,6 +38,7 @@ export const fetchUserData = async (userId) => {
   }
 };
 
+//완료한 산책 리스트 조회
 export const fetchFinishedPaths = async (userId) => {
   try {
     const response = await axios.get(
@@ -50,6 +51,7 @@ export const fetchFinishedPaths = async (userId) => {
   }
 };
 
+//찜한 산책로 리스트 조회
 export const fetchLikedPaths = async (userId) => {
   try {
     const response = await axios.get(
@@ -62,6 +64,7 @@ export const fetchLikedPaths = async (userId) => {
   }
 };
 
+//주변 산책로 리스트 조회
 export const fetchNearbyPaths = async (lat, lng) => {
   try {
     const response = await axios.get(`${BASE_URL}/walks/near/${lat}/${lng}`);
@@ -72,6 +75,7 @@ export const fetchNearbyPaths = async (lat, lng) => {
   }
 };
 
+//인기 산책로 리스트 조회
 export const fetchPopularPaths = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/walks/popular`);
@@ -90,6 +94,7 @@ const shuffleArray = (array) => {
   return array;
 };
 
+//관광지 리스트 조회
 export const fetchAttractions = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/attractions`);
@@ -102,6 +107,7 @@ export const fetchAttractions = async () => {
   }
 };
 
+//산책로 상세정보 조회
 export const fetchPathDetail = async (trailId, userId) => {
   try {
     const response = await axios.get(`${BASE_URL}/walks/${trailId}/${userId}`);
@@ -120,14 +126,26 @@ export const logoutRequest = async () => {
   }
 };
 
-//인기 산책로로 가는 길
-export const fetchNavigationData = async () => {
+//검색 결과로 가는 길
+export const fetchNavigationData = async (
+  startLatitude,
+  startLongitude,
+  endLatitude,
+  endLongitude
+) => {
   try {
+    const response = await axios.get(
+      `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
+    );
+
+    console.log(response);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
+//키워드로 장소 검색 -> 목적지 위도, 경도 얻음
 export const keywordSearch = async (keyword) => {
   try {
     const response = await axios.get(
@@ -137,7 +155,7 @@ export const keywordSearch = async (keyword) => {
           query: keyword,
         },
         headers: {
-          Authorization: `KakaoAK ${process.env.REACT_APP_APP_KEY}`, // YOUR_API_KEY를 실제 Kakao API 키로 교체하십시오.
+          Authorization: `KakaoAK ${process.env.REACT_APP_APP_KEY}`,
         },
       }
     );

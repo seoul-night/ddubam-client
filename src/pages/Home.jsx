@@ -10,14 +10,14 @@ import homeColored from "../assets/icons/homeColored.png";
 import My from "../assets/icons/My.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { userDataState } from "../atoms";
+import { geolocationState, userDataState } from "../atoms";
 import { useState } from "react";
 import { locationState } from "../atoms";
 import logo2 from "../assets/logo2.png";
 import location2 from "../assets/icons/location2.png";
 import img_homebtn1 from "../assets/img_homebtn1.png";
 import img_homebtn2 from "../assets/img_homebtn2.png";
-import KakaoLogin, { fetchAttractions } from "../services/api";
+import KakaoLogin, { fetchAttractions, keywordSearch } from "../services/api";
 import Search from "../components/Search";
 
 const HomeWrapper = styled.div`

@@ -3,11 +3,12 @@ import CourseHeader from "../components/CourseHeader";
 import styled from "styled-components";
 import emptylike from "../assets/icons/emptylike.png";
 import like from "../assets/icons/like.png";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
 import { useRecoilValue } from "recoil";
 import { locationState, userIdState } from "../atoms";
-import { fetchPathDetail } from "../services/api";
+import { fetchNavigationData, fetchPathDetail } from "../services/api";
+import NavigationMap from "../components/NavigationMap";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -109,60 +110,27 @@ const MapContainer = styled.div`
 `;
 
 const Navigation = () => {
-  //to do : 코스id로 데이터 요청
   const { id } = useParams();
-  // console.log("trailId:", id);
   const navigate = useNavigate();
   const locationName = useRecoilValue(locationState);
-  // console.log(trailId);
-
-  const [liked, setLike] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
-  const [loading, setLoading] = useState(true);
-  const userId = useRecoilValue(userIdState);
+  const location = useLocation();
+  const { startLatitude, startLongitude, endLatitude, endLongitude } =
+    location.state || {};
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchPathDetail(id, userId);
-      setFetchedData(data);
-      setLoading(false);
-      setLike(data.picked);
-      console.log("산책 코스 정보 :", data);
+      console.log(startLatitude, startLongitude, endLatitude, endLongitude);
+      const fetchedData = await fetchNavigationData(
+        startLatitude,
+        startLongitude,
+        endLatitude,
+        endLongitude
+      );
+      console.log(fetchedData);
     };
     fetchData();
   }, []);
-
-  if (!loading) {
-    // console.log("fetchedData:", fetchedData);
-  }
-
-  // const sendingData = {
-  //   userId: userId,
-  //   trailId: parseInt(id),
-  // };
-
-  // const toggleLike = () => {
-  //   const method = liked ? "DELETE" : "POST";
-
-  //   fetch("https://ddubam.site/api/members/walks/select", {
-  //     method: method,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(sendingData),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       // console.log("Request successful with status:", response.status);
-  //       // console.log("Data Sent:", sendingData);
-  //       setLike(!liked); // 요청이 성공하면 상태 변경
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // };
 
   return (
     <HomeWrapper className="PathDetail">
@@ -184,41 +152,6 @@ const Navigation = () => {
         </WhiteText1>
         <GrayText1 style={{ fontSize: "14px" }}>{fetchedData.detail}</GrayText1>
       </Wrap>
-      {/* <Wrap>
-        <DetailWrap>
-          <WhiteText2>총 산책거리</WhiteText2>
-          <GrayText2>{fetchedData.distance}km</GrayText2>
-        </DetailWrap>
-        <DetailWrap>
-          <WhiteText2>소요시간</WhiteText2>
-          <GrayText2>{fetchedData.time}시간</GrayText2>
-        </DetailWrap>
-        <DetailWrap>
-          <WhiteText2>코스 레벨</WhiteText2>
-          <GrayText2>{fetchedData.level}</GrayText2>
-        </DetailWrap>
-      </Wrap> */}
-
-      {/* <Footer>
-        <CenterDiv>
-          <div style={{ textAlign: "center" }}>
-            <img
-              src={liked ? like : emptylike}
-              alt="Like"
-              onClick={toggleLike}
-            />
-            <GrayText2>찜</GrayText2>
-          </div>
-        </CenterDiv>
-        <Button
-          style={{ marginLeft: "auto" }}
-          onClick={() => {
-            navigate(`/walking/${id}`);
-          }}
-        >
-          산책 시작하기
-        </Button>
-      </Footer> */}
     </HomeWrapper>
   );
 };

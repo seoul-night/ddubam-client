@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { keywordSearch } from "../services/api";
+import { useRecoilValue } from "recoil";
+import { geolocationState } from "../atoms";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [typedText, setTypedText] = useState("");
   const [keywordList, setKeywordList] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState({});
+  const startLocation = useRecoilValue(geolocationState);
+  const [endLatitude, setEndLatitude] = useState(0);
+  const [endLongitude, setEndLongitude] = useState(0);
+  const startLatitude = startLocation.latitude;
+  const startLongitude = startLocation.longitude;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -12,7 +21,7 @@ const Search = () => {
         if (typedText) {
           try {
             const response = await keywordSearch(typedText);
-            console.log(response);
+            // console.log(response);
             setKeywordList(response || []);
           } catch (error) {
             console.error(error);
@@ -29,6 +38,19 @@ const Search = () => {
     return () => clearTimeout(delayDebounceFn);
   }, [typedText]);
 
+  //폼 제출 후 상태 변경시 콘솔 출력
+  useEffect(() => {
+    if (selectedPlace.place_name) {
+      console.log("검색할 장소: ", selectedPlace);
+      console.log("place latitude:", selectedPlace.y);
+      console.log("place longitude:", selectedPlace.x);
+      console.log("시작 위도 : ", startLatitude);
+      console.log("시작 경도 : ", startLongitude);
+      console.log("도착 위도 : ", endLatitude);
+      console.log("도착 경도 : ", endLongitude);
+    }
+  }, [selectedPlace, endLatitude, endLongitude]);
+
   const handleInputChange = (event) => {
     setTypedText(event.target.value);
   };
@@ -42,9 +64,17 @@ const Search = () => {
     const place = keywordList.find((place) => place.place_name === typedText);
     if (place) {
       setSelectedPlace(place);
-      console.log("검색할 장소: ", place);
-      console.log("place latitude:", place.y);
-      console.log("place longitude:", place.x);
+      setEndLatitude(place.y);
+      setEndLongitude(place.x);
+
+      navigate("/navigation", {
+        state: {
+          startLatitude,
+          startLongitude,
+          endLatitude: parseFloat(place.y),
+          endLongitude: parseFloat(place.x),
+        },
+      });
     }
   };
 

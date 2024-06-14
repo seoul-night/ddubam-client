@@ -51,7 +51,7 @@ function App() {
         <Route path="/finished" element={<FinishedPath />} />
         <Route path="/liked" element={<LikedPath />} />
         <Route path="/popular" element={<PopularPath />} />
-        <Route path="/navigation/:id" element={<Navigation />} />
+        <Route path="/navigation" element={<Navigation />} />
         <Route path="/pathdetail/:id" element={<PathDetail />} />
         <Route path="/walking/:trailId" element={<Walking />} />
         {/* <Route path="*" element={<NotFound />} /> */}
