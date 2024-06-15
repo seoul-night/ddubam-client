@@ -15,6 +15,7 @@ import close from "../assets/close.png";
 import map_marker from "../assets/icons/map_marker.png";
 import CloseModal from "../components/CloseModal";
 import ReviewModal from "../components/ReviewModal";
+import Spinner from "../components/Spinner";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -125,6 +126,9 @@ const Button = styled.button`
 `;
 
 const MapContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100vh;
   background-color: #1c1c26;
@@ -160,6 +164,7 @@ const Navigation = () => {
   const [isStarted, setIsStarted] = useState(false);
   const [finishModalOpen, setFinishModalOpen] = useState(false);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const {
     startLatitude,
@@ -171,6 +176,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const data = await fetchNavigationData(
         startLatitude,
         startLongitude,
@@ -178,6 +184,7 @@ const Navigation = () => {
         endLongitude
       );
       setFetchedData(data);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -250,6 +257,7 @@ const Navigation = () => {
       )}
 
       <MapContainer>
+        {loading ? <Spinner size="md" theme="dark" /> : null}
         {fetchedData.latitudeList && fetchedData.longitudeList && (
           <NavigationMap
             latitudeList={fetchedData.latitudeList}
