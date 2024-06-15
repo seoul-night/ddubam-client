@@ -136,3 +136,15 @@ table {
 a {
   text-decoration: none;
 }
+input {
+  /* 기본 스타일 제거 */
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  -webkit-appearance: none; /* Safari, Chrome */
+  -moz-appearance: none; /* Firefox */
+  appearance: none;
+}

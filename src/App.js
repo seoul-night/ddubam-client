@@ -14,7 +14,8 @@ import PathDetail from "./pages/PathDetail.jsx";
 import Walking from "./pages/Walking.jsx";
 import Loading from "./pages/Loading.jsx";
 import Navigation from "./pages/Navigation.jsx";
-import Searching from "./pages/Searching.jsx";
+// import Searching from "./pages/Searching.jsx";
+import Search from "./pages/Search.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -49,7 +50,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/nearby" element={<NearbyPath />} />
-        <Route path="/searching" element={<Searching />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/finished" element={<FinishedPath />} />
         <Route path="/liked" element={<LikedPath />} />
         <Route path="/popular" element={<PopularPath />} />
