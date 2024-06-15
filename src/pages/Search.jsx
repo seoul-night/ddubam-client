@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { keywordSearch } from "../services/api";
+import {
+  addSearchKeyword,
+  deleteKeyword,
+  getRecentSearchKeywords,
+  keywordSearch,
+} from "../services/api";
 import { useRecoilValue } from "recoil";
-import { geolocationState } from "../atoms";
+import { geolocationState, userIdState } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { faChevronLeft, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-{
-  /* <FontAwesomeIcon icon={faClock} /> */
-}
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -123,21 +124,34 @@ const Search = () => {
   const [typedText, setTypedText] = useState("");
   const [keywordList, setKeywordList] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState({});
+  const [searchedKeywords, setSearchedKeywords] = useState([]);
   const startLocation = useRecoilValue(geolocationState);
   const [endLatitude, setEndLatitude] = useState(0);
   const [endLongitude, setEndLongitude] = useState(0);
   const startLatitude = startLocation.latitude;
   const startLongitude = startLocation.longitude;
+  const userId = useRecoilValue(userIdState);
   const navigate = useNavigate();
+
+  // search페이지 렌더링시 최근 검색어 리스트 요청, searchedKeywords변수에 저장
+  useEffect(() => {
+    const fetchKeywordList = async () => {
+      const fetchedData = await getRecentSearchKeywords(userId);
+      console.log(fetchedData);
+      setSearchedKeywords(fetchedData);
+    };
+
+    fetchKeywordList();
+  }, []);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      const fetchData = async () => {
+      const fetchKeywordList = async () => {
         if (typedText) {
           try {
             const response = await keywordSearch(typedText);
             console.log("API Response:", response);
-            console.log(response);
+            // console.log(response);
             setKeywordList(response || []);
           } catch (error) {
             console.error(error);
@@ -148,7 +162,7 @@ const Search = () => {
         }
       };
 
-      fetchData();
+      fetchKeywordList();
     }, 300); // 300ms 디바운스 -> api호출 횟수 줄임
 
     return () => clearTimeout(delayDebounceFn);
@@ -176,10 +190,13 @@ const Search = () => {
     setTypedText(name);
   };
 
-  const handleFormSubmit = (event) => {
+  //폼 제출시 navigation페이지로 이동, 검색어 서버로 전송
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const place = keywordList.find((place) => place.place_name === typedText);
     if (place) {
+      await addSearchKeyword(userId, place.place_name);
+      console.log(place);
       setSelectedPlace(place);
       setEndLatitude(place.y);
       setEndLongitude(place.x);

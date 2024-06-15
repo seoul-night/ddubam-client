@@ -184,3 +184,44 @@ export const navigateToPopular = async (
     console.log(error);
   }
 };
+
+//검색어 추가
+export const addSearchKeyword = async (userId, keyword) => {
+  const data = {
+    userId: userId,
+    search: keyword,
+  };
+
+  try {
+    await axios.post(`${BASE_URL}/members/search/${userId}/${keyword}`, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//최근 검색어 조회
+export const getRecentSearchKeywords = async (userId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/members/search/${userId}`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//검색어 삭제
+export const deleteKeyword = async (userId, searchId) => {
+  const data = {
+    userId: userId,
+    searchId: searchId,
+  };
+  try {
+    await axios.delete(
+      `${BASE_URL}/members/search/${userId}/${searchId}`,
+      data
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
