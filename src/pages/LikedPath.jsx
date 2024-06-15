@@ -60,14 +60,14 @@ const LikedPath = ({ finishCnt }) => {
 
   return (
     <HomeWrapper className="LikedPath">
-      <Header headerText={"찜한 산책 코스"} icon={like}></Header>
+      <Header headerText={"찜한 코스"} icon={like}></Header>
       <FinishWrap>
         <Finish>찜</Finish>
         <Finish style={{ color: "#F6F8FA" }}>{fetchedDatas.length}</Finish>
       </FinishWrap>
       <PathList>
         {fetchedDatas.length === 0 ? (
-          <Nothing>찜한 산책 코스가 없어요</Nothing>
+          <Nothing>찜한 코스가 없어요</Nothing>
         ) : (
           fetchedDatas.map((data, id) => {
             return (

@@ -128,9 +128,9 @@ const PathDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       //원래 코드
-      // const data = await fetchPathDetail(id, userId);
+      const data = await fetchPathDetail(id, userId);
       console.log(id, userId, latitude, longitude);
-      const data = await navigateToPopular(id, userId, latitude, longitude);
+      // const data = await navigateToPopular(id, userId, latitude, longitude);
       setFetchedData(data);
       setLoading(false);
       setLike(data.picked);

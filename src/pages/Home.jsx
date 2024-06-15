@@ -269,12 +269,12 @@ const Home = () => {
           <Text>님,</Text>
         </div>
         <div>
-          <Text>오늘도 밤산책을 해볼까요?</Text>
+          <Text>오늘은 서울시 어디로 가볼까요?</Text>
         </div>
       </UserWrap>
       <Search />
       <GoWalk>
-        <Title>산책하러 가기</Title>
+        <Title>다양한 관광지를 추천해요</Title>
         <div
           style={{
             display: "flex",
@@ -285,7 +285,7 @@ const Home = () => {
           <Link to="/nearby">
             <Box style={{ width: "154px", backgroundColor: "#5F53E8" }}>
               <Text>현 위치 기반</Text>
-              <SubText>내 주변에서 산책해요</SubText>
+              <SubText>내 주변을 둘러봐요</SubText>
               <img
                 src={img_homebtn1}
                 style={{ position: "absolute", bottom: "0", right: "0" }}
@@ -305,7 +305,7 @@ const Home = () => {
         </div>
       </GoWalk>
       <GoWalk>
-        <Title>걷고 싶은 서울의 길</Title>
+        <Title>둘러봐야 할 서울의 관광지</Title>
         <div
           style={{
             boxSizing: "border-box",

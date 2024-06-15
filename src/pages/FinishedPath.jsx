@@ -62,14 +62,14 @@ const FinishedPath = ({}) => {
 
   return (
     <HomeWrapper className="FinishedPath">
-      <Header headerText={"완료한 산책 코스"} icon={complete}></Header>
+      <Header headerText={"완료한 코스"} icon={complete}></Header>
       <FinishWrap>
         <Finish>완료</Finish>
         <Finish style={{ color: "#F6F8FA" }}>{fetchedDatas.length}</Finish>
       </FinishWrap>
       <PathList>
         {fetchedDatas.length === 0 ? (
-          <Nothing>완료한 산책 코스가 없어요</Nothing>
+          <Nothing>완료한 코스가 없어요</Nothing>
         ) : (
           fetchedDatas.map((data, id) => {
             return (
