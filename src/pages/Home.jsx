@@ -18,7 +18,8 @@ import location2 from "../assets/icons/location2.png";
 import img_homebtn1 from "../assets/img_homebtn1.png";
 import img_homebtn2 from "../assets/img_homebtn2.png";
 import KakaoLogin, { fetchAttractions, keywordSearch } from "../services/api";
-import Search from "../components/Search";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const HomeWrapper = styled.div`
   z-index: 1;
@@ -142,6 +143,20 @@ const Badge = styled.h4`
   padding: 4px 8px 4px 8px;
   font-size: 10px;
   align-self: flex-start;
+`;
+
+const SearchBar = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: calc(100% - 60px);
+  height: 37px;
+  color: #91919c;
+  box-sizing: border-box;
+  padding: 8px 10px 8px 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+  background-color: #333344;
 `;
 
 const Home = () => {
@@ -272,7 +287,10 @@ const Home = () => {
           <Text>오늘은 서울시 어디로 가볼까요?</Text>
         </div>
       </UserWrap>
-      <Search />
+      <SearchBar onClick={() => navigate("/search")}>
+        <FontAwesomeIcon icon={faSearch} style={{ marginRight: "8px" }} />
+        도착하고 싶은 곳 검색
+      </SearchBar>
       <GoWalk>
         <Title>다양한 관광지를 추천해요</Title>
         <div
