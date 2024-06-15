@@ -4,6 +4,7 @@ import map_marker from "../assets/icons/map_marker.png";
 import map_marker_cctv from "../assets/map_marker_cctv.png";
 import map_marker_start from "../assets/map_marker_start.png";
 import map_marker_end from "../assets/map_marker_end.png";
+import CloseModal from "./CloseModal";
 
 const NavigationMap = ({
   latitudeList,
@@ -18,8 +19,8 @@ const NavigationMap = ({
       image={{
         src: map_marker_cctv,
         size: {
-          width: 32,
-          height: 32,
+          width: 36,
+          height: 36,
         },
       }}
     />
@@ -68,14 +69,14 @@ const NavigationMap = ({
       {CCTVmarkers}
       <MapMarker
         position={{ lat: latitudeList[0], lng: longitudeList[0] }}
-        image={{ src: map_marker_start, size: { width: 32, height: 32 } }}
+        image={{ src: map_marker_start, size: { width: 36, height: 36 } }}
       />
       <MapMarker
         position={{
           lat: latitudeList[latitudeList.length - 1],
           lng: longitudeList[longitudeList.length - 1],
         }}
-        image={{ src: map_marker_end, size: { width: 32, height: 32 } }}
+        image={{ src: map_marker_end, size: { width: 36, height: 36 } }}
       />
       <Polyline
         path={polylineCoordinates}

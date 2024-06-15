@@ -12,6 +12,9 @@ import NavigationMap from "../components/NavigationMap";
 import ic_cctv from "../assets/ic_cctv.png";
 import something from "../assets/something.png";
 import close from "../assets/close.png";
+import map_marker from "../assets/icons/map_marker.png";
+import CloseModal from "../components/CloseModal";
+import ReviewModal from "../components/ReviewModal";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -19,7 +22,6 @@ const HomeWrapper = styled.div`
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  position: relative;
 `;
 
 const Header = styled.div`
@@ -51,14 +53,13 @@ const Wrap = styled.div`
   bottom: 0;
   width: 100%;
   padding: 20px;
-  /* gap: 16px; */
 `;
 
 const Info = styled.div`
   box-sizing: border-box;
   width: 100%;
   background-color: #242430;
-  padding: 12px 16px 12px 16px;
+  padding: 12px 16px;
   gap: 12px;
   border-radius: 10px;
 `;
@@ -137,12 +138,28 @@ const LocationWrap = styled.div`
   gap: 8px;
 `;
 
+const WhiteText = styled.span`
+  font-size: 16px;
+  line-height: 24px;
+  margin-right: 6px;
+  color: #f6f8fa;
+`;
+
+const GrayText = styled.span`
+  font-size: 16px;
+  line-height: 24px;
+  color: #91919c;
+`;
+
 const Navigation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const locationName = useRecoilValue(locationState);
   const [fetchedData, setFetchedData] = useState({});
   const location = useLocation();
+  const [isStarted, setIsStarted] = useState(false);
+  const [finishModalOpen, setFinishModalOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const {
     startLatitude,
@@ -154,53 +171,83 @@ const Navigation = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // console.log(startLatitude, startLongitude, endLatitude, endLongitude);
       const data = await fetchNavigationData(
         startLatitude,
         startLongitude,
         endLatitude,
         endLongitude
       );
-
       setFetchedData(data);
-      // console.log(fetchedData);
     };
     fetchData();
   }, []);
 
+  const closeModal = () => {
+    setFinishModalOpen(false);
+  };
+
+  const closeReviewModal = () => {
+    setReviewModalOpen(false);
+  };
+
   return (
     <HomeWrapper className="PathDetail">
-      {/* <CourseHeader headerText={"검색 장소까지 경로"} location={locationName} /> */}
+      {finishModalOpen && <CloseModal onClose={closeModal} />}
+      {reviewModalOpen && <ReviewModal onClose={closeReviewModal} />}
 
-      <Header>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginRight: "10px",
-          }}
-        >
-          <img src={something} style={{ width: "16px", height: "57px" }} />
-        </div>
-        <LocationWrap>
-          <Location>서울 마포구 어쩌구</Location>
-          <Location>{typedText}</Location>
-        </LocationWrap>
-        <div>
+      {!isStarted ? (
+        <Header>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginRight: "10px",
+            }}
+          >
+            <img src={something} style={{ width: "16px", height: "57px" }} />
+          </div>
+          <LocationWrap>
+            <Location>서울 마포구 어쩌구</Location>
+            <Location>{typedText}</Location>
+          </LocationWrap>
+          <div>
+            <img
+              src={close}
+              style={{
+                width: "20px",
+                height: "20px",
+                paddingLeft: "10px",
+                paddingTop: "9px",
+                paddingBottom: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/search")}
+            />
+          </div>
+        </Header>
+      ) : (
+        <Header style={{ justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={map_marker}
+              style={{ width: "24px", height: "24px", marginRight: "6px" }}
+            />
+            <WhiteText>{typedText}</WhiteText> <GrayText> 가는 중...</GrayText>
+          </div>
           <img
             src={close}
             style={{
-              width: "20px",
-              height: "20px",
-              paddingLeft: "10px",
-              paddingTop: "9px",
-              paddingBottom: "10px",
+              width: "24px",
+              height: "24px",
               cursor: "pointer",
             }}
+            onClick={() => {
+              setFinishModalOpen(true);
+            }}
           />
-        </div>
-      </Header>
+        </Header>
+      )}
 
       <MapContainer>
         {fetchedData.latitudeList && fetchedData.longitudeList && (
@@ -212,21 +259,29 @@ const Navigation = () => {
           />
         )}
       </MapContainer>
-      <Wrap>
-        <Info>
-          <PurpleText>안전한 거리</PurpleText>
-          <Distance>{fetchedData.distance} km</Distance>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            {fetchedData.safetyLatitudeList && (
-              <CCTVnumber>
-                <img src={ic_cctv} style={{ marginRight: "6px" }} />
-                CCTV {fetchedData.safetyLatitudeList.length}대
-              </CCTVnumber>
-            )}
-          </div>
-        </Info>
-        <Button>출발하기</Button>
-      </Wrap>
+      {!isStarted ? (
+        <Wrap>
+          <Info>
+            <PurpleText>안전한 거리</PurpleText>
+            <Distance>{fetchedData.distance} km</Distance>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {fetchedData.safetyLatitudeList && (
+                <CCTVnumber>
+                  <img src={ic_cctv} style={{ marginRight: "6px" }} />
+                  CCTV {fetchedData.safetyLatitudeList.length}대
+                </CCTVnumber>
+              )}
+            </div>
+          </Info>
+          <Button onClick={() => setIsStarted(true)}>출발하기</Button>
+        </Wrap>
+      ) : (
+        <Wrap>
+          <Button onClick={() => setReviewModalOpen(true)}>
+            도착 완료하기
+          </Button>
+        </Wrap>
+      )}
     </HomeWrapper>
   );
 };
