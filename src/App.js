@@ -16,6 +16,7 @@ import Loading from "./pages/Loading.jsx";
 import Navigation from "./pages/Navigation.jsx";
 // import Searching from "./pages/Searching.jsx";
 import Search from "./pages/Search.jsx";
+import PrivateRoute from "./auth/PrivateRoute.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -47,16 +48,86 @@ function App() {
       <Routes>
         <Route path="/" element={<Onboarding />} />
         <Route path="/loading" element={<Loading />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/nearby" element={<NearbyPath />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/finished" element={<FinishedPath />} />
-        <Route path="/liked" element={<LikedPath />} />
-        <Route path="/popular" element={<PopularPath />} />
-        <Route path="/navigation" element={<Navigation />} />
-        <Route path="/pathdetail/:id" element={<PathDetail />} />
-        <Route path="/walking/:trailId" element={<Walking />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mypage"
+          element={
+            <PrivateRoute>
+              <MyPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/nearby"
+          element={
+            <PrivateRoute>
+              <NearbyPath />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <PrivateRoute>
+              <Search />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/finished"
+          element={
+            <PrivateRoute>
+              <FinishedPath />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/liked"
+          element={
+            <PrivateRoute>
+              <LikedPath />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/popular"
+          element={
+            <PrivateRoute>
+              <PopularPath />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/navigation"
+          element={
+            <PrivateRoute>
+              <Navigation />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/pathdetail/:id"
+          element={
+            <PrivateRoute>
+              <PathDetail />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/walking/:trailId"
+          element={
+            <PrivateRoute>
+              <Walking />
+            </PrivateRoute>
+          }
+        />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
