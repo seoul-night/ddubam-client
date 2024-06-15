@@ -9,26 +9,79 @@ import { useRecoilValue } from "recoil";
 import { locationState, userIdState } from "../atoms";
 import { fetchNavigationData, fetchPathDetail } from "../services/api";
 import NavigationMap from "../components/NavigationMap";
+import ic_cctv from "../assets/ic_cctv.png";
+import something from "../assets/something.png";
+import close from "../assets/close.png";
 
 const HomeWrapper = styled.div`
   height: 100vh;
   background-color: #1c1c26;
   overflow: hidden;
   position: relative;
-  padding: 20px;
   box-sizing: border-box;
   position: relative;
 `;
 
-const Wrap = styled.div`
-  /* background-color: gray; */
-  padding-top: 26px;
-  padding-bottom: 26px;
+const Header = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  display: flex;
   width: 100%;
-  margin-top: 28px;
-  margin-bottom: 28px;
-  /* border-bottom: 1px solid #91919c; */
+  box-sizing: border-box;
+  background-color: #1c1c26;
+  padding: 20px;
 `;
+
+const Location = styled.div`
+  background-color: #333344;
+  padding: 0px 10px;
+  height: 37px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  color: #f6f8fa;
+  font-size: 14px;
+`;
+
+const Wrap = styled.div`
+  z-index: 3;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  /* gap: 16px; */
+`;
+
+const Info = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #242430;
+  padding: 12px 16px 12px 16px;
+  gap: 12px;
+  border-radius: 10px;
+`;
+
+const PurpleText = styled.h4`
+  font-size: 12px;
+  color: #989dff;
+  font-weight: 500;
+  line-height: 18px;
+`;
+
+const Distance = styled.h4`
+  font-size: 24px;
+  color: #f6f8fa;
+  line-height: 38px;
+`;
+
+const CCTVnumber = styled.h4`
+  font-size: 12px;
+  line-height: 18px;
+  color: #b4b4c2;
+`;
+
 const WhiteText1 = styled.h4`
   color: #f6f8fa;
   margin-right: 16px;
@@ -53,32 +106,9 @@ const GrayText2 = styled.h4`
   font-size: 16px;
 `;
 
-const DetailWrap = styled.div`
-  display: flex;
-  margin-bottom: 8px;
-`;
-
-const Footer = styled.div`
-  position: fixed;
-  bottom: 0;
-  background-color: #1c1c26;
-  z-index: 3;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  max-width: var(--max-width);
-  width: 100%;
-  height: 104px;
-  border-top: 2px solid #242430;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  justify-content: space-between;
-`;
-
 const Button = styled.button`
-  width: 261px;
+  margin-top: 16px;
+  width: 100%;
   height: 56px;
   background-color: #5e66ff;
   color: #f6f8fa;
@@ -86,27 +116,25 @@ const Button = styled.button`
   border-radius: 10px;
   border: none;
   transition: all 0.3s;
+  cursor: pointer;
 
   &:hover {
     background-color: #4950d4;
   }
 `;
 
-const CenterDiv = styled.div`
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
+const MapContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #1c1c26;
+  touch-action: pan-x pan-y;
 `;
 
-const MapContainer = styled.div`
-  width: calc(100% + 40px);
-  height: 230px;
-  background-color: whitesmoke;
-  margin-left: -20px;
-  margin-right: -20px;
-  touch-action: pan-x pan-y;
+const LocationWrap = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const Navigation = () => {
@@ -115,8 +143,14 @@ const Navigation = () => {
   const locationName = useRecoilValue(locationState);
   const [fetchedData, setFetchedData] = useState({});
   const location = useLocation();
-  const { startLatitude, startLongitude, endLatitude, endLongitude } =
-    location.state || {};
+
+  const {
+    startLatitude,
+    startLongitude,
+    endLatitude,
+    endLongitude,
+    typedText,
+  } = location.state || {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,7 +170,38 @@ const Navigation = () => {
 
   return (
     <HomeWrapper className="PathDetail">
-      <CourseHeader headerText={"검색 장소까지 경로"} location={locationName} />
+      {/* <CourseHeader headerText={"검색 장소까지 경로"} location={locationName} /> */}
+
+      <Header>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginRight: "10px",
+          }}
+        >
+          <img src={something} style={{ width: "16px", height: "57px" }} />
+        </div>
+        <LocationWrap>
+          <Location>서울 마포구 어쩌구</Location>
+          <Location>{typedText}</Location>
+        </LocationWrap>
+        <div>
+          <img
+            src={close}
+            style={{
+              width: "20px",
+              height: "20px",
+              paddingLeft: "10px",
+              paddingTop: "9px",
+              paddingBottom: "10px",
+              cursor: "pointer",
+            }}
+          />
+        </div>
+      </Header>
+
       <MapContainer>
         {fetchedData.latitudeList && fetchedData.longitudeList && (
           <NavigationMap
@@ -147,11 +212,20 @@ const Navigation = () => {
           />
         )}
       </MapContainer>
-      <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
-        <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
-          {/* {fetchedData.title} */}
-        </WhiteText1>
-        {/* <GrayText1 style={{ fontSize: "14px" }}>{fetchedData.detail}</GrayText1> */}
+      <Wrap>
+        <Info>
+          <PurpleText>안전한 거리</PurpleText>
+          <Distance>{fetchedData.distance} km</Distance>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {fetchedData.safetyLatitudeList && (
+              <CCTVnumber>
+                <img src={ic_cctv} style={{ marginRight: "6px" }} />
+                CCTV {fetchedData.safetyLatitudeList.length}대
+              </CCTVnumber>
+            )}
+          </div>
+        </Info>
+        <Button>출발하기</Button>
       </Wrap>
     </HomeWrapper>
   );

@@ -207,6 +207,7 @@ const Search = () => {
           startLongitude,
           endLatitude: parseFloat(place.y),
           endLongitude: parseFloat(place.x),
+          typedText,
         },
       });
     }
