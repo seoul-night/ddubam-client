@@ -138,11 +138,11 @@ const Search = () => {
     const fetchKeywordList = async () => {
       const fetchedData = await getRecentSearchKeywords(userId);
       console.log(fetchedData);
-      setSearchedKeywords(fetchedData);
+      setSearchedKeywords(fetchedData || []);
     };
 
     fetchKeywordList();
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -151,7 +151,6 @@ const Search = () => {
           try {
             const response = await keywordSearch(typedText);
             console.log("API Response:", response);
-            // console.log(response);
             setKeywordList(response || []);
           } catch (error) {
             console.error(error);
@@ -179,11 +178,10 @@ const Search = () => {
       console.log("도착 위도 : ", endLatitude);
       console.log("도착 경도 : ", endLongitude);
     }
-  }, [selectedPlace, endLatitude, endLongitude]);
+  }, [selectedPlace, endLatitude, endLongitude, startLatitude, startLongitude]);
 
   const handleInputChange = (event) => {
     setTypedText(event.target.value);
-    // console.log(event.target.value);
   };
 
   const placeClick = (name) => {
@@ -214,15 +212,23 @@ const Search = () => {
   };
 
   //최근 검색어 모두 삭제
-  const deleteAllRecent = () => {};
+  const deleteAllRecent = async () => {
+    // 구현된 삭제 API 함수 호출
+    await deleteKeyword(userId, 0);
+    // 업데이트된 검색어 리스트 요청
+    const updatedKeywords = await getRecentSearchKeywords(userId);
+    setSearchedKeywords(updatedKeywords || []);
+  };
 
   //특정 검색어 삭제
-  const deleteCertainRecent = () => {};
+  const deleteCertainRecent = async (searchId) => {
+    // 특정 검색어 삭제 API 호출
+    await deleteKeyword(userId, searchId);
+    // 업데이트된 검색어 리스트 요청
+    const updatedKeywords = await getRecentSearchKeywords(userId);
+    setSearchedKeywords(updatedKeywords || []);
+  };
 
-  //1. 검색창 비었으면 최근 검색어
-  //2. 검색창 안비었으면
-  //2-1. 검색어 없으면 nothing
-  //2-2. 검색어 있으면 리스트
   return (
     <HomeWrapper className="All">
       <Wrap>
@@ -240,7 +246,7 @@ const Search = () => {
         </SearchForm>
       </Wrap>
 
-      {typedText != "" ? (
+      {typedText !== "" ? (
         keywordList.length > 0 ? (
           <KeywordUl>
             {keywordList.map((place, index) => (
@@ -266,39 +272,29 @@ const Search = () => {
         <RecentWrap>
           <TextWrap>
             <WhiteText>최근 검색어</WhiteText>
-            <GrayText style={{ cursor: "pointer" }}>모두 삭제</GrayText>
+            <GrayText style={{ cursor: "pointer" }} onClick={deleteAllRecent}>
+              모두 삭제
+            </GrayText>
           </TextWrap>
+
           <RecentUl>
-            <RecentLi>
-              <WhiteText>
-                <FontAwesomeIcon
-                  icon="far fa-clock"
-                  style={{ marginRight: "10px" }}
-                />
-                청계천
-              </WhiteText>
-              <GrayText style={{ cursor: "pointer" }}>X</GrayText>
-            </RecentLi>
-            <RecentLi>
-              <WhiteText>
-                <FontAwesomeIcon
-                  icon="far fa-clock"
-                  style={{ marginRight: "10px" }}
-                />
-                청계천
-              </WhiteText>
-              <GrayText style={{ cursor: "pointer" }}>X</GrayText>
-            </RecentLi>
-            <RecentLi>
-              <WhiteText>
-                <FontAwesomeIcon
-                  icon="far fa-clock"
-                  style={{ marginRight: "10px" }}
-                />
-                청계천
-              </WhiteText>
-              <GrayText style={{ cursor: "pointer" }}>X</GrayText>
-            </RecentLi>
+            {searchedKeywords.map((keyword, index) => (
+              <RecentLi key={index}>
+                <WhiteText>
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    style={{ marginRight: "10px" }}
+                  />
+                  {keyword.word}
+                </WhiteText>
+                <GrayText
+                  style={{ cursor: "pointer" }}
+                  onClick={() => deleteCertainRecent(keyword.id)}
+                >
+                  X
+                </GrayText>
+              </RecentLi>
+            ))}
           </RecentUl>
         </RecentWrap>
       )}

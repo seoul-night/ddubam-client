@@ -51,7 +51,7 @@ const LikedPath = ({ finishCnt }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchLikedPaths(userId);
-      setFetchedDatas(data);
+      setFetchedDatas(data || []);
     };
     fetchData();
   }, []);

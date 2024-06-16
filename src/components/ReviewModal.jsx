@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import clap from "../assets/icons/clap.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { writeDestinationReview } from "../services/api";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -71,6 +73,13 @@ const ModalBtn = styled.button`
 
 const ReviewModal = ({ onClose }) => {
   const navigate = useNavigate();
+  const [typedReview, setTypedReview] = useState("");
+  const [reviewText, setReviewText] = useState("");
+
+  const handleInputChange = (event) => {
+    setTypedReview(event.target.value);
+  };
+
   return (
     <ModalBackground onClick={onClose}>
       <ReviewModalContainer onClick={(e) => e.stopPropagation()}>
@@ -103,14 +112,20 @@ const ReviewModal = ({ onClose }) => {
             나의 발자취를 되돌아 볼 수 있어요
           </Text>
         </Wrapper>
-        <TextArea placeholder="60자 이내로 작성할 수 있어요"></TextArea>
+        <TextArea
+          placeholder="60자 이내로 작성할 수 있어요"
+          value={reviewText}
+          onChange={(event) => {
+            setReviewText(event.target.valu);
+          }}
+        ></TextArea>
         <ModalBtn
           onClick={() => {
             navigate("/home");
             // setReviewModalOpen(false);
           }}
           style={{
-            backgroundColor: "#5A5A76",
+            backgroundColor: "#5E66FF",
             padding: "16px",
             width: "100%",
           }}

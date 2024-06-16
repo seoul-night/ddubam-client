@@ -157,8 +157,8 @@ export const fetchNavigationData = async (
 ) => {
   try {
     const response = await axios.get(
-      // `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
-      `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
+      `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
+      // `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
     );
 
     console.log(response.data);
@@ -200,10 +200,15 @@ export const addSearchKeyword = async (userId, keyword) => {
   }
 };
 
+const token = localStorage.getItem("token");
 //최근 검색어 조회
 export const getRecentSearchKeywords = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/members/search/${userId}`);
+    const response = await axios.get(`${BASE_URL}/members/search/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response);
     return response.data;
   } catch (error) {
@@ -220,6 +225,24 @@ export const deleteKeyword = async (userId, searchId) => {
   try {
     await axios.delete(
       `${BASE_URL}/members/search/${userId}/${searchId}`,
+      data
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//도착지 후기 추가
+export const writeDestinationReview = async (
+  userId,
+  review,
+  destinationId,
+  destinationTitle
+) => {
+  const data = { userId, review, destinationId, destinationTitle };
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/members/walks/search/complete`,
       data
     );
   } catch (error) {
