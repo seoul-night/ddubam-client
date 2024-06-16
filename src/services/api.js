@@ -1,8 +1,8 @@
 // api.js
 import axios from "axios";
 
-// const BASE_URL = "https://ddubam.site/api";
-const BASE_URL = "http://ddubam.site:8080/api";
+const BASE_URL = "https://ddubam.site/api";
+// const BASE_URL = "http://ddubam.site:8080/api";
 const APP_KEY = process.env.REACT_APP_APP_KEY;
 
 //카카오 계정정보 요청
@@ -158,6 +158,7 @@ export const fetchNavigationData = async (
   try {
     const response = await axios.get(
       `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
+      // `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
     );
 
     console.log(response.data);
