@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { keywordSearch } from "../services/api";
+import {
+  addSearchKeyword,
+  deleteKeyword,
+  getRecentSearchKeywords,
+  keywordSearch,
+} from "../services/api";
 import { useRecoilValue } from "recoil";
-import { geolocationState } from "../atoms";
+import { geolocationState, userIdState } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { faChevronLeft, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-{
-  /* <FontAwesomeIcon icon={faClock} /> */
-}
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -98,6 +99,23 @@ const RecentLi = styled.li`
   height: 33px;
 `;
 
+const KeywordUl = styled.ul``;
+
+const KeywordLi = styled.li`
+  color: #f6f8fa;
+  margin-bottom: 5px;
+`;
+
+const Nothing = styled.div`
+  flex-direction: column;
+  gap: 10px;
+  display: flex;
+  width: 100%;
+  height: 40%;
+  justify-content: center;
+  align-items: center;
+`;
+
 const RecentKeyword = styled.span``;
 
 const RecentDelete = styled.i``;
@@ -106,21 +124,33 @@ const Search = () => {
   const [typedText, setTypedText] = useState("");
   const [keywordList, setKeywordList] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState({});
+  const [searchedKeywords, setSearchedKeywords] = useState([]);
   const startLocation = useRecoilValue(geolocationState);
   const [endLatitude, setEndLatitude] = useState(0);
   const [endLongitude, setEndLongitude] = useState(0);
   const startLatitude = startLocation.latitude;
   const startLongitude = startLocation.longitude;
+  const userId = useRecoilValue(userIdState);
   const navigate = useNavigate();
+
+  // search페이지 렌더링시 최근 검색어 리스트 요청, searchedKeywords변수에 저장
+  useEffect(() => {
+    const fetchKeywordList = async () => {
+      const fetchedData = await getRecentSearchKeywords(userId);
+      console.log(fetchedData);
+      setSearchedKeywords(fetchedData || []);
+    };
+
+    fetchKeywordList();
+  }, [userId]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      const fetchData = async () => {
+      const fetchKeywordList = async () => {
         if (typedText) {
           try {
             const response = await keywordSearch(typedText);
             console.log("API Response:", response);
-            console.log(response);
             setKeywordList(response || []);
           } catch (error) {
             console.error(error);
@@ -131,7 +161,7 @@ const Search = () => {
         }
       };
 
-      fetchData();
+      fetchKeywordList();
     }, 300); // 300ms 디바운스 -> api호출 횟수 줄임
 
     return () => clearTimeout(delayDebounceFn);
@@ -148,21 +178,23 @@ const Search = () => {
       console.log("도착 위도 : ", endLatitude);
       console.log("도착 경도 : ", endLongitude);
     }
-  }, [selectedPlace, endLatitude, endLongitude]);
+  }, [selectedPlace, endLatitude, endLongitude, startLatitude, startLongitude]);
 
   const handleInputChange = (event) => {
     setTypedText(event.target.value);
-    // console.log(event.target.value);
   };
 
   const placeClick = (name) => {
     setTypedText(name);
   };
 
-  const handleFormSubmit = (event) => {
+  //폼 제출시 navigation페이지로 이동, 검색어 서버로 전송
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const place = keywordList.find((place) => place.place_name === typedText);
     if (place) {
+      await addSearchKeyword(userId, place.place_name);
+      console.log(place);
       setSelectedPlace(place);
       setEndLatitude(place.y);
       setEndLongitude(place.x);
@@ -173,16 +205,30 @@ const Search = () => {
           startLongitude,
           endLatitude: parseFloat(place.y),
           endLongitude: parseFloat(place.x),
+          typedText,
+          destinationId: place.id,
         },
       });
     }
   };
 
   //최근 검색어 모두 삭제
-  const deleteAllRecent = () => {};
+  const deleteAllRecent = async () => {
+    // 구현된 삭제 API 함수 호출
+    await deleteKeyword(userId, 0);
+    // 업데이트된 검색어 리스트 요청
+    const updatedKeywords = await getRecentSearchKeywords(userId);
+    setSearchedKeywords(updatedKeywords || []);
+  };
 
   //특정 검색어 삭제
-  const deleteCertainRecent = () => {};
+  const deleteCertainRecent = async (searchId) => {
+    // 특정 검색어 삭제 API 호출
+    await deleteKeyword(userId, searchId);
+    // 업데이트된 검색어 리스트 요청
+    const updatedKeywords = await getRecentSearchKeywords(userId);
+    setSearchedKeywords(updatedKeywords || []);
+  };
 
   return (
     <HomeWrapper className="All">
@@ -200,53 +246,59 @@ const Search = () => {
           <SearchInput type="submit" value="검색" />
         </SearchForm>
       </Wrap>
-      {keywordList.length > 0 ? (
-        <ul>
-          {keywordList.map((place, index) => (
-            <li key={index} onClick={() => placeClick(place.place_name)}>
-              {place.place_name}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <RecentWrap>
-        <TextWrap>
-          <WhiteText>최근 검색어</WhiteText>
-          <GrayText style={{ cursor: "pointer" }}>모두 삭제</GrayText>
-        </TextWrap>
-        <RecentUl>
-          <RecentLi>
-            <WhiteText>
-              <FontAwesomeIcon
-                icon="far fa-clock"
-                style={{ marginRight: "10px" }}
-              />
-              청계천
+
+      {typedText !== "" ? (
+        keywordList.length > 0 ? (
+          <KeywordUl>
+            {keywordList.map((place, index) => (
+              <KeywordLi
+                key={index}
+                onClick={() => placeClick(place.place_name)}
+              >
+                {place.place_name}
+              </KeywordLi>
+            ))}
+          </KeywordUl>
+        ) : (
+          <Nothing>
+            <WhiteText style={{ fontSize: "16px" }}>
+              검색 결과가 없습니다
             </WhiteText>
-            <GrayText style={{ cursor: "pointer" }}>X</GrayText>
-          </RecentLi>
-          <RecentLi>
-            <WhiteText>
-              <FontAwesomeIcon
-                icon="far fa-clock"
-                style={{ marginRight: "10px" }}
-              />
-              청계천
-            </WhiteText>
-            <GrayText style={{ cursor: "pointer" }}>X</GrayText>
-          </RecentLi>
-          <RecentLi>
-            <WhiteText>
-              <FontAwesomeIcon
-                icon="far fa-clock"
-                style={{ marginRight: "10px" }}
-              />
-              청계천
-            </WhiteText>
-            <GrayText style={{ cursor: "pointer" }}>X</GrayText>
-          </RecentLi>
-        </RecentUl>
-      </RecentWrap>
+            <GrayText style={{ fontSize: "16px" }}>
+              다른 키워드로 검색해보세요
+            </GrayText>
+          </Nothing>
+        )
+      ) : (
+        <RecentWrap>
+          <TextWrap>
+            <WhiteText>최근 검색어</WhiteText>
+            <GrayText style={{ cursor: "pointer" }} onClick={deleteAllRecent}>
+              모두 삭제
+            </GrayText>
+          </TextWrap>
+
+          <RecentUl>
+            {searchedKeywords.map((keyword, index) => (
+              <RecentLi key={index}>
+                <WhiteText>
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    style={{ marginRight: "10px" }}
+                  />
+                  {keyword.word}
+                </WhiteText>
+                <GrayText
+                  style={{ cursor: "pointer" }}
+                  onClick={() => deleteCertainRecent(keyword.id)}
+                >
+                  X
+                </GrayText>
+              </RecentLi>
+            ))}
+          </RecentUl>
+        </RecentWrap>
+      )}
     </HomeWrapper>
   );
 };

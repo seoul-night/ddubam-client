@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import chimps from "../assets/chimps.webp";
 import Footer from "../components/Footer";
 import CourseHeader from "../components/CourseHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -147,6 +147,7 @@ const Badge = styled.h4`
 `;
 
 const SearchBar = styled.div`
+  border-radius: 4px;
   cursor: pointer;
   display: flex;
   align-items: center;

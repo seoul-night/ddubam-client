@@ -9,26 +9,81 @@ import { useRecoilValue } from "recoil";
 import { locationState, userIdState } from "../atoms";
 import { fetchNavigationData, fetchPathDetail } from "../services/api";
 import NavigationMap from "../components/NavigationMap";
+import ic_cctv from "../assets/ic_cctv.png";
+import something from "../assets/something.png";
+import close from "../assets/close.png";
+import map_marker from "../assets/icons/map_marker.png";
+import CloseModal from "../components/CloseModal";
+import ReviewModal from "../components/ReviewModal";
+import Spinner from "../components/Spinner";
 
 const HomeWrapper = styled.div`
   height: 100vh;
   background-color: #1c1c26;
   overflow: hidden;
   position: relative;
-  padding: 20px;
   box-sizing: border-box;
-  position: relative;
+`;
+
+const Header = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #1c1c26;
+  padding: 20px;
+`;
+
+const Location = styled.div`
+  background-color: #333344;
+  padding: 0px 10px;
+  height: 37px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  color: #f6f8fa;
+  font-size: 14px;
 `;
 
 const Wrap = styled.div`
-  /* background-color: gray; */
-  padding-top: 26px;
-  padding-bottom: 26px;
+  z-index: 3;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 0;
   width: 100%;
-  margin-top: 28px;
-  margin-bottom: 28px;
-  /* border-bottom: 1px solid #91919c; */
+  padding: 20px;
 `;
+
+const Info = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #242430;
+  padding: 12px 16px;
+  gap: 12px;
+  border-radius: 10px;
+`;
+
+const PurpleText = styled.h4`
+  font-size: 12px;
+  color: #989dff;
+  font-weight: 500;
+  line-height: 18px;
+`;
+
+const Distance = styled.h4`
+  font-size: 24px;
+  color: #f6f8fa;
+  line-height: 38px;
+`;
+
+const CCTVnumber = styled.h4`
+  font-size: 12px;
+  line-height: 18px;
+  color: #b4b4c2;
+`;
+
 const WhiteText1 = styled.h4`
   color: #f6f8fa;
   margin-right: 16px;
@@ -53,32 +108,9 @@ const GrayText2 = styled.h4`
   font-size: 16px;
 `;
 
-const DetailWrap = styled.div`
-  display: flex;
-  margin-bottom: 8px;
-`;
-
-const Footer = styled.div`
-  position: fixed;
-  bottom: 0;
-  background-color: #1c1c26;
-  z-index: 3;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  max-width: var(--max-width);
-  width: 100%;
-  height: 104px;
-  border-top: 2px solid #242430;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  justify-content: space-between;
-`;
-
 const Button = styled.button`
-  width: 261px;
+  margin-top: 16px;
+  width: 100%;
   height: 56px;
   background-color: #5e66ff;
   color: #f6f8fa;
@@ -86,73 +118,185 @@ const Button = styled.button`
   border-radius: 10px;
   border: none;
   transition: all 0.3s;
+  cursor: pointer;
 
   &:hover {
     background-color: #4950d4;
   }
 `;
 
-const CenterDiv = styled.div`
-  flex-grow: 1;
+const MapContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  width: 100%;
+  height: 100vh;
+  background-color: #1c1c26;
+  touch-action: pan-x pan-y;
 `;
 
-const MapContainer = styled.div`
-  width: calc(100% + 40px);
-  height: 230px;
-  background-color: whitesmoke;
-  margin-left: -20px;
-  margin-right: -20px;
-  touch-action: pan-x pan-y;
+const LocationWrap = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const WhiteText = styled.span`
+  font-size: 16px;
+  line-height: 24px;
+  margin-right: 6px;
+  color: #f6f8fa;
+`;
+
+const GrayText = styled.span`
+  font-size: 16px;
+  line-height: 24px;
+  color: #91919c;
 `;
 
 const Navigation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const locationName = useRecoilValue(locationState);
   const [fetchedData, setFetchedData] = useState({});
   const location = useLocation();
-  const { startLatitude, startLongitude, endLatitude, endLongitude } =
-    location.state || {};
+  const [isStarted, setIsStarted] = useState(false);
+  const [finishModalOpen, setFinishModalOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const {
+    startLatitude,
+    startLongitude,
+    endLatitude,
+    endLongitude,
+    typedText,
+    destinationId,
+  } = location.state || {};
 
   useEffect(() => {
     const fetchData = async () => {
-      // console.log(startLatitude, startLongitude, endLatitude, endLongitude);
+      setLoading(true);
       const data = await fetchNavigationData(
-        startLatitude,
-        startLongitude,
-        endLatitude,
-        endLongitude
+        startLatitude || [],
+        startLongitude || [],
+        endLatitude || [],
+        endLongitude || []
       );
-
       setFetchedData(data);
-      // console.log(fetchedData);
+      setLoading(false);
     };
     fetchData();
   }, []);
 
+  const closeModal = () => {
+    setFinishModalOpen(false);
+  };
+
+  const closeReviewModal = () => {
+    setReviewModalOpen(false);
+  };
+
   return (
     <HomeWrapper className="PathDetail">
-      <CourseHeader headerText={"검색 장소까지 경로"} location={locationName} />
+      {finishModalOpen && <CloseModal onClose={closeModal} />}
+      {reviewModalOpen && (
+        <ReviewModal
+          destinationId={destinationId}
+          destinationName={typedText}
+          onClose={closeReviewModal}
+        />
+      )}
+
+      {!isStarted ? (
+        <Header>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginRight: "10px",
+            }}
+          >
+            <img src={something} style={{ width: "16px", height: "57px" }} />
+          </div>
+          <LocationWrap>
+            <Location>서울 마포구 어쩌구</Location>
+            <Location>{typedText}</Location>
+          </LocationWrap>
+          <div>
+            <img
+              src={close}
+              style={{
+                width: "20px",
+                height: "20px",
+                paddingLeft: "10px",
+                paddingTop: "9px",
+                paddingBottom: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/search")}
+            />
+          </div>
+        </Header>
+      ) : (
+        <Header style={{ justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={map_marker}
+              style={{ width: "24px", height: "24px", marginRight: "6px" }}
+            />
+            <WhiteText>{typedText}</WhiteText> <GrayText> 가는 중...</GrayText>
+          </div>
+
+          <img
+            src={close}
+            style={{
+              width: "24px",
+              height: "24px",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setFinishModalOpen(true);
+            }}
+          />
+        </Header>
+      )}
+
       <MapContainer>
-        {fetchedData.latitudeList && fetchedData.longitudeList && (
+        {loading ? <Spinner size="md" theme="dark" /> : null}
+        {!loading && fetchedData.latitudeList && fetchedData.longitudeList ? (
           <NavigationMap
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
             safetyLatitudeList={fetchedData.safetyLatitudeList}
-            safetyLongitudeList={fetchNavigationData.safetyLongitudeList}
+            safetyLongitudeList={fetchedData.safetyLongitudeList}
           />
-        )}
+        ) : null}
       </MapContainer>
-      <Wrap style={{ borderBottom: "1px solid #242430", gap: "4px" }}>
-        <WhiteText1 style={{ fontSize: "20px", marginBottom: "10px" }}>
-          {/* {fetchedData.title} */}
-        </WhiteText1>
-        {/* <GrayText1 style={{ fontSize: "14px" }}>{fetchedData.detail}</GrayText1> */}
-      </Wrap>
+      {!isStarted ? (
+        <Wrap>
+          <Info>
+            <PurpleText>안전한 거리</PurpleText>
+            <Distance>{fetchedData.distance} km</Distance>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {fetchedData.safetyLatitudeList && (
+                <CCTVnumber>
+                  <img src={ic_cctv} style={{ marginRight: "6px" }} />
+                  CCTV {fetchedData.safetyLatitudeList.length}대
+                </CCTVnumber>
+              )}
+            </div>
+          </Info>
+          <Button onClick={() => setIsStarted(true)}>출발하기</Button>
+        </Wrap>
+      ) : (
+        <Wrap>
+          <Button onClick={() => setReviewModalOpen(true)}>
+            도착 완료하기
+          </Button>
+        </Wrap>
+      )}
     </HomeWrapper>
   );
 };

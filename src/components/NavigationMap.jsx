@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Map, MapMarker, Polyline, useMap } from "react-kakao-maps-sdk";
 import map_marker from "../assets/icons/map_marker.png";
+import map_marker_cctv from "../assets/map_marker_cctv.png";
+import map_marker_start from "../assets/map_marker_start.png";
+import map_marker_end from "../assets/map_marker_end.png";
+import CloseModal from "./CloseModal";
 
 const NavigationMap = ({
-  latitudeList,
-  longitudeList,
-  safetyLatitudeList,
-  safetyLongitudeList,
+  latitudeList = [],
+  longitudeList = [],
+  safetyLatitudeList = [],
+  safetyLongitudeList = [],
 }) => {
-  const markers = safetyLatitudeList.map((latitude, index) => (
+  const CCTVmarkers = safetyLatitudeList.map((latitude, index) => (
     <MapMarker
       key={index}
       position={{ lat: latitude, lng: safetyLongitudeList[index] }}
       image={{
-        src: map_marker,
+        src: map_marker_cctv,
         size: {
-          width: 32,
-          height: 32,
+          width: 24,
+          height: 24,
         },
       }}
     />
   ));
+
+  useEffect(() => {
+    console.log(safetyLatitudeList);
+    console.log(safetyLongitudeList);
+  }, []);
+
+  const startMarker = () => {};
 
   const polylineCoordinates = latitudeList.map((latitude, index) => ({
     lat: latitude,
@@ -57,15 +68,30 @@ const NavigationMap = ({
   return (
     <Map
       center={{ lat: latitudeList[0], lng: longitudeList[0] }}
-      style={{ width: "calc(100% + 40px)", height: "230px" }}
+      style={{ width: "100%", height: "100%" }}
       level={4}
     >
-      {markers}
       <Polyline
         path={polylineCoordinates}
         strokeWeight={3}
         strokeColor={"#5e66ff"}
       />
+
+      {CCTVmarkers}
+
+      <MapMarker
+        position={{ lat: latitudeList[0], lng: longitudeList[0] }}
+        image={{ src: map_marker_start, size: { width: 36, height: 36 } }}
+      />
+
+      <MapMarker
+        position={{
+          lat: latitudeList[latitudeList.length - 1],
+          lng: longitudeList[longitudeList.length - 1],
+        }}
+        image={{ src: map_marker_end, size: { width: 36, height: 36 } }}
+      />
+
       <AdjustBounds />
     </Map>
   );

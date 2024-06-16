@@ -55,7 +55,7 @@ const FinishedPath = ({}) => {
       //완료 산책로 가져와서 fetchedData변수에 저장
       const data = await fetchFinishedPaths(userId); //완료 산책로들 가져오기
       // console.log(data);
-      setFetchedDatas(data);
+      setFetchedDatas(data || []);
     };
     fetchData();
   }, []);
