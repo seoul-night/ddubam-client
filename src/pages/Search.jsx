@@ -139,7 +139,7 @@ const Search = () => {
     const fetchKeywordList = async () => {
       const fetchedData = await getRecentSearchKeywords(userId);
       console.log(fetchedData);
-      setSearchedKeywords(fetchedData || []);
+      setSearchedKeywords(fetchedData.slice(0, 3) || []);
     };
 
     fetchKeywordList();
@@ -223,7 +223,7 @@ const Search = () => {
     await deleteKeyword(userId, 0);
     // 업데이트된 검색어 리스트 요청
     const updatedKeywords = await getRecentSearchKeywords(userId);
-    setSearchedKeywords(updatedKeywords || []);
+    setSearchedKeywords(updatedKeywords.slice(0, 3) || []);
   };
 
   //특정 검색어 삭제
@@ -232,7 +232,7 @@ const Search = () => {
     await deleteKeyword(userId, searchId);
     // 업데이트된 검색어 리스트 요청
     const updatedKeywords = await getRecentSearchKeywords(userId);
-    setSearchedKeywords(updatedKeywords || []);
+    setSearchedKeywords(updatedKeywords.slice(0, 3) || []);
   };
 
   return (
