@@ -8,6 +8,7 @@ import KakaoMap from "../components/KakaoMap";
 import { useRecoilValue } from "recoil";
 import { geolocationState, locationState, userIdState } from "../atoms";
 import { fetchPathDetail, navigateToPopular } from "../services/api";
+import { createRequest } from "../utils/api-utils";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -148,27 +149,16 @@ const PathDetail = () => {
     trailId: parseInt(id),
   };
 
-  const toggleLike = () => {
+  const toggleLike = async () => {
     const method = liked ? "DELETE" : "POST";
 
-    fetch("https://ddubam.site/api/members/walks/select", {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(sendingData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        // console.log("Request successful with status:", response.status);
-        // console.log("Data Sent:", sendingData);
-        setLike(!liked); // 요청이 성공하면 상태 변경
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    try {
+      // 수정된 부분: createRequest 사용
+      await createRequest(method, "/members/walks/select", sendingData); 
+      setLike(!liked); // 요청이 성공하면 상태 변경
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
