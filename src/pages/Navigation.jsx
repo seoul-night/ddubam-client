@@ -72,10 +72,11 @@ const PurpleText = styled.h4`
   line-height: 18px;
 `;
 
-const Distance = styled.h4`
+const Time = styled.h4`
   font-size: 24px;
   color: #f6f8fa;
-  line-height: 38px;
+  font-weight: 500;
+  margin-right: 10px;
 `;
 
 const CCTVnumber = styled.h4`
@@ -84,28 +85,12 @@ const CCTVnumber = styled.h4`
   color: #b4b4c2;
 `;
 
-const WhiteText1 = styled.h4`
+const Distance = styled.h4`
+  font-size: 12px;
+  line-height: 18px;
   color: #f6f8fa;
-  margin-right: 16px;
-  font-size: 20px;
-  line-height: 21px;
-`;
-const WhiteText2 = styled.h4`
-  color: #f6f8fa;
-  margin-right: 16px;
-  font-size: 16px;
-  line-height: 21px;
-`;
-const GrayText1 = styled.h4`
-  color: #91919c;
-  line-height: 21px;
-  font-size: 14px;
-`;
-
-const GrayText2 = styled.h4`
-  color: #91919c;
-  line-height: 21px;
-  font-size: 16px;
+  font-weight: 500;
+  margin-top: auto;
 `;
 
 const Button = styled.button`
@@ -155,6 +140,16 @@ const GrayText = styled.span`
   color: #91919c;
 `;
 
+function decimalHoursToTime(decimalHours) {
+  const hours = Math.floor(decimalHours);
+  const minutes = Math.round((decimalHours - hours) * 60);
+  if (hours == 0) {
+    return `${minutes}분`;
+  } else {
+    return `${hours}시간 ${minutes}분`;
+  }
+}
+
 const Navigation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -184,6 +179,7 @@ const Navigation = () => {
         endLongitude || []
       );
       setFetchedData(data);
+      console.log(data);
       setLoading(false);
     };
     fetchData();
@@ -278,7 +274,13 @@ const Navigation = () => {
         <Wrap>
           <Info>
             <PurpleText>안전한 거리</PurpleText>
-            <Distance>{fetchedData.distance} km</Distance>
+            <div
+              style={{ display: "flex", marginTop: "7px", marginBottom: "7px" }}
+            >
+              <Time>{decimalHoursToTime(fetchedData.time)} </Time>
+              <Distance>{fetchedData.distance} km</Distance>
+            </div>
+
             <div style={{ display: "flex", alignItems: "center" }}>
               {fetchedData.safetyLatitudeList && (
                 <CCTVnumber>
