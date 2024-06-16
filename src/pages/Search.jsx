@@ -286,7 +286,11 @@ const Search = () => {
           <RecentUl>
             {searchedKeywords.map((keyword, index) => (
               <RecentLi key={index}>
-                <WhiteText>
+                <WhiteText
+                  onClick={() => {
+                    handleKeywordClick(keyword.word);
+                  }}
+                >
                   <FontAwesomeIcon
                     icon="far fa-clock"
                     style={{ marginRight: "10px" }}
