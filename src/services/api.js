@@ -1,79 +1,46 @@
 // api.js
+import { createRequest } from "../utils/api-utils";
 import axios from "axios";
+
 
 const BASE_URL = "https://ddubam.site/api";
 // const BASE_URL = "http://ddubam.site:8080/api";
+
 const APP_KEY = process.env.REACT_APP_APP_KEY;
 
-//카카오 계정정보 요청
-export const getUserData = async () => {
-  const token = localStorage.getItem("accessToken");
-  if (!token) {
-    console.error("Access token is missing");
-    return;
-  }
-
-  try {
-    const response = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Failed to fetch user data", error);
-    throw error;
-  }
-};
 
 //카카오 계정정보에서 id추출해 뚜밤뚜밤 계정정보 요청
 export const fetchUserData = async (userId) => {
-  try {
-    console.log(userId);
-    const response = await axios.get(`${BASE_URL}/members/${userId}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/members/${userId}`);
 };
+
+//완료한 산책 리스트 조회(구)
+// export const fetchFinishedPaths = async (userId) => {
+//   try {
+//     const response = await axios.get(
+//       `${BASE_URL}/members/walks/complete/${userId}`
+//     );
+//     // console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 //완료한 산책 리스트 조회
 export const fetchFinishedPaths = async (userId) => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/members/walks/complete/${userId}`
-    );
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/members/walks/complete/${userId}`);
+
 };
 
 //찜한 산책로 리스트 조회
 export const fetchLikedPaths = async (userId) => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/members/walks/select/${userId}`
-    );
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/members/walks/select/${userId}`);
 };
 
 //주변 산책로 리스트 조회
 export const fetchNearbyPaths = async (lat, lng) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/walks/near/${lat}/${lng}`);
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/walks/near/${lat}/${lng}`);
 };
 
 //키워드로 장소 검색 -> 목적지 위도, 경도 얻음
@@ -86,7 +53,7 @@ export const keywordSearch = async (keyword) => {
           query: keyword,
         },
         headers: {
-          Authorization: `KakaoAK ${process.env.REACT_APP_APP_KEY}`,
+          Authorization: `KakaoAK ${APP_KEY}`,
         },
       }
     );
@@ -99,13 +66,7 @@ export const keywordSearch = async (keyword) => {
 
 //인기 산책로 리스트 조회
 export const fetchPopularPaths = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/walks/popular`);
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/walks/popular`);
 };
 
 const shuffleArray = (array) => {
@@ -119,33 +80,25 @@ const shuffleArray = (array) => {
 //관광지 리스트 조회
 export const fetchAttractions = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/attractions`);
-    const shuffledData = shuffleArray(response.data);
+    const response = await createRequest('get', `/attractions`);
+    //console.log(response);
+    const shuffledData = shuffleArray(response);
     const randomFive = shuffledData.slice(0, 5);
     // console.log(randomFive);
     return randomFive;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
 //산책로 상세정보 조회
 export const fetchPathDetail = async (trailId, userId) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/walks/${trailId}/${userId}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/walks/${trailId}/${userId}`);
 };
 
 export const logoutRequest = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/members/kakao/logout`);
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/members/kakao/logout`);
 };
 
 //검색 결과로 가는 길
@@ -155,17 +108,10 @@ export const fetchNavigationData = async (
   endLatitude,
   endLongitude
 ) => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
-      // `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
-    );
 
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+      // `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
+   
+  return createRequest('get', `/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`);
 };
 
 //인기 산책로로 가는 길 + 디테일
@@ -175,15 +121,7 @@ export const navigateToPopular = async (
   latitude,
   longitude
 ) => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
-    );
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return createRequest('get', `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`);
 };
 
 //검색어 추가

@@ -39,10 +39,11 @@ const Desc = styled.h4`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const FinishedTab = ({ walkedDate, trailId, trailTitle, review }) => {
+const FinishedTab = ({ finishedDate, destinationId, destinationTitle, review }) => {
   return (
     <Tab>
-      <Link to={`/pathdetail/${trailId}`}>
+      {/* 경로 검색 화면으로 이동 필요 */}
+      <Link to={`/pathdetail/${destinationId}`}>
         <div
           style={{
             display: "flex",
@@ -53,8 +54,8 @@ const FinishedTab = ({ walkedDate, trailId, trailTitle, review }) => {
           }}
         >
           <div style={{ width: "90%" }}>
-            <Date>{walkedDate}</Date>
-            <Title>{trailTitle}</Title>
+            <Date>{finishedDate}</Date>
+            <Title>{destinationTitle}</Title>
             <Desc>{review}</Desc>
           </div>
           <div>

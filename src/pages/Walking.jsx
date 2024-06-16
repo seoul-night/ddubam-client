@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import clap from "../assets/icons/clap.png";
 import { useRecoilValue } from "recoil";
 import { userIdState } from "../atoms";
+import { createRequest } from "../utils/api-utils";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -216,13 +217,15 @@ const Walking = () => {
   const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
-    fetch(`https://ddubam.site/api/walks/${trailId}/${userId}`)
-      .then((response) => response.json())
+    createRequest('get', `/walks/${trailId}/${userId}`)
       .then((data) => {
         setFetchedData(data);
         setLoading(false);
         // console.log("산책 코스 정보 :");
         // console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching walk data:", error);
       });
     // console.log("param:", trailId);
 
@@ -242,18 +245,8 @@ const Walking = () => {
       review: reviewText,
     };
 
-    fetch("https://ddubam.site/api/members/walks/complete", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        // console.log("Success:", postData, response.status);
+    createRequest('post', '/members/walks/complete', postData)
+      .then((data) => {
         setReviewModalOpen(false);
         navigate("/home");
       })

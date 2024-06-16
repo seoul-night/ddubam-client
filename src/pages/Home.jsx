@@ -18,6 +18,7 @@ import location2 from "../assets/icons/location2.png";
 import img_homebtn1 from "../assets/img_homebtn1.png";
 import img_homebtn2 from "../assets/img_homebtn2.png";
 import KakaoLogin, { fetchAttractions, keywordSearch } from "../services/api";
+import { createRequest } from "../utils/api-utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -171,17 +172,16 @@ const Home = () => {
   const setLocation = useSetRecoilState(locationState);
 
   const toAttractionDetail = async (latitude, longitude) => {
-    fetch(`https://ddubam.site/api/attractions/${latitude}/${longitude}`, {})
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.trailId != undefined) {
-          navigate(`/pathdetail/${data.trailId}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching attraction details:", error);
-      });
+    try {
+      // 수정된 부분: createRequest 사용
+      const data = await createRequest('get', `/attractions/${latitude}/${longitude}`);
+      console.log(data);
+      if (data.trailId != undefined) {
+        navigate(`/pathdetail/${data.trailId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching attraction details:", error);
+    }
   };
 
   useEffect(() => {
