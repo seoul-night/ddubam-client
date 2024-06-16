@@ -11,7 +11,6 @@ import onboard2 from "../assets/onboard2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { geolocationState, userDataState, locationState } from "../atoms";
-import {} from "../services/api";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -199,7 +198,7 @@ const Onboarding = () => {
 
   const handleClick = () => {
     if (currentPage === 1) {
-      window.location.href = "https://ddubam.site/api/members/kakao/login";
+      window.location.href = "https://ddubam.site/api/members/kakao/login/test";
     }
   };
 

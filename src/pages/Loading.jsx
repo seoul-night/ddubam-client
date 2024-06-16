@@ -14,7 +14,8 @@ const Loading = () => {
     const fetchData = async () => {
       const params = new URLSearchParams(window.location.search);
       const token = params.get("token");
-
+      localStorage.setItem("token", token);
+      
       if (token) {
         try {
           // JWT 토큰을 디코드하여 사용자 정보를 추출
@@ -29,7 +30,6 @@ const Loading = () => {
           setUserData(ddubamUserData);
 
           // 사용자 정보를 로컬 스토리지에 저장
-          localStorage.setItem("token", token);
 
           navigate("/home");
         } catch (error) {
