@@ -75,9 +75,9 @@ const FinishedPath = ({}) => {
             return (
               <FinishedTab
                 key={id}
-                trailId={data.trailId}
-                walkedDate={data.walkedDate}
-                trailTitle={data.trailTitle}
+                destinationId={data.destinationId}
+                finishedDate={data.finishedDate}
+                destinationTitle={data.destinationTitle}
                 review={data.review}
               />
             );
