@@ -178,10 +178,10 @@ const Navigation = () => {
     const fetchData = async () => {
       setLoading(true);
       const data = await fetchNavigationData(
-        startLatitude,
-        startLongitude,
-        endLatitude,
-        endLongitude
+        startLatitude || [],
+        startLongitude || [],
+        endLatitude || [],
+        endLongitude || []
       );
       setFetchedData(data);
       setLoading(false);
@@ -263,7 +263,7 @@ const Navigation = () => {
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
             safetyLatitudeList={fetchedData.safetyLatitudeList}
-            safetyLongitudeList={fetchNavigationData.safetyLongitudeList}
+            safetyLongitudeList={fetchedData.safetyLongitudeList}
           />
         )}
       </MapContainer>

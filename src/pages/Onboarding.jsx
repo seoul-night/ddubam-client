@@ -199,7 +199,7 @@ const Onboarding = () => {
 
   const handleClick = () => {
     if (currentPage === 1) {
-      window.location.href = "https://ddubam.site/api/members/kakao/login";
+      window.location.href = "https://ddubam.site/api/members/kakao/login/test";
     }
   };
 

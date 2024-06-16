@@ -157,8 +157,8 @@ export const fetchNavigationData = async (
 ) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
-      // `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
+      // `${BASE_URL}/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
+      `${BASE_URL}/walks/search/37.5691065/126.97865009/${endLatitude}/${endLongitude}`
     );
 
     console.log(response.data);
