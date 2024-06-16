@@ -39,11 +39,24 @@ export const fetchUserData = async (userId) => {
   }
 };
 
+//완료한 산책 리스트 조회(구)
+// export const fetchFinishedPaths = async (userId) => {
+//   try {
+//     const response = await axios.get(
+//       `${BASE_URL}/members/walks/complete/${userId}`
+//     );
+//     // console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 //완료한 산책 리스트 조회
 export const fetchFinishedPaths = async (userId) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/members/walks/complete/${userId}`
+      `${BASE_URL}/members/walks/search/complete/${userId}`
     );
     // console.log(response.data);
     return response.data;
