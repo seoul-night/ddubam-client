@@ -206,6 +206,7 @@ const Search = () => {
           endLatitude: parseFloat(place.y),
           endLongitude: parseFloat(place.x),
           typedText,
+          destinationId: place.id,
         },
       });
     }

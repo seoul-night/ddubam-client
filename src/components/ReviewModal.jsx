@@ -3,6 +3,8 @@ import clap from "../assets/icons/clap.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { writeDestinationReview } from "../services/api";
+import { useRecoilValue } from "recoil";
+import { userIdState } from "../atoms";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -71,14 +73,10 @@ const ModalBtn = styled.button`
   border: none;
 `;
 
-const ReviewModal = ({ onClose }) => {
+const ReviewModal = ({ onClose, destinationId, destinationName }) => {
   const navigate = useNavigate();
-  const [typedReview, setTypedReview] = useState("");
   const [reviewText, setReviewText] = useState("");
-
-  const handleInputChange = (event) => {
-    setTypedReview(event.target.value);
-  };
+  const userId = useRecoilValue(userIdState);
 
   return (
     <ModalBackground onClick={onClose}>
@@ -116,13 +114,20 @@ const ReviewModal = ({ onClose }) => {
           placeholder="60자 이내로 작성할 수 있어요"
           value={reviewText}
           onChange={(event) => {
-            setReviewText(event.target.valu);
+            setReviewText(event.target.value);
           }}
         ></TextArea>
         <ModalBtn
           onClick={() => {
-            navigate("/home");
             // setReviewModalOpen(false);
+            console.log(userId, reviewText, destinationId, destinationName);
+            writeDestinationReview(
+              userId,
+              reviewText,
+              destinationId,
+              destinationName
+            );
+            navigate("/home");
           }}
           style={{
             backgroundColor: "#5E66FF",

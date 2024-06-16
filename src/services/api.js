@@ -241,10 +241,7 @@ export const writeDestinationReview = async (
 ) => {
   const data = { userId, review, destinationId, destinationTitle };
   try {
-    const response = await axios.post(
-      `${BASE_URL}/members/walks/search/complete`,
-      data
-    );
+    await axios.post(`${BASE_URL}/members/walks/search/complete`, data);
   } catch (error) {
     console.log(error);
   }

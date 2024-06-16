@@ -158,7 +158,6 @@ const GrayText = styled.span`
 const Navigation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const locationName = useRecoilValue(locationState);
   const [fetchedData, setFetchedData] = useState({});
   const location = useLocation();
   const [isStarted, setIsStarted] = useState(false);
@@ -172,6 +171,7 @@ const Navigation = () => {
     endLatitude,
     endLongitude,
     typedText,
+    destinationId,
   } = location.state || {};
 
   useEffect(() => {
@@ -200,7 +200,13 @@ const Navigation = () => {
   return (
     <HomeWrapper className="PathDetail">
       {finishModalOpen && <CloseModal onClose={closeModal} />}
-      {reviewModalOpen && <ReviewModal onClose={closeReviewModal} />}
+      {reviewModalOpen && (
+        <ReviewModal
+          destinationId={destinationId}
+          destinationName={typedText}
+          onClose={closeReviewModal}
+        />
+      )}
 
       {!isStarted ? (
         <Header>
@@ -242,6 +248,7 @@ const Navigation = () => {
             />
             <WhiteText>{typedText}</WhiteText> <GrayText> 가는 중...</GrayText>
           </div>
+
           <img
             src={close}
             style={{
@@ -258,14 +265,14 @@ const Navigation = () => {
 
       <MapContainer>
         {loading ? <Spinner size="md" theme="dark" /> : null}
-        {fetchedData.latitudeList && fetchedData.longitudeList && (
+        {!loading && fetchedData.latitudeList && fetchedData.longitudeList ? (
           <NavigationMap
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
             safetyLatitudeList={fetchedData.safetyLatitudeList}
             safetyLongitudeList={fetchedData.safetyLongitudeList}
           />
-        )}
+        ) : null}
       </MapContainer>
       {!isStarted ? (
         <Wrap>
