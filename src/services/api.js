@@ -138,3 +138,8 @@ export const writeDestinationReview = async (
   const data = { userId, review, destinationId, destinationTitle };
   return createRequest("post", `/members/walks/search/complete`, data);
 };
+
+//회원 탈퇴
+export const deleteAccount = async (userId) => {
+  return createRequest("delete", `/members/${userId}`);
+};

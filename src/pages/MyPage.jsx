@@ -18,7 +18,12 @@ import MyColored from "../assets/icons/MyColored.png";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { userDataState, userIdState } from "../atoms";
-import { fetchUserData, getUserData, logoutRequest } from "../services/api"; // handleLogout 제거
+import {
+  deleteAccount,
+  fetchUserData,
+  getUserData,
+  logoutRequest,
+} from "../services/api"; // handleLogout 제거
 import { jwtDecode } from "jwt-decode";
 
 const HomeWrapper = styled.div`
@@ -317,6 +322,9 @@ const MyPage = () => {
             style={{
               fontSize: "14px",
               color: "#91919C",
+            }}
+            onClick={() => {
+              deleteAccount(userId);
             }}
           >
             회원탈퇴
