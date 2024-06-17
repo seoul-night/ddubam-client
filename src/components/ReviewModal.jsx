@@ -71,6 +71,7 @@ const ModalBtn = styled.button`
   border-radius: 8px;
   width: 50%;
   border: none;
+  cursor: pointer;
 `;
 
 const ReviewModal = ({ onClose, destinationId, destinationName }) => {

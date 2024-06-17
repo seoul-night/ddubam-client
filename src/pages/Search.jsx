@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { faChevronLeft, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import close from "../assets/close.png";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -138,7 +139,7 @@ const Search = () => {
     const fetchKeywordList = async () => {
       const fetchedData = await getRecentSearchKeywords(userId);
       console.log(fetchedData);
-      setSearchedKeywords(fetchedData || []);
+      setSearchedKeywords(fetchedData.slice(0, 3) || []);
     };
 
     fetchKeywordList();
@@ -188,6 +189,10 @@ const Search = () => {
     setTypedText(name);
   };
 
+  const handleKeywordClick = (clickedKeyword) => {
+    setTypedText(clickedKeyword);
+  };
+
   //폼 제출시 navigation페이지로 이동, 검색어 서버로 전송
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -218,7 +223,7 @@ const Search = () => {
     await deleteKeyword(userId, 0);
     // 업데이트된 검색어 리스트 요청
     const updatedKeywords = await getRecentSearchKeywords(userId);
-    setSearchedKeywords(updatedKeywords || []);
+    setSearchedKeywords(updatedKeywords.slice(0, 3) || []);
   };
 
   //특정 검색어 삭제
@@ -227,7 +232,7 @@ const Search = () => {
     await deleteKeyword(userId, searchId);
     // 업데이트된 검색어 리스트 요청
     const updatedKeywords = await getRecentSearchKeywords(userId);
-    setSearchedKeywords(updatedKeywords || []);
+    setSearchedKeywords(updatedKeywords.slice(0, 3) || []);
   };
 
   return (
@@ -281,9 +286,13 @@ const Search = () => {
           <RecentUl>
             {searchedKeywords.map((keyword, index) => (
               <RecentLi key={index}>
-                <WhiteText>
+                <WhiteText
+                  onClick={() => {
+                    handleKeywordClick(keyword.word);
+                  }}
+                >
                   <FontAwesomeIcon
-                    icon={faClock}
+                    icon="far fa-clock"
                     style={{ marginRight: "10px" }}
                   />
                   {keyword.word}
@@ -292,7 +301,18 @@ const Search = () => {
                   style={{ cursor: "pointer" }}
                   onClick={() => deleteCertainRecent(keyword.id)}
                 >
-                  X
+                  <img
+                    src={close}
+                    style={{
+                      width: "18px",
+                      height: "18px",
+                      paddingLeft: "10px",
+                      paddingTop: "9px",
+                      paddingBottom: "10px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => navigate("/search")}
+                  />
                 </GrayText>
               </RecentLi>
             ))}

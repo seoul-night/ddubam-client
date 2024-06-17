@@ -117,6 +117,7 @@ const SubText = styled.p`
 `;
 
 const LongBox = styled(Box)`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -174,7 +175,10 @@ const Home = () => {
   const toAttractionDetail = async (latitude, longitude) => {
     try {
       // 수정된 부분: createRequest 사용
-      const data = await createRequest('get', `/attractions/${latitude}/${longitude}`);
+      const data = await createRequest(
+        "get",
+        `/attractions/${latitude}/${longitude}`
+      );
       console.log(data);
       if (data.trailId != undefined) {
         navigate(`/pathdetail/${data.trailId}`);
