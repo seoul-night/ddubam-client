@@ -16,9 +16,15 @@ import complete from "../assets/icons/complete.png";
 import home from "../assets/icons/home.png";
 import MyColored from "../assets/icons/MyColored.png";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import { userDataState } from "../atoms";
-import { fetchUserData, getUserData, logoutRequest } from "../services/api"; // handleLogout 제거
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { userDataState, userIdState } from "../atoms";
+import {
+  deleteAccount,
+  fetchUserData,
+  getUserData,
+  logoutRequest,
+} from "../services/api"; // handleLogout 제거
+import { jwtDecode } from "jwt-decode";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -144,29 +150,37 @@ const Badge = styled.div`
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const userData = useRecoilValue(userDataState);
-  const resetUserData = useResetRecoilState(userDataState); // useResetRecoilState 훅을 여기에서 사용
+  const resetUserData = useResetRecoilState(userDataState);
+  const userId = useRecoilValue(userIdState);
+  const [userData, setUserData] = useRecoilState(userDataState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedData = await fetchUserData(userId);
+      console.log(fetchedData);
+      setUserData(fetchedData);
+    };
+
+    fetchData();
+  }, []);
 
   const handleLogout = () => {
     if (window.Kakao.Auth) {
-      // 클라이언트 측 로그아웃 처리
       window.Kakao.Auth.logout(() => {
         console.log("kakao 로그아웃 성공");
         localStorage.removeItem("token");
         resetUserData();
         console.log("로컬스토리지 토큰 삭제 및 상태 초기화");
-        // logoutRequest();
         navigate("/");
       });
     }
   };
 
-  const progressWidth = userData.exp % 100; // progressWidth 변수 정의
+  const progressWidth = userData.exp % 100;
 
   return (
     <HomeWrapper className="MyPage">
       <LogoWrap>
-        {/* <Text>밤안갱 로고</Text> */}
         <img src={logo2} style={{ height: "24px" }} />
       </LogoWrap>
       <Wrap>
@@ -251,7 +265,7 @@ const MyPage = () => {
             /> */}
             <img src={complete} />
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Text style={{ fontSize: "14px" }}>완료한 산책</Text>
+              <Text style={{ fontSize: "14px" }}>완료한 코스</Text>
               <Badge
                 style={{
                   fontSize: "14px",
@@ -277,13 +291,9 @@ const MyPage = () => {
               navigate("/liked");
             }}
           >
-            {/* <FontAwesomeIcon
-              icon={faHeart}
-              style={{ color: "FF90B2", fontSize: "20px" }}
-            /> */}
             <img src={like} />
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Text style={{ fontSize: "14px" }}>찜한 산책</Text>
+              <Text style={{ fontSize: "14px" }}>찜한 코스</Text>
               <Badge
                 style={{
                   fontSize: "14px",
@@ -312,6 +322,9 @@ const MyPage = () => {
             style={{
               fontSize: "14px",
               color: "#91919C",
+            }}
+            onClick={() => {
+              deleteAccount(userId);
             }}
           >
             회원탈퇴
