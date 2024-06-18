@@ -61,7 +61,6 @@ const Info = styled.div`
   width: 100%;
   background-color: #242430;
   padding: 12px 16px;
-  gap: 12px;
   border-radius: 10px;
 `;
 
@@ -76,7 +75,7 @@ const Time = styled.h4`
   font-size: 24px;
   color: #f6f8fa;
   font-weight: 500;
-  margin-right: 10px;
+  margin-right: 6px;
 `;
 
 const CCTVnumber = styled.h4`
@@ -217,7 +216,7 @@ const Navigation = () => {
             <img src={something} style={{ width: "16px", height: "57px" }} />
           </div>
           <LocationWrap>
-            <Location>서울 마포구 어쩌구</Location>
+            <Location>현재 위치</Location>
             <Location>{typedText}</Location>
           </LocationWrap>
           <div>

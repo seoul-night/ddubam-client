@@ -103,8 +103,21 @@ const RecentLi = styled.li`
 const KeywordUl = styled.ul``;
 
 const KeywordLi = styled.li`
+  font-size: 14px;
   color: #f6f8fa;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #5a5a76;
+  padding: 16px 12px;
+`;
+
+const KeywordCount = styled.div`
+  height: 21px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 8px;
 `;
 
 const Nothing = styled.div`
@@ -255,6 +268,10 @@ const Search = () => {
       {typedText !== "" ? (
         keywordList.length > 0 ? (
           <KeywordUl>
+            <KeywordCount>
+              <GrayText>검색 결과</GrayText>
+              <WhiteText>{keywordList.length}</WhiteText>
+            </KeywordCount>
             {keywordList.map((place, index) => (
               <KeywordLi
                 key={index}
