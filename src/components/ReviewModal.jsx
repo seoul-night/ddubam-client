@@ -127,7 +127,13 @@ const ReviewModal = ({
         <ModalBtn
           onClick={() => {
             // setReviewModalOpen(false);
-            console.log(userId, reviewText, destinationName);
+            console.log(
+              userId,
+              reviewText,
+              destinationName,
+              endLatitude,
+              endLongitude
+            );
             writeDestinationReview(
               userId,
               reviewText,
