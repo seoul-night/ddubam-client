@@ -154,10 +154,18 @@ export const deleteKeyword = async (userId, searchId) => {
 export const writeDestinationReview = async (
   userId,
   review,
-  destinationId,
-  destinationTitle
+  // destinationId,
+  destinationTitle,
+  destinationLatitude,
+  destinationLongitude
 ) => {
-  const data = { userId, review, destinationId, destinationTitle };
+  const data = {
+    userId,
+    review,
+    destinationTitle,
+    destinationLatitude,
+    destinationLongitude,
+  };
   return createRequest("post", `/members/walks/search/complete`, data);
 };
 

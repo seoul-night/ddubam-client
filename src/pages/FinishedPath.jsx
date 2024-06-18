@@ -53,7 +53,7 @@ const FinishedPath = ({}) => {
   useEffect(() => {
     const fetchData = async () => {
       //완료 산책로 가져와서 fetchedData변수에 저장
-      // const data = await fetchFinishedPaths(userId); //완료 산책로들 가져오기
+      // const data = await fetchFinishedPaths(userId); //완료 산책로들 가져오기(기존 코드)
 
       const data = await getReviews(userId);
       console.log(data);

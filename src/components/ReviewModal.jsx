@@ -74,7 +74,13 @@ const ModalBtn = styled.button`
   cursor: pointer;
 `;
 
-const ReviewModal = ({ onClose, destinationId, destinationName }) => {
+const ReviewModal = ({
+  onClose,
+  destinationId,
+  destinationName,
+  endLatitude,
+  endLongitude,
+}) => {
   const navigate = useNavigate();
   const [reviewText, setReviewText] = useState("");
   const userId = useRecoilValue(userIdState);
@@ -121,12 +127,13 @@ const ReviewModal = ({ onClose, destinationId, destinationName }) => {
         <ModalBtn
           onClick={() => {
             // setReviewModalOpen(false);
-            console.log(userId, reviewText, destinationId, destinationName);
+            console.log(userId, reviewText, destinationName);
             writeDestinationReview(
               userId,
               reviewText,
-              destinationId,
-              destinationName
+              destinationName,
+              endLatitude,
+              endLongitude
             );
             navigate("/home");
           }}

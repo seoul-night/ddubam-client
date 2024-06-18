@@ -208,6 +208,8 @@ const Navigation = () => {
           destinationId={destinationId}
           destinationName={typedText}
           onClose={closeReviewModal}
+          endLatitude={endLatitude}
+          endLongitude={endLongitude}
         />
       )}
 
