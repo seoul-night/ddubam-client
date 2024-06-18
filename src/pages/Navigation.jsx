@@ -7,7 +7,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import KakaoMap from "../components/KakaoMap";
 import { useRecoilValue } from "recoil";
 import { locationState, userIdState } from "../atoms";
-import { fetchNavigationData, fetchPathDetail } from "../services/api";
+import {
+  coord2address,
+  fetchNavigationData,
+  fetchPathDetail,
+} from "../services/api";
 import NavigationMap from "../components/NavigationMap";
 import ic_cctv from "../assets/ic_cctv.png";
 import something from "../assets/something.png";
@@ -158,6 +162,7 @@ const Navigation = () => {
   const [finishModalOpen, setFinishModalOpen] = useState(false);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [currentLocation, setCurrentLocation] = useState("");
 
   const {
     startLatitude,
@@ -177,6 +182,9 @@ const Navigation = () => {
         endLatitude || [],
         endLongitude || []
       );
+      const locationData = await coord2address(startLatitude, startLongitude);
+      setCurrentLocation(locationData);
+      console.log("현위치 : ", locationData);
       setFetchedData(data);
       console.log(data);
       setLoading(false);
@@ -216,7 +224,7 @@ const Navigation = () => {
             <img src={something} style={{ width: "16px", height: "57px" }} />
           </div>
           <LocationWrap>
-            <Location>현재 위치</Location>
+            <Location>{currentLocation}</Location>
             <Location>{typedText}</Location>
           </LocationWrap>
           <div>
@@ -303,3 +311,24 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
+// {
+//   "meta": {
+//       "total_count": 1
+//   },
+//   "documents": [
+//       {
+//           "road_address": null,
+//           "address": {
+//               "address_name": "대전 유성구 덕명동 산 16-12",
+//               "region_1depth_name": "대전",
+//               "region_2depth_name": "유성구",
+//               "region_3depth_name": "덕명동",
+//               "mountain_yn": "Y",
+//               "main_address_no": "16",
+//               "sub_address_no": "12",
+//               "zip_code": ""
+//           }
+//       }
+//   ]
+// }

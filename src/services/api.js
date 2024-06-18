@@ -47,6 +47,28 @@ export const keywordSearch = async (keyword) => {
   }
 };
 
+//좌표로 주소 변환하기
+export const coord2address = async (startY, startX) => {
+  try {
+    const response = await axios.get(
+      `https://dapi.kakao.com/v2/local/geo/coord2address.json`,
+      {
+        params: {
+          x: startX,
+          y: startY,
+        },
+        headers: {
+          Authorization: `KakaoAK ${APP_KEY}`,
+        },
+      }
+    );
+    // console.log(response.data.documents[0].address.address_name);
+    return response.data.documents[0].address.address_name;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //인기 산책로 리스트 조회
 export const fetchPopularPaths = async () => {
   return createRequest("get", `/walks/popular`);
@@ -137,6 +159,11 @@ export const writeDestinationReview = async (
 ) => {
   const data = { userId, review, destinationId, destinationTitle };
   return createRequest("post", `/members/walks/search/complete`, data);
+};
+
+//도착지 후기 리스트 조회
+export const getReviews = async (userId) => {
+  return createRequest("get", `/members/walks/search/complete/${userId}`);
 };
 
 //회원 탈퇴

@@ -8,7 +8,7 @@ import complete from "../assets/icons/complete.png";
 import chevronLeft from "../assets/icons/chevronLeft.png";
 // import PathTab from "../components/FinishedTab";
 import FinishedTab from "../components/FinishedTab";
-import { fetchFinishedPaths } from "../services/api";
+import { fetchFinishedPaths, getReviews } from "../services/api";
 import { useRecoilValue } from "recoil";
 import { userDataState, userIdState } from "../atoms";
 
@@ -53,8 +53,10 @@ const FinishedPath = ({}) => {
   useEffect(() => {
     const fetchData = async () => {
       //완료 산책로 가져와서 fetchedData변수에 저장
-      const data = await fetchFinishedPaths(userId); //완료 산책로들 가져오기
-      // console.log(data);
+      // const data = await fetchFinishedPaths(userId); //완료 산책로들 가져오기
+
+      const data = await getReviews(userId);
+      console.log(data);
       setFetchedDatas(data || []);
     };
     fetchData();
