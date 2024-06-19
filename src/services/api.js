@@ -178,3 +178,31 @@ export const getReviews = async (userId) => {
 export const deleteAccount = async (userId) => {
   return createRequest("delete", `/members/${userId}`);
 };
+
+//인기 산책로 이동 경로 및 산책로 조회
+export const navigatePopularPath = async (
+  trailId,
+  userId,
+  latitude,
+  longitude
+) => {
+  // const response = await axios.get(
+  //   `${BASE_URL}/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`,
+  //   {
+  //     headers: {
+  //       Authorization: `KakaoAK ${APP_KEY}`,
+  //     },
+  //   }
+  // );
+  // console.log(response);
+  // return response.data;
+
+  return createRequest(
+    "get",
+    `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
+  );
+};
+
+//서울 어딘가 위치
+// 37.545;
+// 127.0684;

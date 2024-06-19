@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import wave from "../assets/wave.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { geolocationState, userIdState } from "../atoms";
 
 const Info = styled.li`
   width: 100%;
@@ -68,10 +70,28 @@ const PathLi = ({
   time,
   title,
 }) => {
+  const navigate = useNavigate();
+  const currentLocation = useRecoilValue(geolocationState);
+  const userId = useRecoilValue(userIdState);
+  const currLat = currentLocation.latitude;
+  const currLng = currentLocation.longitude;
   return (
-    <Info>
+    <Info
+      onClick={() => {
+        navigate(`/navigatePopular/${id}`, {
+          state: {
+            trailId: id,
+            userId: parseInt(userId),
+            latitude: currLat,
+            longitude: currLng,
+            title,
+          },
+        });
+      }}
+    >
       {/* 동적 경로 설정 */}
-      <Link to={`/pathdetail/${id}`}>
+      <Link>
+        {/* <Link to={`/pathdetail/${id}`}> */}
         <div style={{ display: "flex" }}>
           <Pic backgroundImage={image} />
           <TextWrap>

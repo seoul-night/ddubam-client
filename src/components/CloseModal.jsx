@@ -67,7 +67,7 @@ const CloseModal = ({ onClose }) => {
             실시간 이동을 종료할까요?
           </Text>
           <Text style={{ color: "#B4B4C2", fontSize: "12px" }}>
-            지금 나가면 산책 기록이 저장되지 않아요
+            지금 나가면 기록이 저장되지 않아요
           </Text>
         </div>
         <BtnWrap>

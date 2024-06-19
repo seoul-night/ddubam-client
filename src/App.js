@@ -17,6 +17,7 @@ import Navigation from "./pages/Navigation.jsx";
 // import Searching from "./pages/Searching.jsx";
 import Search from "./pages/Search.jsx";
 import PrivateRoute from "./auth/PrivateRoute.jsx";
+import NavigateToPopular from "./pages/NavigateToPopular.jsx";
 
 function App() {
   // APp.js 렌더링시 뷰포트 높이 계산 함수
@@ -129,6 +130,14 @@ function App() {
           }
         />
         {/* <Route path="*" element={<NotFound />} /> */}
+        <Route
+          path="/navigatePopular/:id"
+          element={
+            <PrivateRoute>
+              <NavigateToPopular />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </div>
   );
