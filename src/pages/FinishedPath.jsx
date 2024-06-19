@@ -79,7 +79,9 @@ const FinishedPath = ({}) => {
                 key={id}
                 destinationId={data.destinationId}
                 finishedDate={data.finishedDate}
-                destinationTitle={data.destinationTitle}
+                typedText={data.destinationTitle}
+                endLatitude={data.destinaionLatitude}
+                endLongitude={data.destinaionLongitude}
                 review={data.review}
               />
             );

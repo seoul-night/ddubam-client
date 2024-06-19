@@ -174,23 +174,37 @@ const Navigation = () => {
   } = location.state || {};
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const data = await fetchNavigationData(
-        startLatitude || [],
-        startLongitude || [],
-        endLatitude || [],
-        endLongitude || []
-      );
-      const locationData = await coord2address(startLatitude, startLongitude);
-      setCurrentLocation(locationData);
-      console.log("현위치 : ", locationData);
-      setFetchedData(data);
-      console.log(data);
+    console.log(
+      "사용 데이터 : ",
+      startLatitude,
+      startLongitude,
+      endLatitude,
+      endLongitude
+    );
+    if (startLatitude && startLongitude && endLatitude && endLongitude) {
+      const fetchData = async () => {
+        setLoading(true);
+        const data = await fetchNavigationData(
+          startLatitude,
+          startLongitude,
+          endLatitude,
+          endLongitude
+        );
+        const locationData = await coord2address(startLatitude, startLongitude);
+        setCurrentLocation(locationData);
+        console.log("현위치 : ", locationData);
+        setFetchedData(data);
+        console.log(data);
+        setLoading(false);
+      };
+      fetchData();
+    } else {
+      // 필요한 데이터가 없을 경우를 처리
+      console.error("Missing coordinates data.");
+      setFetchedData({});
       setLoading(false);
-    };
-    fetchData();
-  }, []);
+    }
+  }, [startLatitude, startLongitude, endLatitude, endLongitude]);
 
   const closeModal = () => {
     setFinishModalOpen(false);
@@ -208,8 +222,8 @@ const Navigation = () => {
           destinationId={destinationId}
           destinationName={typedText}
           onClose={closeReviewModal}
-          endLatitude={endLatitude}
-          endLongitude={endLongitude}
+          destinationLatitude={endLatitude}
+          destinationLongitude={endLongitude}
         />
       )}
 

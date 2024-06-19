@@ -155,16 +155,16 @@ export const writeDestinationReview = async (
   userId,
   review,
   // destinationId,
-  destinationTitle,
-  destinationLatitude,
-  destinationLongitude
+  destinaionLatitude,
+  destinaionLongitude,
+  destinationTitle
 ) => {
   const data = {
     userId,
     review,
+    destinaionLatitude,
+    destinaionLongitude,
     destinationTitle,
-    destinationLatitude,
-    destinationLongitude,
   };
   return createRequest("post", `/members/walks/search/complete`, data);
 };

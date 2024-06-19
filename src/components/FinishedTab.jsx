@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { geolocationState } from "../atoms";
 
 const Tab = styled.li`
   background-color: #333344;
@@ -39,11 +41,43 @@ const Desc = styled.h4`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const FinishedTab = ({ finishedDate, destinationId, destinationTitle, review }) => {
+const FinishedTab = ({
+  finishedDate,
+  destinationId,
+  typedText,
+  review,
+  endLatitude,
+  endLongitude,
+}) => {
+  const navigate = useNavigate();
+  const currentLocation = useRecoilValue(geolocationState);
+  const startLatitude = currentLocation.latitude;
+  const startLongitude = currentLocation.longitude;
+
   return (
-    <Tab>
-      {/* 경로 검색 화면으로 이동 필요 */}
-      <Link to={`/pathdetail/${destinationId}`}>
+    <Tab
+      onClick={() => {
+        console.log(
+          "전달 데이터:",
+          startLatitude,
+          startLongitude,
+          endLatitude,
+          endLongitude
+        );
+        navigate("/navigation", {
+          state: {
+            startLatitude,
+            startLongitude,
+            endLatitude,
+            endLongitude,
+            typedText,
+            destinationId: 0,
+          },
+        });
+      }}
+    >
+      {/* <Link to={`/pathdetail/${destinationId}`}> */}
+      <Link>
         <div
           style={{
             display: "flex",
@@ -55,7 +89,7 @@ const FinishedTab = ({ finishedDate, destinationId, destinationTitle, review }) 
         >
           <div style={{ width: "90%" }}>
             <Date>{finishedDate}</Date>
-            <Title>{destinationTitle}</Title>
+            <Title>{typedText}</Title>
             <Desc>{review}</Desc>
           </div>
           <div>
