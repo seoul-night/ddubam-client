@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import clap from "../assets/icons/clap.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { writeDestinationReview } from "../services/api";
 import { useRecoilValue } from "recoil";
 import { userIdState } from "../atoms";
@@ -15,8 +15,8 @@ const ModalBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2; // z-index를 ReviewModal보다 1 낮게 설정
-  background: rgba(0, 0, 0, 0.6); // 어두운 배경 설정
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6);
 `;
 
 const ReviewModalContainer = styled.div`
@@ -25,7 +25,6 @@ const ReviewModalContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 320px;
-  /* height: 350px; */
   background-color: #333344;
   border-radius: 20px;
   padding: 20px;
@@ -37,7 +36,6 @@ const ReviewModalContainer = styled.div`
 `;
 
 const Wrapper = styled.div`
-  /* margin-top: 50px; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -49,7 +47,6 @@ const Text = styled.h4`
   color: #f6f8fa;
   font-size: 20px;
   line-height: 32px;
-  /* margin-bottom: 5px; */
 `;
 
 const TextArea = styled.textarea`
@@ -64,20 +61,31 @@ const TextArea = styled.textarea`
   border-radius: 10px;
   height: 113px;
 `;
+
 const ModalBtn = styled.button`
   color: #f6f8fa;
   font-size: 14px;
-  padding: 12px 24px 12px 24px;
+  padding: 12px 24px;
   border-radius: 8px;
   width: 50%;
   border: none;
   cursor: pointer;
 `;
 
-const ReviewModal = ({ onClose, destinationId, destinationName }) => {
+const ReviewModal = ({
+  onClose,
+  destinationId,
+  destinationName,
+  destinationLatitude,
+  destinationLongitude,
+}) => {
   const navigate = useNavigate();
   const [reviewText, setReviewText] = useState("");
   const userId = useRecoilValue(userIdState);
+
+  useEffect(() => {
+    console.log(destinationLatitude, destinationLongitude);
+  }, [destinationLatitude, destinationLongitude]);
 
   return (
     <ModalBackground onClick={onClose}>
@@ -120,12 +128,19 @@ const ReviewModal = ({ onClose, destinationId, destinationName }) => {
         ></TextArea>
         <ModalBtn
           onClick={() => {
-            // setReviewModalOpen(false);
-            console.log(userId, reviewText, destinationId, destinationName);
+            console.log(
+              "전송 데이터 : ",
+              userId,
+              reviewText,
+              destinationLatitude,
+              destinationLongitude,
+              destinationName
+            );
             writeDestinationReview(
               userId,
               reviewText,
-              destinationId,
+              destinationLatitude,
+              destinationLongitude,
               destinationName
             );
             navigate("/home");

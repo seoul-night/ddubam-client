@@ -47,6 +47,28 @@ export const keywordSearch = async (keyword) => {
   }
 };
 
+//좌표로 주소 변환하기
+export const coord2address = async (startY, startX) => {
+  try {
+    const response = await axios.get(
+      `https://dapi.kakao.com/v2/local/geo/coord2address.json`,
+      {
+        params: {
+          x: startX,
+          y: startY,
+        },
+        headers: {
+          Authorization: `KakaoAK ${APP_KEY}`,
+        },
+      }
+    );
+    // console.log(response.data.documents[0].address.address_name);
+    return response.data.documents[0].address.address_name;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //인기 산책로 리스트 조회
 export const fetchPopularPaths = async () => {
   return createRequest("get", `/walks/popular`);
@@ -132,14 +154,55 @@ export const deleteKeyword = async (userId, searchId) => {
 export const writeDestinationReview = async (
   userId,
   review,
-  destinationId,
+  // destinationId,
+  destinaionLatitude,
+  destinaionLongitude,
   destinationTitle
 ) => {
-  const data = { userId, review, destinationId, destinationTitle };
+  const data = {
+    userId,
+    review,
+    destinaionLatitude,
+    destinaionLongitude,
+    destinationTitle,
+  };
   return createRequest("post", `/members/walks/search/complete`, data);
+};
+
+//도착지 후기 리스트 조회
+export const getReviews = async (userId) => {
+  return createRequest("get", `/members/walks/search/complete/${userId}`);
 };
 
 //회원 탈퇴
 export const deleteAccount = async (userId) => {
   return createRequest("delete", `/members/${userId}`);
 };
+
+//인기 산책로 이동 경로 및 산책로 조회
+export const navigatePopularPath = async (
+  trailId,
+  userId,
+  latitude,
+  longitude
+) => {
+  // const response = await axios.get(
+  //   `${BASE_URL}/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`,
+  //   {
+  //     headers: {
+  //       Authorization: `KakaoAK ${APP_KEY}`,
+  //     },
+  //   }
+  // );
+  // console.log(response);
+  // return response.data;
+
+  return createRequest(
+    "get",
+    `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
+  );
+};
+
+//서울 어딘가 위치
+// 37.545;
+// 127.0684;

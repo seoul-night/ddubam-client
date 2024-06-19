@@ -23,6 +23,7 @@ const PopularPath = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = (await fetchPopularPaths()) || [];
+      console.log(data);
       setFetchedData(data);
     };
 

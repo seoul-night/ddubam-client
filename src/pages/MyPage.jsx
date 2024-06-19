@@ -21,6 +21,7 @@ import { userDataState, userIdState } from "../atoms";
 import {
   deleteAccount,
   fetchUserData,
+  getReviews,
   getUserData,
   logoutRequest,
 } from "../services/api"; // handleLogout 제거

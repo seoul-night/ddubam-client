@@ -11,6 +11,7 @@ import {
   coord2address,
   fetchNavigationData,
   fetchPathDetail,
+  navigatePopularPath,
 } from "../services/api";
 import NavigationMap from "../components/NavigationMap";
 import ic_cctv from "../assets/ic_cctv.png";
@@ -20,6 +21,7 @@ import map_marker from "../assets/icons/map_marker.png";
 import CloseModal from "../components/CloseModal";
 import ReviewModal from "../components/ReviewModal";
 import Spinner from "../components/Spinner";
+import NavigatePopularMap from "../components/NavigatePopularMap";
 
 const HomeWrapper = styled.div`
   height: 100vh;
@@ -153,7 +155,7 @@ function decimalHoursToTime(decimalHours) {
   }
 }
 
-const Navigation = () => {
+const NavigateToPopular = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [fetchedData, setFetchedData] = useState({});
@@ -164,47 +166,27 @@ const Navigation = () => {
   const [loading, setLoading] = useState(true);
   const [currentLocation, setCurrentLocation] = useState("");
 
-  const {
-    startLatitude,
-    startLongitude,
-    endLatitude,
-    endLongitude,
-    typedText,
-    destinationId,
-  } = location.state || {};
+  const { trailId, userId, latitude, longitude, title } = location.state || {};
 
   useEffect(() => {
-    console.log(
-      "사용 데이터 : ",
-      startLatitude,
-      startLongitude,
-      endLatitude,
-      endLongitude
-    );
-    if (startLatitude && startLongitude && endLatitude && endLongitude) {
-      const fetchData = async () => {
-        setLoading(true);
-        const data = await fetchNavigationData(
-          startLatitude,
-          startLongitude,
-          endLatitude,
-          endLongitude
-        );
-        const locationData = await coord2address(startLatitude, startLongitude);
-        setCurrentLocation(locationData);
-        console.log("현위치 : ", locationData);
-        setFetchedData(data);
-        console.log(data);
-        setLoading(false);
-      };
-      fetchData();
-    } else {
-      // 필요한 데이터가 없을 경우를 처리
-      console.error("Missing coordinates data.");
-      setFetchedData({});
+    console.log(trailId, userId, latitude, longitude);
+    const fetchData = async () => {
+      setLoading(true);
+      const data = await navigatePopularPath(
+        trailId,
+        userId,
+        latitude,
+        longitude
+      );
+      const locationData = await coord2address(latitude, longitude);
+      setCurrentLocation(locationData);
+      console.log("현위치 : ", locationData);
+      setFetchedData(data);
+      console.log(data);
       setLoading(false);
-    }
-  }, [startLatitude, startLongitude, endLatitude, endLongitude]);
+    };
+    fetchData();
+  }, []);
 
   const closeModal = () => {
     setFinishModalOpen(false);
@@ -219,11 +201,11 @@ const Navigation = () => {
       {finishModalOpen && <CloseModal onClose={closeModal} />}
       {reviewModalOpen && (
         <ReviewModal
-          destinationId={destinationId}
-          destinationName={typedText}
+          // destinationId={destinationId}
+          destinationName={title}
           onClose={closeReviewModal}
-          destinationLatitude={endLatitude}
-          destinationLongitude={endLongitude}
+          // destinationLatitude={endLatitude}
+          // destinationLongitude={endLongitude}
         />
       )}
 
@@ -241,7 +223,7 @@ const Navigation = () => {
           </div>
           <LocationWrap>
             <Location>{currentLocation}</Location>
-            <Location>{typedText}</Location>
+            <Location>{title}</Location>
           </LocationWrap>
           <div>
             <img
@@ -265,7 +247,7 @@ const Navigation = () => {
               src={map_marker}
               style={{ width: "24px", height: "24px", marginRight: "6px" }}
             />
-            <WhiteText>{typedText}</WhiteText> <GrayText> 가는 중...</GrayText>
+            <WhiteText>{title}</WhiteText> <GrayText> 가는 중...</GrayText>
           </div>
 
           <img
@@ -285,7 +267,9 @@ const Navigation = () => {
       <MapContainer>
         {loading ? <Spinner size="md" theme="dark" /> : null}
         {!loading && fetchedData.latitudeList && fetchedData.longitudeList ? (
-          <NavigationMap
+          <NavigatePopularMap
+            startLatitudeList={fetchedData.startLatitudeList}
+            startLongitudeList={fetchedData.startLongitudeList}
             latitudeList={fetchedData.latitudeList}
             longitudeList={fetchedData.longitudeList}
             safetyLatitudeList={fetchedData.safetyLatitudeList}
@@ -317,8 +301,8 @@ const Navigation = () => {
         </Wrap>
       ) : (
         <Wrap>
-          <Button onClick={() => setReviewModalOpen(true)}>
-            도착 완료하기
+          <Button onClick={() => navigate(`/pathdetail/${id}`)}>
+            도착 완료하고 산책로 보기
           </Button>
         </Wrap>
       )}
@@ -326,7 +310,7 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default NavigateToPopular;
 
 // {
 //   "meta": {

@@ -234,12 +234,12 @@ const Onboarding = () => {
           </SubWrap>
         </View>
         <View>
-          <MainText>안전한 밤산책은 </MainText>
+          <MainText>안전한 경로안내는 </MainText>
           <MainText>뚜밤뚜밤과 함께</MainText>
           <SubWrap>
-            <SubText>안전한 밤산책 서비스, 뚜밤뚜밤!</SubText>
-            <SubText>CCTV를 기반으로</SubText>
-            <SubText>산책코스를 추천해 드려요</SubText>
+            <SubText>안전한 경로안내 서비스, 뚜밤뚜밤!</SubText>
+            <SubText>CCTV와 가로등, 서울시 관광지를 기반으로</SubText>
+            <SubText>다양한 경로를 추천해드려요</SubText>
           </SubWrap>
         </View>
       </ViewWrapper>

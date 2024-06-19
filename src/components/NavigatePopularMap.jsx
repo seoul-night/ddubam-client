@@ -7,11 +7,29 @@ import map_marker_end from "../assets/map_marker_end.png";
 import CloseModal from "./CloseModal";
 
 const NavigationMap = ({
-  latitudeList = [],
-  longitudeList = [],
+  // latitudeList = [],
+  // longitudeList = [],
+  startLatitudeList = [],
+  startLongitudeList = [],
   safetyLatitudeList = [],
   safetyLongitudeList = [],
 }) => {
+  const allLatitudes = [
+    // ...latitudeList,
+    ...startLatitudeList,
+    ...safetyLatitudeList,
+  ];
+  const allLongitudes = [
+    // ...longitudeList,
+    ...startLongitudeList,
+    ...safetyLongitudeList,
+  ];
+
+  const centerLat =
+    allLatitudes.reduce((sum, lat) => sum + lat, 0) / allLatitudes.length;
+  const centerLng =
+    allLongitudes.reduce((sum, lng) => sum + lng, 0) / allLongitudes.length;
+
   const CCTVmarkers = safetyLatitudeList.map((latitude, index) => (
     <MapMarker
       key={index}
@@ -31,27 +49,43 @@ const NavigationMap = ({
     // console.log(safetyLongitudeList);
   }, []);
 
-  const startMarker = () => {};
-
-  const polylineCoordinates = latitudeList.map((latitude, index) => ({
+  const polylineCoordinates = startLatitudeList.map((latitude, index) => ({
     lat: latitude,
-    lng: longitudeList[index],
+    lng: startLongitudeList[index],
   }));
 
   const AdjustBounds = () => {
     const map = useMap();
 
     React.useEffect(() => {
-      if (map && latitudeList.length > 0 && longitudeList.length > 0) {
+      if (
+        map &&
+        safetyLatitudeList.length > 0 &&
+        safetyLongitudeList.length > 0
+      ) {
         const bounds = new window.kakao.maps.LatLngBounds();
-        latitudeList.forEach((lat, index) => {
+
+        startLatitudeList.forEach((lat, index) => {
           bounds.extend(
-            new window.kakao.maps.LatLng(lat, longitudeList[index])
+            new window.kakao.maps.LatLng(lat, startLongitudeList[index])
+          );
+        });
+        safetyLatitudeList.forEach((lat, index) => {
+          bounds.extend(
+            new window.kakao.maps.LatLng(lat, safetyLongitudeList[index])
           );
         });
         map.setBounds(bounds);
       }
-    }, [map, latitudeList, longitudeList]);
+    }, [
+      map,
+      // latitudeList,
+      // longitudeList,
+      startLatitudeList,
+      startLongitudeList,
+      safetyLatitudeList,
+      safetyLongitudeList,
+    ]);
 
     return null;
   };
@@ -67,7 +101,10 @@ const NavigationMap = ({
 
   return (
     <Map
-      center={{ lat: latitudeList[0], lng: longitudeList[0] }}
+      center={{
+        lat: centerLat,
+        lng: centerLng,
+      }}
       style={{ width: "100%", height: "100%" }}
       level={4}
     >
@@ -79,15 +116,16 @@ const NavigationMap = ({
 
       {CCTVmarkers}
 
+      {/* 출발 마커 */}
       <MapMarker
-        position={{ lat: latitudeList[0], lng: longitudeList[0] }}
+        position={{ lat: startLatitudeList[0], lng: startLongitudeList[0] }}
         image={{ src: map_marker_start, size: { width: 36, height: 36 } }}
       />
-
+      {/* 도착 마커 */}
       <MapMarker
         position={{
-          lat: latitudeList[latitudeList.length - 1],
-          lng: longitudeList[longitudeList.length - 1],
+          lat: startLatitudeList[startLatitudeList.length - 1],
+          lng: startLongitudeList[startLongitudeList.length - 1],
         }}
         image={{ src: map_marker_end, size: { width: 36, height: 36 } }}
       />
