@@ -290,6 +290,7 @@ const Navigation = () => {
             longitudeList={fetchedData.longitudeList}
             safetyLatitudeList={fetchedData.safetyLatitudeList}
             safetyLongitudeList={fetchedData.safetyLongitudeList}
+            safetyTypeList={fetchedData.safetyTypeList}
           />
         ) : null}
       </MapContainer>

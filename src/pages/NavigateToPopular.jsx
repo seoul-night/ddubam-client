@@ -274,6 +274,7 @@ const NavigateToPopular = () => {
             longitudeList={fetchedData.longitudeList}
             safetyLatitudeList={fetchedData.safetyLatitudeList}
             safetyLongitudeList={fetchedData.safetyLongitudeList}
+            safetyTypeList={fetchedData.safetyTypeList}
           />
         ) : null}
       </MapContainer>
