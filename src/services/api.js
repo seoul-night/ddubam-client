@@ -175,8 +175,8 @@ export const fetchNavigationData = async (
 ) => {
   return createRequest(
     "get",
-    // `/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
-    `/walks/search/${37.545}/${127.0684}/${endLatitude}/${endLongitude}`
+    `/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
+    // `/walks/search/${37.545}/${127.0684}/${endLatitude}/${endLongitude}`
   );
 };
 
@@ -200,8 +200,8 @@ export const navigatePopularPath = async (
 
   return createRequest(
     "get",
-    // `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
-    `/walks/popular/route/${trailId}/${userId}/${37.545}/${127.0684}`
+    `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
+    // `/walks/popular/route/${trailId}/${userId}/${37.545}/${127.0684}`
   );
 };
 
