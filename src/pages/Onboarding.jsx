@@ -225,8 +225,8 @@ const Onboarding = () => {
       )}
       <ViewWrapper offset={-50 * currentPage}>
         <View>
-          <MainText>저녁식사 후 </MainText>
-          <MainText>산책 한 번 어때요?</MainText>
+          <MainText>뚜벅뚜벅, 밤에도 안전하게 </MainText>
+          <MainText>걸을 수 있어요</MainText>
           <SubWrap>
             <SubText>잠자기 전 가볍게 걸어보세요.</SubText>
             <SubText>스트레스가 줄고 교감 신경계가 진정되어</SubText>

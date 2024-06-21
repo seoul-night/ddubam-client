@@ -144,9 +144,12 @@ const GrayText = styled.span`
 `;
 
 function decimalHoursToTime(decimalHours) {
+  if (typeof decimalHours == undefined) {
+    return "0분";
+  }
   const hours = Math.floor(decimalHours);
   const minutes = Math.round((decimalHours - hours) * 60);
-  if (hours == 0) {
+  if (hours === 0) {
     return `${minutes}분`;
   } else {
     return `${hours}시간 ${minutes}분`;
@@ -181,6 +184,7 @@ const Navigation = () => {
       endLatitude,
       endLongitude
     );
+    setFetchedData({ time: 0 });
     if (startLatitude && startLongitude && endLatitude && endLongitude) {
       const fetchData = async () => {
         setLoading(true);
