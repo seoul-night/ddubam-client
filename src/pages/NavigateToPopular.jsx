@@ -170,6 +170,7 @@ const NavigateToPopular = () => {
 
   useEffect(() => {
     console.log(trailId, userId, latitude, longitude);
+    setFetchedData({ time: 0 });
     const fetchData = async () => {
       setLoading(true);
       const data = await navigatePopularPath(
