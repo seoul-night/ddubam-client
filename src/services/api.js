@@ -104,19 +104,6 @@ export const logoutRequest = async () => {
   return createRequest("get", `/members/kakao/logout`);
 };
 
-//검색 결과로 가는 길
-export const fetchNavigationData = async (
-  startLatitude,
-  startLongitude,
-  endLatitude,
-  endLongitude
-) => {
-  return createRequest(
-    "get",
-    `/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
-  );
-};
-
 //인기 산책로로 가는 길 + 디테일
 export const navigateToPopular = async (
   trailId,
@@ -179,6 +166,20 @@ export const deleteAccount = async (userId) => {
   return createRequest("delete", `/members/${userId}`);
 };
 
+//검색 결과로 가는 길
+export const fetchNavigationData = async (
+  startLatitude,
+  startLongitude,
+  endLatitude,
+  endLongitude
+) => {
+  return createRequest(
+    "get",
+    // `/walks/search/${startLatitude}/${startLongitude}/${endLatitude}/${endLongitude}`
+    `/walks/search/${37.545}/${127.0684}/${endLatitude}/${endLongitude}`
+  );
+};
+
 //인기 산책로 이동 경로 및 산책로 조회
 export const navigatePopularPath = async (
   trailId,
@@ -199,7 +200,8 @@ export const navigatePopularPath = async (
 
   return createRequest(
     "get",
-    `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
+    // `/walks/popular/route/${trailId}/${userId}/${latitude}/${longitude}`
+    `/walks/popular/route/${trailId}/${userId}/${37.545}/${127.0684}`
   );
 };
 

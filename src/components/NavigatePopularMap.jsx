@@ -4,6 +4,7 @@ import map_marker from "../assets/icons/map_marker.png";
 import map_marker_cctv from "../assets/map_marker_cctv.png";
 import map_marker_start from "../assets/map_marker_start.png";
 import map_marker_end from "../assets/map_marker_end.png";
+import map_marker_light from "../assets/map_marker_light.png";
 import CloseModal from "./CloseModal";
 
 const NavigationMap = ({
@@ -13,36 +14,51 @@ const NavigationMap = ({
   startLongitudeList = [],
   safetyLatitudeList = [],
   safetyLongitudeList = [],
+  safetyTypeList = [],
 }) => {
-  const allLatitudes = [
-    // ...latitudeList,
-    ...startLatitudeList,
-    ...safetyLatitudeList,
-  ];
-  const allLongitudes = [
-    // ...longitudeList,
-    ...startLongitudeList,
-    ...safetyLongitudeList,
-  ];
+  const allLatitudes = [...startLatitudeList, ...safetyLatitudeList];
+  const allLongitudes = [...startLongitudeList, ...safetyLongitudeList];
 
   const centerLat =
     allLatitudes.reduce((sum, lat) => sum + lat, 0) / allLatitudes.length;
   const centerLng =
     allLongitudes.reduce((sum, lng) => sum + lng, 0) / allLongitudes.length;
 
-  const CCTVmarkers = safetyLatitudeList.map((latitude, index) => (
-    <MapMarker
-      key={index}
-      position={{ lat: latitude, lng: safetyLongitudeList[index] }}
-      image={{
-        src: map_marker_cctv,
-        size: {
-          width: 24,
-          height: 24,
-        },
-      }}
-    />
-  ));
+  const CCTVmarkers = safetyLatitudeList.map((latitude, index) => {
+    if (safetyTypeList[index] === 302) {
+      return (
+        <MapMarker
+          key={index}
+          position={{ lat: latitude, lng: safetyLongitudeList[index] }}
+          image={{
+            src: map_marker_cctv,
+            size: {
+              width: 24,
+              height: 24,
+            },
+          }}
+        />
+      );
+    }
+  });
+
+  const LightMarkers = safetyLatitudeList.map((latitude, index) => {
+    if (safetyTypeList[index] == 305) {
+      return (
+        <MapMarker
+          key={index}
+          position={{ lat: latitude, lng: safetyLongitudeList[index] }}
+          image={{
+            src: map_marker_light,
+            size: {
+              width: 24,
+              height: 24,
+            },
+          }}
+        />
+      );
+    }
+  });
 
   useEffect(() => {
     // console.log(safetyLatitudeList);
@@ -108,13 +124,8 @@ const NavigationMap = ({
       style={{ width: "100%", height: "100%" }}
       level={4}
     >
-      <Polyline
-        path={polylineCoordinates}
-        strokeWeight={3}
-        strokeColor={"#5e66ff"}
-      />
-
       {CCTVmarkers}
+      {LightMarkers}
 
       {/* 출발 마커 */}
       <MapMarker
@@ -128,6 +139,12 @@ const NavigationMap = ({
           lng: startLongitudeList[startLongitudeList.length - 1],
         }}
         image={{ src: map_marker_end, size: { width: 36, height: 36 } }}
+      />
+
+      <Polyline
+        path={polylineCoordinates}
+        strokeWeight={3}
+        strokeColor={"#5e66ff"}
       />
 
       <AdjustBounds />

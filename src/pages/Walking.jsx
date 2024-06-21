@@ -217,7 +217,7 @@ const Walking = () => {
   const userId = useRecoilValue(userIdState);
 
   useEffect(() => {
-    createRequest('get', `/walks/${trailId}/${userId}`)
+    createRequest("get", `/walks/${trailId}/${userId}`)
       .then((data) => {
         setFetchedData(data);
         setLoading(false);
@@ -245,7 +245,7 @@ const Walking = () => {
       review: reviewText,
     };
 
-    createRequest('post', '/members/walks/complete', postData)
+    createRequest("post", "/members/walks/complete", postData)
       .then((data) => {
         setReviewModalOpen(false);
         navigate("/home");
