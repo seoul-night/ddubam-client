@@ -237,7 +237,7 @@ const NavigateToPopular = () => {
                 paddingBottom: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => navigate("/search")}
+              onClick={() => navigate(-1)}
             />
           </div>
         </Header>
