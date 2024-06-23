@@ -5,7 +5,7 @@ const BASE_URL = "https://ddubam.site/api";
 
 // 공통 요청 함수
 export const createRequest = async (method, url, data = null, headers = {}) => {
-  const instance = ddubamAxios('');
+  const instance = ddubamAxios("");
 
   const excludedPaths = [
     "/members/kakao/login",
@@ -14,7 +14,9 @@ export const createRequest = async (method, url, data = null, headers = {}) => {
     "/members/kakao/oauth/test",
   ];
 
-  const isExcludedPath = excludedPaths.some(excludedPath => url.includes(excludedPath));
+  const isExcludedPath = excludedPaths.some((excludedPath) =>
+    url.includes(excludedPath)
+  );
 
   const requestConfig = {
     method,
