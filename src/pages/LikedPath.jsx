@@ -56,7 +56,7 @@ const LikedPath = ({ finishCnt }) => {
     fetchData();
   }, []);
 
-  // console.log("찜한 코스:", fetchedDatas);
+  console.log("찜한 코스:", fetchedDatas);
 
   return (
     <HomeWrapper className="LikedPath">
