@@ -28,6 +28,7 @@ self.addEventListener("install", (event) => {
       return cache.addAll(urlsToCache);
     })
   );
+  self.skipWaiting(); // 새로운 서비스 워커가 설치되면 즉시 활성화
 });
 
 // 활성화 이벤트
@@ -44,6 +45,7 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
+  self.clients.claim(); // 활성화된 후 즉시 클라이언트 제어
 });
 
 // 요청 가로채기
@@ -53,7 +55,20 @@ self.addEventListener("fetch", (event) => {
       if (response) {
         return response;
       }
-      return fetch(event.request);
+      return fetch(event.request).then((networkResponse) => {
+        if (
+          !networkResponse ||
+          networkResponse.status !== 200 ||
+          networkResponse.type !== "basic"
+        ) {
+          return networkResponse;
+        }
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+        return networkResponse;
+      });
     })
   );
 });

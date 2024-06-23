@@ -234,7 +234,7 @@ const Home = () => {
     }
   }, [setUserData]);
 
-  // console.log(attractions);
+  console.log(attractions);
 
   return (
     <HomeWrapper className="Home">

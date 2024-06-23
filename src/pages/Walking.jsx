@@ -358,7 +358,7 @@ const Walking = () => {
         </ModalBackground>
       )}
 
-      {!reviewModalOpen ? null : (
+      {/* {!reviewModalOpen ? null : (
         <ReviewModal>
           <Wrapper
             style={{
@@ -419,7 +419,7 @@ const Walking = () => {
             </Text>
           </Link>
         </ReviewModal>
-      )}
+      )} */}
 
       <Wrapper style={{ marginTop: "100px" }}>
         <Text>{fetchedData.title}</Text>
@@ -440,7 +440,8 @@ const Walking = () => {
       <Wrapper>
         <Button
           onClick={() => {
-            setReviewModalOpen(true);
+            // setReviewModalOpen(true);
+            navigate("/home");
           }}
         >
           산책 완료하기

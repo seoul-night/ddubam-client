@@ -12,6 +12,14 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/ddubam.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>뚜밤뚜밤</title>
+    <!-- Expires 속성 사용: 즉시 캐시 만료 -->
+    <meta http-equiv="Expires" content="0" />
+
+    <!-- Cache-control 속성 사용: 캐시를 하지 않음 -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=443110679cc692b82bad4da39357aada&libraries=services"></script>
   </head>
