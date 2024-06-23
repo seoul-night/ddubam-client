@@ -49,7 +49,7 @@ const Notice = () => {
       </div>
       <div>
         <Text style={{ color: "#CDCDDC" }}>
-          안전한 산책 코스를 추천해드려요
+          안전한 관광 코스를 추천해드려요
         </Text>
       </div>
     </Wrap>
