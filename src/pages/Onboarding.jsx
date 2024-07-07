@@ -262,7 +262,7 @@ const Onboarding = () => {
 
       <BtnWrap>
         <StartLink onClick={handleClick} active={currentPage === 1 ? 1 : 0}>
-          밤산책 시작하기
+          뚜밤뚜밤 시작하기
         </StartLink>
       </BtnWrap>
     </HomeWrapper>
